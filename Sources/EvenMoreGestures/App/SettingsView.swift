@@ -216,6 +216,18 @@ struct SettingsView: View {
                                 Image(systemName: expanded == app.id ? "chevron.down" : "chevron.right").font(.system(size:10)).foregroundStyle(.secondary)
                             }.contentShape(Rectangle())
                         }.buttonStyle(.plain)
+                        if !model.store.isEnabled(bundleIdentifier: app.id) {
+                            Button {
+                                withAnimation(.easeInOut(duration:0.15)) {
+                                    if expanded == app.id { expanded = nil }
+                                    model.removeApp(app)
+                                }
+                            } label: {
+                                Image(systemName:"trash").foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.borderless)
+                            .help("Remove \(app.name) from this list. Its custom settings are kept.")
+                        }
                         Toggle("Enable \(app.name)",isOn:Binding(get:{model.store.isEnabled(bundleIdentifier:app.id)},set:{model.store.setEnabled($0,bundleIdentifier:app.id)})).labelsHidden().toggleStyle(.switch).controlSize(.small)
                     }.padding(13)
                     if expanded == app.id {

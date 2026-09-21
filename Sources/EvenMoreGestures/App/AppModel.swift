@@ -142,6 +142,7 @@ struct InstalledApp: Identifiable {
         var found: [InstalledApp] = []
         let names = Dictionary(uniqueKeysWithValues: store.presets.map { ($0.id, $0.name) })
         for bundle in Set(names.keys).union(store.overrides.keys) {
+            guard !store.isRemoved(bundleIdentifier: bundle) else { continue }
             guard let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundle) else { continue }
             found.append(InstalledApp(id: bundle, name: names[bundle] ?? store.overrides[bundle]?.name ?? url.deletingPathExtension().lastPathComponent, url: url, isCustom: names[bundle] == nil))
         }
@@ -152,6 +153,10 @@ struct InstalledApp: Identifiable {
         panel.canChooseDirectories = false; panel.allowsMultipleSelection = false; panel.prompt = "Add App"
         guard panel.runModal() == .OK, let url = panel.url, let bundle = Bundle(url: url), let id = bundle.bundleIdentifier else { return }
         store.addApp(bundleIdentifier: id, name: url.deletingPathExtension().lastPathComponent); reloadApps()
+    }
+    func removeApp(_ app: InstalledApp) {
+        store.removeApp(bundleIdentifier: app.id)
+        reloadApps()
     }
     func detectConflicts() {
         let running = NSWorkspace.shared.runningApplications

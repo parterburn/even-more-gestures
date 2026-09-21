@@ -28,6 +28,24 @@ final class PresetTests: XCTestCase {
         store.setOverride(.custom("plain text"),action:.newTab,bundleIdentifier:"com.apple.Safari")
         XCTAssertNil(store.plan(action:.newTab,bundleIdentifier:"com.apple.Safari"))
     }
+    @MainActor func testRemovingAnAppKeepsItsCustomSettingsForReadding() {
+        let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathComponent("overrides.json")
+        let store = PresetStore(file: file)
+        store.setOverride(.custom("cmd+shift+k"), action: .closeTab, bundleIdentifier: "com.example.App")
+        store.setEnabled(false, bundleIdentifier: "com.example.App")
+        store.removeApp(bundleIdentifier: "com.example.App")
+        XCTAssertTrue(store.isRemoved(bundleIdentifier: "com.example.App"))
+        XCTAssertFalse(store.isEnabled(bundleIdentifier: "com.example.App"))
+        XCTAssertEqual(store.overrideMode(action: .closeTab, bundleIdentifier: "com.example.App"), .custom("cmd+shift+k"))
+
+        let reload = PresetStore(file: file)
+        XCTAssertTrue(reload.isRemoved(bundleIdentifier: "com.example.App"))
+        XCTAssertEqual(reload.overrideMode(action: .closeTab, bundleIdentifier: "com.example.App"), .custom("cmd+shift+k"))
+        reload.addApp(bundleIdentifier: "com.example.App", name: "Example App")
+        XCTAssertFalse(reload.isRemoved(bundleIdentifier: "com.example.App"))
+        XCTAssertTrue(reload.isEnabled(bundleIdentifier: "com.example.App"))
+        XCTAssertEqual(reload.overrideMode(action: .closeTab, bundleIdentifier: "com.example.App"), .custom("cmd+shift+k"))
+    }
     @MainActor func testRequestedSidebarDefaults() {
         let store = PresetStore(file:FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         XCTAssertEqual(store.plan(action:.toggleLeftSidebar,bundleIdentifier:"com.apple.Maps")?.shortcut,"cmd+ctrl+s")

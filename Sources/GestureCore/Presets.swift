@@ -35,8 +35,17 @@ public enum ActionOverride: Codable, Equatable {
 public struct AppOverride: Codable {
     public var name: String?
     public var enabled = true
+    public var removed = false
     public var actions: [String: ActionOverride] = [:]
     public init(name: String? = nil) { self.name = name }
+    private enum CodingKeys: String, CodingKey { case name, enabled, removed, actions }
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decodeIfPresent(String.self, forKey: .name)
+        enabled = try values.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
+        removed = try values.decodeIfPresent(Bool.self, forKey: .removed) ?? false
+        actions = try values.decodeIfPresent([String: ActionOverride].self, forKey: .actions) ?? [:]
+    }
 }
 public typealias ActionPlan = PresetAction
 
@@ -108,13 +117,27 @@ public typealias ActionPlan = PresetAction
         }
         return data
     }
-    public func isEnabled(bundleIdentifier: String) -> Bool { overrides[bundleIdentifier]?.enabled ?? true }
+    public func isEnabled(bundleIdentifier: String) -> Bool {
+        guard let override = overrides[bundleIdentifier] else { return true }
+        return override.enabled && !override.removed
+    }
+    public func isRemoved(bundleIdentifier: String) -> Bool { overrides[bundleIdentifier]?.removed ?? false }
     public func setEnabled(_ enabled: Bool, bundleIdentifier: String) {
         var item = overrides[bundleIdentifier] ?? .init(); item.enabled = enabled
         overrides[bundleIdentifier] = item; save()
     }
     public func addApp(bundleIdentifier: String, name: String) {
-        if overrides[bundleIdentifier] == nil { overrides[bundleIdentifier] = .init(name: name); save() }
+        var item = overrides[bundleIdentifier] ?? .init(name: name)
+        item.name = item.name ?? name
+        item.enabled = true
+        item.removed = false
+        overrides[bundleIdentifier] = item; save()
+    }
+    public func removeApp(bundleIdentifier: String) {
+        var item = overrides[bundleIdentifier] ?? .init()
+        item.enabled = false
+        item.removed = true
+        overrides[bundleIdentifier] = item; save()
     }
     public func overrideMode(action: GestureAction, bundleIdentifier: String) -> ActionOverride {
         overrides[bundleIdentifier]?.actions[action.rawValue] ?? .useDefault
