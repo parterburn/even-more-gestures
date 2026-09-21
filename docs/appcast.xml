@@ -3,18 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.11</title>
-            <pubDate>Mon, 21 Sep 2026 14:03:31 -0600</pubDate>
+            <title>0.2.12</title>
+            <pubDate>Mon, 21 Sep 2026 14:06:31 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>14</sparkle:version>
-            <sparkle:shortVersionString>0.2.11</sparkle:shortVersionString>
+            <sparkle:version>15</sparkle:version>
+            <sparkle:shortVersionString>0.2.12</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.11
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.12
 
-- Simplified the footer status control to one colored icon and one status label.
+- Centered the Apps screen’s empty search and filter state.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.11/Even-More-Gestures-0.2.11.zip" length="3434909" type="application/octet-stream" sparkle:edSignature="N4raLEQTga/pEOsg1jNB+VqyOdD1WNKTEuCl5a6U64B9UICXMuNOQCtqypTkM7tMXxlpfud9wQEVT5s8upLyAg=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.12/Even-More-Gestures-0.2.12.zip" length="3435416" type="application/octet-stream" sparkle:edSignature="95MUpjtEtkrXyF3kQgZx7abz1V/lR7CbG5vmcae/FtzGmSDg00UcdgZGm6Smj3k3LhIZnGmgCsvefW9XbvhiAg=="/>
         </item>
     </channel>
 </rss>
