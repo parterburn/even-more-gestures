@@ -23,6 +23,7 @@ struct InstalledApp: Identifiable {
     @Published var conflicts: [String] = []
     @Published var apps: [InstalledApp] = []
     @Published var paused = false
+    @Published var pauseRemaining: TimeInterval?
     @Published var lastApp: NSRunningApplication?
     @Published var lastEvent = "Ready when you are"
     @Published var showOnboarding: Bool
@@ -98,6 +99,9 @@ struct InstalledApp: Identifiable {
                 self.refreshPermission()
             }
         }.store(in: &subscriptions)
+        Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
+            self?.refreshPauseCountdown()
+        }.store(in: &subscriptions)
         Task { await store.refreshDefaultsIfNeeded() }
         Timer.publish(every: 3600, on: .main, in: .common).autoconnect().sink { [weak self] _ in
             Task { @MainActor in await self?.store.refreshDefaultsIfNeeded() }
@@ -169,7 +173,13 @@ struct InstalledApp: Identifiable {
     }
     private func updatePause() {
         pauseTimer?.cancel(); pauseTimer = nil; paused = pause.isPaused()
+        pauseRemaining = pause.remainingTime()
         routeGeneration += 1; undo.clear(); sidebar = nil; input.resetGestureSessions(); onStatusChange?()
+    }
+    private func refreshPauseCountdown() {
+        guard paused else { return }
+        if pause.isPaused() { pauseRemaining = pause.remainingTime() }
+        else { pause.resume(); updatePause() }
     }
     func finishOnboarding() { showOnboarding = false; practice = false; UserDefaults.standard.set(true, forKey: "onboarded") }
     func handle(_ event: GestureEvent) {

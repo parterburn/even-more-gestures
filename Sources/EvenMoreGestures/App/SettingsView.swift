@@ -20,6 +20,12 @@ struct SettingsView: View {
                     Text("A little more at your fingertips.").font(.system(size:12)).foregroundStyle(.secondary)
                 }
                 Spacer()
+                if model.paused {
+                    HStack(spacing:6) {
+                        Circle().fill(.orange).frame(width:6,height:6)
+                        Text(pauseStatus).font(.system(size:11,weight:.medium)).monospacedDigit()
+                    }.padding(.horizontal,11).padding(.vertical,7).background(.quaternary,in:Capsule())
+                }
             }.padding(.horizontal,28).padding(.top,25).padding(.bottom,20)
             if !model.permission { permissionBanner.padding(.horizontal,28).padding(.bottom,20) }
             Picker("Settings",selection:$tab) { ForEach(tabs,id:\.self) { Text($0) } }.pickerStyle(.segmented).labelsHidden().frame(width:306).padding(.bottom,20)
@@ -94,6 +100,11 @@ struct SettingsView: View {
             Text(number).font(.system(size:12,weight:.bold)).foregroundStyle(.white).frame(width:24,height:24).background(Color.accentColor,in:Circle())
             VStack(alignment:.leading,spacing:3) { Text(title).font(.system(size:13,weight:.semibold)); Text(detail).font(.system(size:12)).foregroundStyle(.secondary) }
         }
+    }
+    private var pauseStatus: String {
+        guard let remaining = model.pauseRemaining else { return "Paused" }
+        let seconds = max(0, Int(remaining.rounded(.up)))
+        return String(format: "Paused · %d:%02d", seconds / 60, seconds % 60)
     }
     private var gesturesView: some View {
         VStack(spacing:18) {

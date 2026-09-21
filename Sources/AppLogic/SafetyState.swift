@@ -21,6 +21,10 @@ public struct PauseState {
     public func isPaused(at date: Date = Date()) -> Bool {
         indefinitely || (until.map { date < $0 } ?? false)
     }
+    public func remainingTime(at date: Date = Date()) -> TimeInterval? {
+        guard let until, until > date else { return nil }
+        return until.timeIntervalSince(date)
+    }
     public mutating func pauseForHour(now: Date = Date()) {
         indefinitely = false
         until = now.addingTimeInterval(3600)
