@@ -110,15 +110,15 @@ struct SettingsView: View {
         VStack(spacing:18) {
             GesturePreview(gesture:model.preview, pinchFingerCount:model.pinchFingerCount, isActive:model.settingsVisible)
             VStack(spacing:0) {
-                gestureRow("Switch tabs", subtitle:"Rotate with two fingers",icon:"arrow.trianglehead.2.clockwise.rotate.90", binding:$model.rotateEnabled,preview:.rotate)
+                gestureRow("Rotate with two fingers", subtitle:"Switch between tabs in enabled apps",icon:"arrow.trianglehead.2.clockwise.rotate.90", binding:$model.rotateEnabled,preview:.rotate)
                 Divider().padding(.leading,50)
-                gestureRow("Close and open tabs",subtitle:model.pinchFingerCount == 2 ? "Pinch or spread with two fingers" : "Pinch or spread with thumb and two fingers",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
+                gestureRow("Pinch and spread with \(model.pinchFingerCount) fingers",subtitle:"Close or open tabs in enabled apps",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
                 Divider().padding(.leading,50)
-                gestureRow("Undo close",subtitle:"Spread within 3 seconds to bring a tab back",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
+                gestureRow("Spread out to undo",subtitle:"Reopen a tab closed within the last 3 seconds",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
                 Divider().padding(.leading,50)
-                gestureRow("Left sidebar",subtitle:model.invert ? "Swipe right with four fingers" : "Swipe left with four fingers",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
+                gestureRow("Swipe left with four fingers",subtitle:"Track this physical swipe in enabled apps",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
                 Divider().padding(.leading,50)
-                gestureRow("Right sidebar",subtitle:model.invert ? "Swipe left with four fingers" : "Swipe right with four fingers",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
+                gestureRow("Swipe right with four fingers",subtitle:"Track this physical swipe in enabled apps",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
             }.card()
             VStack(spacing:14) {
                 HStack {
@@ -180,11 +180,12 @@ struct SettingsView: View {
                         Divider()
                         VStack(spacing:12) {
                             ForEach(GestureAction.allCases) { action in
+                                let globallyEnabled = model.isGestureEnabled(action)
                                 HStack(spacing:12) {
-                                    ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible)
+                                    ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible,inverted:model.invert)
                                     VStack(alignment:.leading,spacing:3) {
-                                        Text(action.gestureName).font(.system(size:12,weight:.medium))
-                                        Text(actionDescription(action,app:app)).font(.system(size:10)).foregroundStyle(.secondary)
+                                        Text(action.gestureName(inverted:model.invert)).font(.system(size:12,weight:.medium))
+                                        Text(globallyEnabled ? actionDescription(action,app:app) : "Disabled in Gestures").font(.system(size:10)).foregroundStyle(.secondary)
                                     }
                                     Spacer()
                                     let mode = model.store.overrideMode(action:action,bundleIdentifier:app.id)
@@ -193,7 +194,7 @@ struct SettingsView: View {
                                         Button("Off") { model.store.setOverride(.off,action:action,bundleIdentifier:app.id) }
                                         Button("Custom shortcut…") { editing = ShortcutSelection(app:app,action:action) }
                                     } label: { Text(modeLabel(mode)).frame(width:80,alignment:.trailing) }.menuStyle(.borderlessButton).fixedSize()
-                                }
+                                }.opacity(globallyEnabled ? 1 : 0.45).disabled(!globallyEnabled)
                             }
                         }.padding(16)
                     }

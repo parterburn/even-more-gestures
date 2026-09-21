@@ -197,9 +197,9 @@ struct InstalledApp: Identifiable {
             guard pinchEnabled else { return }
             action = undoEnabled && undo.shouldReopen(pid: pid) ? .reopenClosedTab : .newTab
         case .swipeLeft:
-            guard invert ? rightEnabled : leftEnabled else { return }; action = invert ? .toggleRightSidebar : .toggleLeftSidebar
+            guard leftEnabled else { return }; action = invert ? .toggleRightSidebar : .toggleLeftSidebar
         case .swipeRight:
-            guard invert ? leftEnabled : rightEnabled else { return }; action = invert ? .toggleLeftSidebar : .toggleRightSidebar
+            guard rightEnabled else { return }; action = invert ? .toggleLeftSidebar : .toggleRightSidebar
         }
         guard let plan = store.plan(action: action, bundleIdentifier: bundle) else { return }
         let generation = routeGeneration
@@ -221,6 +221,20 @@ struct InstalledApp: Identifiable {
                 if reopen && self.showHUD { self.onHUD?("Tab closed · spread to undo") }
             } else if action == .newTab || action == .reopenClosedTab { self.undo.clear() }
 
+        }
+    }
+    func isGestureEnabled(_ action: GestureAction) -> Bool {
+        switch action {
+        case .nextTab, .previousTab:
+            return rotateEnabled
+        case .closeTab, .newTab:
+            return pinchEnabled
+        case .reopenClosedTab:
+            return pinchEnabled && undoEnabled
+        case .toggleLeftSidebar:
+            return invert ? rightEnabled : leftEnabled
+        case .toggleRightSidebar:
+            return invert ? leftEnabled : rightEnabled
         }
     }
     private func revertSidebarIfNeeded() {

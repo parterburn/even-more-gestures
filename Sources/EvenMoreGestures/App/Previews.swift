@@ -13,20 +13,23 @@ enum PreviewGesture: String, CaseIterable {
 
 extension GestureAction {
     var gestureName: String {
+        gestureName(inverted: false)
+    }
+    func gestureName(inverted: Bool) -> String {
         switch self {
         case .nextTab: return "Rotate right"
         case .previousTab: return "Rotate left"
         case .closeTab: return "Pinch in"
         case .newTab, .reopenClosedTab: return "Spread out"
-        case .toggleLeftSidebar: return "Swipe left"
-        case .toggleRightSidebar: return "Swipe right"
+        case .toggleLeftSidebar: return inverted ? "Swipe right" : "Swipe left"
+        case .toggleRightSidebar: return inverted ? "Swipe left" : "Swipe right"
         }
     }
-    func gestureInstruction(pinchFingerCount: Int = 3) -> String {
+    func gestureInstruction(pinchFingerCount: Int = 3, inverted: Bool = false) -> String {
         switch self {
-        case .nextTab, .previousTab: return "\(gestureName) · two fingers"
-        case .closeTab, .newTab, .reopenClosedTab: return "\(gestureName) · \(pinchFingerCount) fingers"
-        case .toggleLeftSidebar, .toggleRightSidebar: return "\(gestureName) · four fingers"
+        case .nextTab, .previousTab: return "\(gestureName(inverted: inverted)) · two fingers"
+        case .closeTab, .newTab, .reopenClosedTab: return "\(gestureName(inverted: inverted)) · \(pinchFingerCount) fingers"
+        case .toggleLeftSidebar, .toggleRightSidebar: return "\(gestureName(inverted: inverted)) · four fingers"
         }
     }
 }
@@ -35,6 +38,7 @@ struct ActionGestureCue: View {
     let action: GestureAction
     var pinchFingerCount = 3
     var isActive = true
+    var inverted = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -44,7 +48,7 @@ struct ActionGestureCue: View {
         }
         .frame(width: 46, height: 46)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(action.gestureInstruction(pinchFingerCount: pinchFingerCount))
+        .accessibilityLabel(action.gestureInstruction(pinchFingerCount: pinchFingerCount, inverted: inverted))
     }
 
     private func cueCanvas(progress: Double) -> some View {
@@ -86,7 +90,7 @@ struct ActionGestureCue: View {
                         context.stroke(Path(ellipseIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)), with: .color(.white.opacity(0.65)), lineWidth: 0.7)
                     }
                 case .toggleLeftSidebar, .toggleRightSidebar:
-                    let left = action == .toggleLeftSidebar
+                    let left = (action == .toggleLeftSidebar) != inverted
                     let offset = (progress - 0.5) * 17 * (left ? -1 : 1)
                     let arrow = left ? "‹" : "›"
                     context.draw(Text(arrow).font(.system(size: 27, weight: .medium)).foregroundStyle(Color.accentColor), at: CGPoint(x: center.x + (left ? -11 : 11), y: center.y - 1))
