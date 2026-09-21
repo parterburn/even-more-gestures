@@ -3,18 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.14</title>
-            <pubDate>Mon, 21 Sep 2026 14:12:34 -0600</pubDate>
+            <title>0.2.15</title>
+            <pubDate>Mon, 21 Sep 2026 14:14:54 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>17</sparkle:version>
-            <sparkle:shortVersionString>0.2.14</sparkle:shortVersionString>
+            <sparkle:version>18</sparkle:version>
+            <sparkle:shortVersionString>0.2.15</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.14
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.15
 
-- Simplified the Apps header to a single, larger preset and custom-app summary.
+- Clarified each gesture’s default result in enabled or selected apps.
+- Increased the contrast and size of gesture descriptions.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.14/Even-More-Gestures-0.2.14.zip" length="3440332" type="application/octet-stream" sparkle:edSignature="2jgmEu0A0Xp6wJwrxBnvh7tPhQI8k2z5D+dF06JyU1C96JbLNrioJBBVjwKWRI7Oo7YUbVzXtxT5JUX+LrvaDw=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.15/Even-More-Gestures-0.2.15.zip" length="3440449" type="application/octet-stream" sparkle:edSignature="kWh0l5mNxlorJGTIglLeqrkRn6xbfApS5F++TCuyQpwkCl6y3iHpUZJr2lukobrcX54fgmfWm7JouW/fLCIkBQ=="/>
         </item>
     </channel>
 </rss>
