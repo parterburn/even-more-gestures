@@ -3,18 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.18</title>
-            <pubDate>Mon, 21 Sep 2026 14:22:52 -0600</pubDate>
+            <title>0.2.19</title>
+            <pubDate>Mon, 21 Sep 2026 14:25:18 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>21</sparkle:version>
-            <sparkle:shortVersionString>0.2.18</sparkle:shortVersionString>
+            <sparkle:version>22</sparkle:version>
+            <sparkle:shortVersionString>0.2.19</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.18
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.19
 
-- Disabled apps now visibly disable every action in their expanded settings.
+- Added the product site and creator links to the General tab.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.18/Even-More-Gestures-0.2.18.zip" length="3445933" type="application/octet-stream" sparkle:edSignature="bBBfXU5PpZOZdb23YvDCOt4wCSqrM8et9+YM1A098xmU2FWYMMZVBAC012NGUPfSIVo/T7MSqorkIai0zj3kAw=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.19/Even-More-Gestures-0.2.19.zip" length="3447508" type="application/octet-stream" sparkle:edSignature="RW37egi2qCDNExkfYPXGz5qsGZQjk2HienIKZ+K5/91UGyTFuUqUy6XGbjZzh1SVD8pcWHllaUiRo38ie0SyAQ=="/>
         </item>
     </channel>
 </rss>
