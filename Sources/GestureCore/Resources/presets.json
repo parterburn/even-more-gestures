@@ -1,0 +1,1385 @@
+[
+  {
+    "bundleIdentifier": "com.apple.Safari",
+    "name": "Safari",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+]"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+["
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "cmd+shift+l"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.google.Chrome",
+    "name": "Google Chrome",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": "ctrl+tab"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": "ctrl+shift+tab"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+shift+l"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.brave.Browser",
+    "name": "Brave",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": "ctrl+tab"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": "ctrl+shift+tab"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.microsoft.edgemac",
+    "name": "Microsoft Edge",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": "ctrl+tab"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": "ctrl+shift+tab"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "org.mozilla.firefox",
+    "name": "Firefox",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": "ctrl+tab"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": "ctrl+shift+tab"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "company.thebrowser.Browser",
+    "name": "Arc",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "company.thebrowser.dia",
+    "name": "Dia",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.finder",
+    "name": "Finder",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Window"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": "cmd+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "ctrl+cmd+s"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+shift+p"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.microsoft.VSCode",
+    "name": "Visual Studio Code",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Next Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+right"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Previous Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+left"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Editor"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Go to File\u2026"
+          ]
+        ],
+        "shortcut": "cmd+p"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "cmd+b"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+b"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.todesktop.230313mzl4w4u92",
+    "name": "Cursor",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Next Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+right"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Previous Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+left"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Editor"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Go to File\u2026"
+          ]
+        ],
+        "shortcut": "cmd+p"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "cmd+b"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+b"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.exafunction.windsurf",
+    "name": "Windsurf",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Next Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+right"
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Switch Editor",
+            "Previous Editor"
+          ]
+        ],
+        "shortcut": "cmd+alt+left"
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Editor"
+          ]
+        ],
+        "shortcut": "cmd+w"
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "Go",
+            "Go to File\u2026"
+          ]
+        ],
+        "shortcut": "cmd+p"
+      },
+      "reopenClosedTab": {
+        "menuPaths": [
+          [
+            "History",
+            "Reopen Last Closed Tab"
+          ],
+          [
+            "File",
+            "Reopen Closed Tab"
+          ]
+        ],
+        "shortcut": "cmd+shift+t"
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "cmd+b"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+b"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.dt.Xcode",
+    "name": "Xcode",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "cmd+0"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+0"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "dev.zed.Zed",
+    "name": "Zed",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "notion.id",
+    "name": "Notion",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "md.obsidian",
+    "name": "Obsidian",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ],
+          [
+            "Tab",
+            "Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ],
+          [
+            "Tab",
+            "Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.anthropic.claudefordesktop",
+    "name": "Claude",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Toggle Sidebar"
+          ],
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.openai.chat",
+    "name": "ChatGPT",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+b"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+b"
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.Terminal",
+    "name": "Terminal",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.googlecode.iterm2",
+    "name": "iTerm2",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.mitchellh.ghostty",
+    "name": "Ghostty",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "dev.warp.Warp-Stable",
+    "name": "Warp",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.Preview",
+    "name": "Preview",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.Photos",
+    "name": "Photos",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.Maps",
+    "name": "Maps",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+ctrl+s"
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.TextEdit",
+    "name": "TextEdit",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "closeTab": {
+        "menuPaths": [
+          [
+            "File",
+            "Close Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "newTab": {
+        "menuPaths": [
+          [
+            "File",
+            "New Tab"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": true,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.openai.codex",
+    "name": "ChatGPT",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+b"
+      },
+      "toggleRightSidebar": {
+        "menuPaths": [],
+        "shortcut": "cmd+alt+b"
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  }
+]

@@ -1,0 +1,89 @@
+{
+  "source": "synthetic; not hardware calibration",
+  "frames": [
+    {
+      "timestamp": 0,
+      "contacts": [
+        {
+          "id": 1,
+          "x": 0.65,
+          "y": 0.5
+        },
+        {
+          "id": 2,
+          "x": 0.35,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "timestamp": 0.11,
+      "contacts": [
+        {
+          "id": 1,
+          "x": 0.65,
+          "y": 0.5
+        },
+        {
+          "id": 2,
+          "x": 0.35,
+          "y": 0.5
+        }
+      ]
+    },
+    {
+      "timestamp": 0.2,
+      "contacts": [
+        {
+          "id": 1,
+          "x": 0.6299038105676658,
+          "y": 0.42500000000000004
+        },
+        {
+          "id": 2,
+          "x": 0.3700961894323342,
+          "y": 0.575
+        }
+      ]
+    },
+    {
+      "timestamp": 0.3,
+      "contacts": [
+        {
+          "id": 1,
+          "x": 0.575,
+          "y": 0.37009618943233424
+        },
+        {
+          "id": 2,
+          "x": 0.425,
+          "y": 0.6299038105676658
+        }
+      ]
+    },
+    {
+      "timestamp": 0.4,
+      "contacts": [
+        {
+          "id": 1,
+          "x": 0.5,
+          "y": 0.35
+        },
+        {
+          "id": 2,
+          "x": 0.5,
+          "y": 0.65
+        }
+      ]
+    },
+    {
+      "timestamp": 0.5,
+      "contacts": []
+    }
+  ],
+  "expected": [
+    "rotateClockwise",
+    "rotateClockwise",
+    "rotateClockwise"
+  ]
+}

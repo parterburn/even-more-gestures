@@ -1,0 +1,1364 @@
+{
+  "minimumBuild": 3,
+  "presets": [
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+]"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+["
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "cmd+shift+l"
+        }
+      },
+      "bundleIdentifier": "com.apple.Safari",
+      "closeEnabled": true,
+      "name": "Safari",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": "ctrl+tab"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": "ctrl+shift+tab"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+shift+l"
+        }
+      },
+      "bundleIdentifier": "com.google.Chrome",
+      "closeEnabled": true,
+      "name": "Google Chrome",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": "ctrl+tab"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": "ctrl+shift+tab"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        }
+      },
+      "bundleIdentifier": "com.brave.Browser",
+      "closeEnabled": true,
+      "name": "Brave",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": "ctrl+tab"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": "ctrl+shift+tab"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        }
+      },
+      "bundleIdentifier": "com.microsoft.edgemac",
+      "closeEnabled": true,
+      "name": "Microsoft Edge",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": "ctrl+tab"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": "ctrl+shift+tab"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        }
+      },
+      "bundleIdentifier": "org.mozilla.firefox",
+      "closeEnabled": true,
+      "name": "Firefox",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "company.thebrowser.Browser",
+      "closeEnabled": true,
+      "name": "Arc",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "company.thebrowser.dia",
+      "closeEnabled": true,
+      "name": "Dia",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Window"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": "cmd+t"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "ctrl+cmd+s"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+shift+p"
+        }
+      },
+      "bundleIdentifier": "com.apple.finder",
+      "closeEnabled": true,
+      "name": "Finder",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Editor"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Go to File…"
+            ]
+          ],
+          "shortcut": "cmd+p"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Next Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+right"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Previous Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+left"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "cmd+b"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+b"
+        }
+      },
+      "bundleIdentifier": "com.microsoft.VSCode",
+      "closeEnabled": true,
+      "name": "Visual Studio Code",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Editor"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Go to File…"
+            ]
+          ],
+          "shortcut": "cmd+p"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Next Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+right"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Previous Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+left"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "cmd+b"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+b"
+        }
+      },
+      "bundleIdentifier": "com.todesktop.230313mzl4w4u92",
+      "closeEnabled": true,
+      "name": "Cursor",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Editor"
+            ]
+          ],
+          "shortcut": "cmd+w"
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Go to File…"
+            ]
+          ],
+          "shortcut": "cmd+p"
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Next Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+right"
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Go",
+              "Switch Editor",
+              "Previous Editor"
+            ]
+          ],
+          "shortcut": "cmd+alt+left"
+        },
+        "reopenClosedTab": {
+          "menuPaths": [
+            [
+              "History",
+              "Reopen Last Closed Tab"
+            ],
+            [
+              "File",
+              "Reopen Closed Tab"
+            ]
+          ],
+          "shortcut": "cmd+shift+t"
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "cmd+b"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+b"
+        }
+      },
+      "bundleIdentifier": "com.exafunction.windsurf",
+      "closeEnabled": true,
+      "name": "Windsurf",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": "cmd+0"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+0"
+        }
+      },
+      "bundleIdentifier": "com.apple.dt.Xcode",
+      "closeEnabled": true,
+      "name": "Xcode",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "dev.zed.Zed",
+      "closeEnabled": true,
+      "name": "Zed",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "notion.id",
+      "closeEnabled": true,
+      "name": "Notion",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ],
+            [
+              "Tab",
+              "Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ],
+            [
+              "Tab",
+              "Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "md.obsidian",
+      "closeEnabled": true,
+      "name": "Obsidian",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "toggleLeftSidebar": {
+          "menuPaths": [
+            [
+              "View",
+              "Toggle Sidebar"
+            ],
+            [
+              "View",
+              "Show Sidebar"
+            ],
+            [
+              "View",
+              "Hide Sidebar"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.anthropic.claudefordesktop",
+      "closeEnabled": false,
+      "name": "Claude",
+      "rotateEnabled": false
+    },
+    {
+      "actions": {
+        "toggleLeftSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+b"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+b"
+        }
+      },
+      "bundleIdentifier": "com.openai.chat",
+      "closeEnabled": false,
+      "name": "ChatGPT",
+      "rotateEnabled": false
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.apple.Terminal",
+      "closeEnabled": false,
+      "name": "Terminal",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.googlecode.iterm2",
+      "closeEnabled": false,
+      "name": "iTerm2",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.mitchellh.ghostty",
+      "closeEnabled": false,
+      "name": "Ghostty",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "dev.warp.Warp-Stable",
+      "closeEnabled": false,
+      "name": "Warp",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.apple.Preview",
+      "closeEnabled": true,
+      "name": "Preview",
+      "rotateEnabled": false
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.apple.Photos",
+      "closeEnabled": true,
+      "name": "Photos",
+      "rotateEnabled": false
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "toggleLeftSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+ctrl+s"
+        }
+      },
+      "bundleIdentifier": "com.apple.Maps",
+      "closeEnabled": true,
+      "name": "Maps",
+      "rotateEnabled": false
+    },
+    {
+      "actions": {
+        "closeTab": {
+          "menuPaths": [
+            [
+              "File",
+              "Close Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "newTab": {
+          "menuPaths": [
+            [
+              "File",
+              "New Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "nextTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Next Tab"
+            ]
+          ],
+          "shortcut": null
+        },
+        "previousTab": {
+          "menuPaths": [
+            [
+              "Window",
+              "Show Previous Tab"
+            ]
+          ],
+          "shortcut": null
+        }
+      },
+      "bundleIdentifier": "com.apple.TextEdit",
+      "closeEnabled": true,
+      "name": "TextEdit",
+      "rotateEnabled": true
+    },
+    {
+      "actions": {
+        "toggleLeftSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+b"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "cmd+alt+b"
+        }
+      },
+      "bundleIdentifier": "com.openai.codex",
+      "closeEnabled": false,
+      "name": "ChatGPT",
+      "rotateEnabled": false
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
+}

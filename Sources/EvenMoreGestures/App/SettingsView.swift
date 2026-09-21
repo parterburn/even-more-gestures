@@ -1,0 +1,304 @@
+import SwiftUI
+import GestureCore
+import GestureKit
+
+struct SettingsView: View {
+    @ObservedObject var model: AppModel
+    @State private var tab = "Gestures"
+    @State private var search = ""
+    @State private var expanded: String?
+    @State private var editing: ShortcutSelection?
+    @State private var isVisible = false
+    @State private var showingAccessibilityHelp = false
+    private let tabs = ["Gestures", "Apps", "General"]
+    var body: some View {
+        VStack(spacing:0) {
+            HStack(spacing:13) {
+                Image(nsImage:NSApp.applicationIconImage).resizable().interpolation(.high).frame(width:52,height:52)
+                VStack(alignment:.leading,spacing:4) {
+                    Text("Even More Gestures").font(.system(size:20,weight:.semibold))
+                    Text("A little more at your fingertips.").font(.system(size:12)).foregroundStyle(.secondary)
+                }
+                Spacer()
+                if model.permission || model.paused {
+                    HStack(spacing:6) {
+                        Circle().fill(model.paused ? .orange : .green).frame(width:6,height:6)
+                        Text(model.paused ? "Paused" : "Ready").font(.system(size:11,weight:.medium))
+                    }.padding(.horizontal,11).padding(.vertical,7).background(.quaternary,in:Capsule())
+                }
+            }.padding(.horizontal,28).padding(.top,25).padding(.bottom,20)
+            if !model.permission { permissionBanner.padding(.horizontal,28).padding(.bottom,20) }
+            Picker("Settings",selection:$tab) { ForEach(tabs,id:\.self) { Text($0) } }.pickerStyle(.segmented).labelsHidden().frame(width:306).padding(.bottom,20)
+            Divider()
+            if model.showOnboarding { OnboardingView(model:model) }
+            else {
+                ScrollView {
+                    VStack(spacing:18) {
+                        if let error = model.store.error { banner(error, icon:"exclamationmark.triangle", color:.orange) }
+                        switch tab {
+                        case "Apps": appsView
+                        case "General": generalView
+                        default: gesturesView
+                        }
+                    }.padding(26)
+                }
+                Divider()
+                HStack {
+                    Text(model.input.status).font(.system(size:10)).foregroundStyle(.secondary)
+                    Spacer()
+                    Button(model.practice ? "End practice" : "Try the gestures") { model.practice.toggle() }.buttonStyle(.link).font(.system(size:11))
+                }.padding(.horizontal,26).padding(.vertical,12)
+                if model.practice { PracticeView(model:model).padding([.horizontal,.bottom],20) }
+            }
+        }.frame(minWidth:720,minHeight:690).background(Color(nsColor:.windowBackgroundColor))
+        .onAppear { isVisible = true; model.refresh() }
+        .onDisappear { isVisible = false; model.practice = false }
+        .task(id:model.settingsVisible) {
+            guard model.settingsVisible else { return }
+            while !Task.isCancelled {
+                try? await Task.sleep(for:.seconds(1))
+                guard !Task.isCancelled else { break }
+                model.refreshPermission()
+            }
+        }
+        .sheet(item:$editing) { selection in ShortcutEditor(model:model,selection:selection) }
+        .sheet(isPresented:$showingAccessibilityHelp) { accessibilityHelp }
+        .sheet(isPresented:Binding(get:{ model.menuDump != nil },set:{ if !$0 { model.menuDump = nil } })) {
+            VStack(alignment:.leading,spacing:16) {
+                Text("Discovered menu commands").font(.headline)
+                ScrollView { Text(model.menuDump ?? "").font(.system(.caption,design:.monospaced)).textSelection(.enabled).frame(maxWidth:.infinity,alignment:.leading) }
+                Button("Done") { model.menuDump = nil }.keyboardShortcut(.defaultAction)
+            }.padding(24).frame(width:620,height:440)
+        }
+        .alert("Even More Gestures",isPresented:Binding(get:{model.issue != nil},set:{if !$0 {model.issue = nil}})) { Button("OK") { model.issue = nil } } message: { Text(model.issue ?? "") }
+    }
+    private var permissionBanner: some View {
+        HStack(alignment:.top,spacing:14) {
+            Image(systemName:"hand.raised.fill").font(.system(size:24,weight:.medium)).foregroundStyle(.blue).frame(width:36)
+            VStack(alignment:.leading,spacing:5) {
+                Text("Finish setup to turn gestures on").font(.system(size:15,weight:.semibold))
+                Text("Even More Gestures needs Accessibility permission before it can switch tabs, close them, or open sidebars in your apps.").font(.system(size:12)).foregroundStyle(.secondary).fixedSize(horizontal:false,vertical:true)
+                Button("Show setup steps") { showingAccessibilityHelp = true }.buttonStyle(.link).font(.system(size:12))
+            }
+            Spacer()
+            Button("Open Accessibility") { model.requestPermission() }.buttonStyle(.borderedProminent).controlSize(.regular)
+        }.padding(18).background(.blue.opacity(0.09),in:RoundedRectangle(cornerRadius:12)).overlay(RoundedRectangle(cornerRadius:12).stroke(.blue.opacity(0.18),lineWidth:1))
+    }
+    private var accessibilityHelp: some View {
+        VStack(alignment:.leading,spacing:20) {
+            HStack(spacing:12) {
+                Image(systemName:"hand.raised.fill").font(.system(size:28)).foregroundStyle(.blue)
+                VStack(alignment:.leading,spacing:3) {
+                    Text("Turn on Accessibility").font(.title2.weight(.semibold))
+                    Text("One-time setup. Your settings stay on this Mac.").foregroundStyle(.secondary)
+                }
+            }
+            VStack(alignment:.leading,spacing:13) {
+                setupStep("1", "Open the Accessibility pane", "Use the button below. macOS opens directly to the right list.")
+                setupStep("2", "Enable Even More Gestures", "Find it in the list and turn its switch on. If it isn’t listed, click + and choose this app from Applications.")
+                setupStep("3", "Come back here", "This screen notices the permission automatically and turns your gestures on.")
+            }
+            Text("macOS protects this list, so apps cannot add themselves or accept permission on your behalf. You only need to do this once per app copy.").font(.caption).foregroundStyle(.secondary).fixedSize(horizontal:false,vertical:true)
+            HStack { Spacer(); Button("Not now") { showingAccessibilityHelp = false }; Button("Open Accessibility") { model.requestPermission(); showingAccessibilityHelp = false }.buttonStyle(.borderedProminent).keyboardShortcut(.defaultAction) }
+        }.padding(28).frame(width:510)
+    }
+    private func setupStep(_ number: String, _ title: String, _ detail: String) -> some View {
+        HStack(alignment:.top,spacing:12) {
+            Text(number).font(.system(size:12,weight:.bold)).foregroundStyle(.white).frame(width:24,height:24).background(Color.accentColor,in:Circle())
+            VStack(alignment:.leading,spacing:3) { Text(title).font(.system(size:13,weight:.semibold)); Text(detail).font(.system(size:12)).foregroundStyle(.secondary) }
+        }
+    }
+    private var gesturesView: some View {
+        VStack(spacing:18) {
+            GesturePreview(gesture:model.preview, pinchFingerCount:model.pinchFingerCount, isActive:model.settingsVisible)
+            VStack(spacing:0) {
+                gestureRow("Switch tabs", subtitle:"Rotate with two fingers",icon:"arrow.trianglehead.2.clockwise.rotate.90", binding:$model.rotateEnabled,preview:.rotate)
+                Divider().padding(.leading,50)
+                gestureRow("Close and open tabs",subtitle:model.pinchFingerCount == 2 ? "Pinch or spread with two fingers" : "Pinch or spread with thumb and two fingers",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
+                Divider().padding(.leading,50)
+                gestureRow("Undo close",subtitle:"Spread within 3 seconds to bring a tab back",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
+                Divider().padding(.leading,50)
+                gestureRow("Left sidebar",subtitle:model.invert ? "Swipe right with four fingers" : "Swipe left with four fingers",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
+                Divider().padding(.leading,50)
+                gestureRow("Right sidebar",subtitle:model.invert ? "Swipe left with four fingers" : "Swipe right with four fingers",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
+            }.card()
+            VStack(spacing:14) {
+                HStack {
+                    VStack(alignment:.leading,spacing:3) { Text("Rotation per tab"); Text("Smaller turns switch tabs sooner.").font(.caption).foregroundStyle(.secondary) }
+                    Spacer()
+                    Slider(value:$model.rotationStep,in:20...45,step:1).frame(width:170).accessibilityLabel("Degrees per tab")
+                    Text("\(Int(model.rotationStep))°").monospacedDigit().foregroundStyle(.secondary).frame(width:32)
+                }
+                Divider()
+                settingToggle("Haptic feedback",value:$model.haptics)
+                HStack {
+                    Text("Pinch and spread")
+                    Spacer()
+                    Picker("Pinch and spread",selection:$model.pinchFingerCount) {
+                        Text("2 fingers").tag(2)
+                        Text("3 fingers").tag(3)
+                    }.labelsHidden().pickerStyle(.segmented).frame(width:190)
+                }
+                if model.pinchFingerCount == 2 {
+                    Text("Two-finger pinch may also zoom in the app you’re using.").font(.caption).foregroundStyle(.secondary).frame(maxWidth:.infinity,alignment:.leading)
+                }
+                settingToggle("Show the undo hint",value:$model.showHUD)
+                settingToggle("Invert sidebar direction",value:$model.invert)
+            }.font(.system(size:12)).toggleStyle(.switch).controlSize(.small).padding(16).card()
+            Text("Already set up for the apps you use. Fine-tune individual apps in the Apps tab.").font(.system(size:11)).foregroundStyle(.secondary)
+        }
+    }
+    private func gestureRow(_ title: String, subtitle: String, icon: String, binding: Binding<Bool>, preview: PreviewGesture) -> some View {
+        HStack(spacing:13) {
+            Image(systemName:icon).font(.system(size:17)).foregroundStyle(.blue).frame(width:24)
+            VStack(alignment:.leading,spacing:4) { Text(title).font(.system(size:13,weight:.medium)); Text(subtitle).font(.system(size:11)).foregroundStyle(.secondary) }
+            Spacer()
+            Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
+        }.padding(.horizontal,16).padding(.vertical,13).contentShape(Rectangle()).onHover { if $0 { model.preview = preview } }
+    }
+    private var appsView: some View {
+        VStack(alignment:.leading,spacing:16) {
+            HStack {
+                VStack(alignment:.leading,spacing:5) { Text("Already set up.").font(.title2.weight(.semibold)); Text("\(model.apps.count) installed apps • \(Set(model.store.presets.map(\.name)).count) app presets").font(.caption).foregroundStyle(.secondary) }
+                Spacer()
+                Button { model.addApp() } label:{ Label("Add App",systemImage:"plus") }
+            }
+            TextField("Search your apps",text:$search).textFieldStyle(.roundedBorder)
+            ForEach(model.apps.filter { search.isEmpty || $0.name.localizedCaseInsensitiveContains(search) }) { app in
+                VStack(spacing:0) {
+                    HStack(spacing:12) {
+                        Button { withAnimation(.easeInOut(duration:0.15)) { expanded = expanded == app.id ? nil : app.id } } label: {
+                            HStack(spacing:12) {
+                                Image(nsImage:app.icon).resizable().frame(width:32,height:32)
+                                Text(app.name).font(.system(size:13,weight:.medium))
+                                Text(app.isCustom ? "Custom" : "Preset").font(.system(size:9,weight:.medium)).foregroundStyle(.secondary).padding(.horizontal,7).padding(.vertical,3).background(.quaternary,in:Capsule())
+                                Spacer()
+                                Image(systemName: expanded == app.id ? "chevron.down" : "chevron.right").font(.system(size:10)).foregroundStyle(.secondary)
+                            }.contentShape(Rectangle())
+                        }.buttonStyle(.plain)
+                        Toggle("Enable \(app.name)",isOn:Binding(get:{model.store.isEnabled(bundleIdentifier:app.id)},set:{model.store.setEnabled($0,bundleIdentifier:app.id)})).labelsHidden().toggleStyle(.switch).controlSize(.small)
+                    }.padding(13)
+                    if expanded == app.id {
+                        Divider()
+                        VStack(spacing:12) {
+                            ForEach(GestureAction.allCases) { action in
+                                HStack {
+                                    VStack(alignment:.leading,spacing:3) {
+                                        Text(action.title).font(.system(size:12))
+                                        if model.store.overrideMode(action:action,bundleIdentifier:app.id) == .useDefault {
+                                            Text(defaultDescription(action,app:app)).font(.system(size:10)).foregroundStyle(.secondary)
+                                        }
+                                    }
+                                    Spacer()
+                                    let mode = model.store.overrideMode(action:action,bundleIdentifier:app.id)
+                                    if case .custom(let keys) = mode { Text(keys).font(.system(size:10,design:.monospaced)).foregroundStyle(.secondary) }
+                                    Menu {
+                                        Button("Default") { model.store.setOverride(.useDefault,action:action,bundleIdentifier:app.id) }
+                                        Button("Off") { model.store.setOverride(.off,action:action,bundleIdentifier:app.id) }
+                                        Button("Custom shortcut…") { editing = ShortcutSelection(app:app,action:action) }
+                                    } label: { Text(modeLabel(mode)).frame(width:80,alignment:.trailing) }.menuStyle(.borderlessButton).fixedSize()
+                                }
+                            }
+                            Divider()
+                            HStack {
+                                Text("Changes are saved automatically.").font(.system(size:10)).foregroundStyle(.secondary)
+                                Spacer(); Button("Inspect menu…") { model.inspectMenu(app) }.font(.system(size:10))
+                            }
+                        }.padding(16)
+                    }
+                }.card()
+            }
+            if model.apps.isEmpty { ContentUnavailableView("Add your first app",systemImage:"app.badge",description:Text("Choose an app and assign a shortcut to any gesture.")) }
+            Text("Terminal close gestures and rotation in image apps are off by default. Default actions follow app menus when available.").font(.caption).foregroundStyle(.secondary)
+        }
+    }
+    private func defaultDescription(_ action: GestureAction, app: InstalledApp) -> String {
+        guard let plan = model.store.plan(action:action,bundleIdentifier:app.id) else { return "Off by default" }
+        if let shortcut = plan.shortcut {
+            return shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
+        }
+        return plan.menuPaths.first?.joined(separator:" › ") ?? "No action"
+    }
+    private func modeLabel(_ mode: ActionOverride) -> String { switch mode {case .useDefault:return "Default";case .off:return "Off";case .custom:return "Custom"} }
+    private var generalView: some View {
+        VStack(alignment:.leading,spacing:18) {
+            sectionLabel("EVERYDAY")
+            VStack(spacing:16) {
+                settingToggle("Launch at login",value:Binding(get:{model.launchAtLogin},set:{model.setLogin($0)}))
+                Divider()
+                settingToggle("Show menu bar icon",value:$model.showMenuIcon)
+                Text("If you hide the icon, open Even More Gestures from Finder or Spotlight to return here.").font(.caption).foregroundStyle(.secondary).frame(maxWidth:.infinity,alignment:.leading)
+                Divider()
+                HStack { Text("Gestures"); Spacer(); Button(model.paused ? "Resume" : "Pause") { model.togglePause() }; Button("Pause for 1 Hour") { model.pauseForHour() } }
+            }.font(.system(size:12)).toggleStyle(.switch).controlSize(.small).padding(16).card()
+            sectionLabel("PERMISSIONS & INPUT")
+            VStack(alignment:.leading,spacing:14) {
+                HStack { Label("Accessibility",systemImage: model.permission ? "checkmark.circle.fill" : "exclamationmark.circle").foregroundStyle(model.permission ? .green : .orange); Spacer(); Button(model.permission ? "System Settings…" : "Allow…") { model.requestPermission() } }
+                Divider()
+                HStack { Text(model.input.status).foregroundStyle(.secondary); Spacer(); Button("Reconnect") { model.input.start() } }
+                Text("If a connected trackpad is silent on your macOS version, check Input Monitoring, then reconnect.").font(.caption).foregroundStyle(.secondary)
+                Button("Input Monitoring settings…") { model.openInputMonitoring() }.buttonStyle(.link)
+            }.font(.system(size:12)).padding(16).card()
+            sectionLabel("COMPATIBILITY")
+            if model.conflicts.isEmpty { banner("No other gesture utilities detected.",icon:"checkmark.shield",color:.green) }
+            ForEach(model.conflicts,id:\.self) { banner($0,icon:"exclamationmark.triangle",color:.orange) }
+            Text("Four-finger swipes also belong to macOS. Sidebar changes are reverted when a Spaces change is detected within 0.6 seconds; this needs validation on your Mac.").font(.caption).foregroundStyle(.secondary)
+            sectionLabel("UPDATES & ABOUT")
+            VStack(alignment:.leading,spacing:9) {
+                Text("Even More Gestures \(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "")").fontWeight(.medium)
+                Text("App updates download securely in the background. Gesture defaults refresh daily so supported apps can stay current. Your custom shortcuts always take priority.").foregroundStyle(.secondary)
+                Button("Show setup again") { model.showOnboarding = true }
+            }.font(.system(size:12)).padding(16).frame(maxWidth:.infinity,alignment:.leading).card()
+        }
+    }
+    private func settingToggle(_ title: String, value: Binding<Bool>) -> some View {
+        HStack { Text(title); Spacer(); Toggle(title,isOn:value).labelsHidden().toggleStyle(.switch).controlSize(.small) }
+    }
+    private func sectionLabel(_ text: String) -> some View { Text(text).font(.system(size:10,weight:.semibold)).tracking(1).foregroundStyle(.secondary) }
+    private func banner(_ text: String,icon: String,color: Color) -> some View { HStack(spacing:10) { Image(systemName:icon).foregroundStyle(color); Text(text).font(.system(size:12)); Spacer(minLength:0) }.padding(14).frame(maxWidth:.infinity,alignment:.leading).background(color.opacity(0.07),in:RoundedRectangle(cornerRadius:10)) }
+}
+private extension View {
+    func card() -> some View { background(Color(nsColor:.controlBackgroundColor),in:RoundedRectangle(cornerRadius:10)).overlay(RoundedRectangle(cornerRadius:10).stroke(.secondary.opacity(0.12),lineWidth:0.5)) }
+}
+struct ShortcutSelection: Identifiable { let id = UUID(); let app: InstalledApp; let action: GestureAction }
+struct ShortcutEditor: View {
+    @ObservedObject var model: AppModel
+    let selection: ShortcutSelection
+    @Environment(\.dismiss) private var dismiss
+    @State private var shortcut = ""
+    @State private var recording = false
+    var body: some View {
+        VStack(alignment:.leading,spacing:18) {
+            Text("\(selection.action.title) in \(selection.app.name)").font(.headline)
+            Text("Record a shortcut, or type one such as cmd+shift+t. Include Command, Control, or Option.").font(.callout).foregroundStyle(.secondary)
+            TextField("cmd+shift+t",text:$shortcut).textFieldStyle(.roundedBorder)
+            ShortcutRecorder(shortcut:$shortcut,recording:$recording).frame(height:44)
+            HStack { Button(recording ? "Press your shortcut…" : "Record shortcut") { recording.toggle() }; Spacer(); Button("Cancel") { dismiss() }; Button("Save") { model.store.setOverride(.custom(shortcut),action:selection.action,bundleIdentifier:selection.app.id); dismiss() }.buttonStyle(.borderedProminent).disabled(KeyShortcut.parse(shortcut) == nil) }
+        }.padding(24).frame(width:470).onAppear { if case .custom(let keys) = model.store.overrideMode(action:selection.action,bundleIdentifier:selection.app.id) { shortcut = keys } }
+    }
+}
+struct ShortcutRecorder: NSViewRepresentable {
+    @Binding var shortcut: String
+    @Binding var recording: Bool
+    func makeNSView(context: Context) -> CaptureView { CaptureView() }
+    func updateNSView(_ view: CaptureView,context: Context) {
+        view.onCapture = { shortcut = $0; recording = false }
+        view.active = recording
+        if recording { DispatchQueue.main.async { view.window?.makeFirstResponder(view) } }
+    }
+    class CaptureView: NSView {
+        var active = false
+        var onCapture: ((String)->Void)?
+        override var acceptsFirstResponder: Bool { true }
+        override func performKeyEquivalent(with event: NSEvent) -> Bool { guard active else { return false }; capture(event); return true }
+        override func keyDown(with event: NSEvent) { if active { capture(event) } else { super.keyDown(with:event) } }
+        private func capture(_ event: NSEvent) {
+            var parts: [String] = []; let flags = event.modifierFlags
+            if flags.contains(.command) { parts.append("cmd") }; if flags.contains(.control) { parts.append("ctrl") }; if flags.contains(.option) { parts.append("alt") }; if flags.contains(.shift) { parts.append("shift") }
+            let special: [UInt16:String] = [48:"tab",123:"left",124:"right",125:"down",126:"up",36:"return",53:"escape",49:"space",51:"delete"]
+            guard let key = special[event.keyCode] ?? event.charactersIgnoringModifiers?.lowercased(), !key.isEmpty else { return }
+            parts.append(key); let result = parts.joined(separator:"+")
+            if KeyShortcut.parse(result) != nil { onCapture?(result) }
+        }
+    }
+}
