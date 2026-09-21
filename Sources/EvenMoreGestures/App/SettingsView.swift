@@ -357,12 +357,17 @@ struct SettingsView: View {
             sectionLabel("UPDATES & ABOUT")
             VStack(alignment:.leading,spacing:9) {
                 Text("Even More Gestures \(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "")").fontWeight(.medium)
+                Link("paularterburn.com/even-more-gestures", destination: URL(string: "https://paularterburn.com/even-more-gestures/")!)
+                    .font(.system(size:12))
                 Text("App updates download securely in the background. Gesture defaults refresh daily so supported apps can stay current. Your custom shortcuts always take priority.").foregroundStyle(.secondary)
                 HStack(spacing:10) {
                     Button("Show setup again") { model.showOnboarding = true }
                     Button("Check for Updates…") { model.checkForUpdates() }
                 }
             }.font(.system(size:12)).padding(16).frame(maxWidth:.infinity,alignment:.leading).card()
+            Link("Made by Paul Arterburn", destination: URL(string: "https://paularterburn.com/")!)
+                .font(.system(size:12,weight:.medium))
+                .frame(maxWidth:.infinity,alignment:.leading)
         }
     }
     private func settingToggle(_ title: String, value: Binding<Bool>) -> some View {
