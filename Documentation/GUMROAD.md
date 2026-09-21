@@ -44,4 +44,4 @@ All four are real screenshots of the current app build.
 
 ## Live product page
 
-The product page is live at [dabbleme.gumroad.com/l/even-more-gestures](https://dabbleme.gumroad.com/l/even-more-gestures). Its self-contained source is [landing.html](../landing.html), which uses Gumroad-hosted versions of the three cover screenshots and posts the buyer's chosen fair price into Gumroad checkout.
+The product page is live at [dabbleme.gumroad.com/l/even-more-gestures](https://dabbleme.gumroad.com/l/even-more-gestures). It uses Gumroad's native product page and fair-price checkout. The three cover screenshots and thumbnail above are uploaded product assets; no custom Gumroad landing page is active.

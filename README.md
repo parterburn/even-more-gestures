@@ -34,7 +34,7 @@ The public update channel lives in the repository at `https://raw.githubusercont
 
 ## Pay what feels fair
 
-Even More Gestures is donateware. Gumroad collects payment with a fair-price input, but the app has no license key, activation, support queue, or paid-feature gate. The live [Gumroad page](https://dabbleme.gumroad.com/l/even-more-gestures) and its self-contained source in [landing.html](landing.html) use the three real app screenshots and square thumbnail described in [Documentation/GUMROAD.md](Documentation/GUMROAD.md).
+Even More Gestures is donateware. Gumroad collects payment with its native fair-price checkout, but the app has no license key, activation, support queue, or paid-feature gate. The live [Gumroad page](https://dabbleme.gumroad.com/l/even-more-gestures) uses the three real app screenshots and square thumbnail described in [Documentation/GUMROAD.md](Documentation/GUMROAD.md).
 
 ## Build from source
 

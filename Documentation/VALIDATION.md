@@ -25,7 +25,7 @@
 
 - The `0.2.10` build was accepted by Apple’s Notary service and stapled. Its GitHub Release archive is Sparkle-signed and listed in the repository appcast.
 - The repository includes a public appcast and signed defaults feed. The app reads those exact files over GitHub's raw HTTPS content service; GitHub Pages is an optional human-readable mirror.
-- The Gumroad product copy and exact image files are in `Documentation/GUMROAD.md`. Its listing and final product URL have not been created from this repository.
+- The Gumroad product page uses its native fair-price checkout, with the copy and exact image files documented in `Documentation/GUMROAD.md`.
 
 ## Limits needing real-device validation
 
