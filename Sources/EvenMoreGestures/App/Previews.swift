@@ -1,4 +1,5 @@
 import SwiftUI
+import GestureCore
 
 enum PreviewGesture: String, CaseIterable {
     case rotate, pinch, spread, left, right
@@ -9,6 +10,81 @@ enum PreviewGesture: String, CaseIterable {
         switch self { case .rotate: return "Rotate with two fingers"; case .pinch: return "Pinch with three fingers"; case .spread: return "Spread with three fingers"; case .left: return "Swipe left with four fingers"; case .right: return "Swipe right with four fingers" }
     }
 }
+
+extension GestureAction {
+    func gestureInstruction(pinchFingerCount: Int = 3) -> String {
+        switch self {
+        case .nextTab: return "Rotate right · two fingers"
+        case .previousTab: return "Rotate left · two fingers"
+        case .closeTab: return "Pinch in · \(pinchFingerCount) fingers"
+        case .newTab, .reopenClosedTab: return "Spread out · \(pinchFingerCount) fingers"
+        case .toggleLeftSidebar: return "Swipe left · four fingers"
+        case .toggleRightSidebar: return "Swipe right · four fingers"
+        }
+    }
+}
+
+struct ActionGestureCue: View {
+    let action: GestureAction
+    var pinchFingerCount = 3
+    var isActive = true
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 30, paused: reduceMotion || !isActive)) { context in
+            let phase = reduceMotion ? 0.6 : context.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 2.6) / 2.6
+            cueCanvas(progress: 0.15 + 0.85 * sin(phase * .pi))
+        }
+        .frame(width: 46, height: 46)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(action.gestureInstruction(pinchFingerCount: pinchFingerCount))
+    }
+
+    private func cueCanvas(progress: Double) -> some View {
+        Canvas { context, size in
+                let pad = CGRect(x: 1, y: 1, width: size.width - 2, height: size.height - 2)
+                context.fill(Path(roundedRect: pad, cornerRadius: 11), with: .color(.accentColor.opacity(0.09)))
+                context.stroke(Path(roundedRect: pad, cornerRadius: 11), with: .color(.accentColor.opacity(0.22)), lineWidth: 1)
+                let center = CGPoint(x: size.width / 2, y: size.height / 2)
+
+                switch action {
+                case .nextTab, .previousTab:
+                    let clockwise = action == .nextTab
+                    let start = clockwise ? -2.30 : 0.84
+                    let end = clockwise ? 0.84 : -2.30
+                    var arc = Path()
+                    arc.addArc(center: center, radius: 13, startAngle: .radians(start), endAngle: .radians(start + (end - start) * progress), clockwise: !clockwise)
+                    context.stroke(arc, with: .color(.accentColor), style: StrokeStyle(lineWidth: 2.2, lineCap: .round))
+                    let angle = start + (end - start) * progress
+                    let arrowPoint = CGPoint(x: center.x + cos(angle) * 13, y: center.y + sin(angle) * 13)
+                    context.fill(Path(ellipseIn: CGRect(x: arrowPoint.x - 3.5, y: arrowPoint.y - 3.5, width: 7, height: 7)), with: .color(.accentColor))
+                    for direction in [-1.0, 1.0] {
+                        let finger = CGPoint(x: center.x + direction * cos(angle) * 7, y: center.y + direction * sin(angle) * 7)
+                        context.fill(Path(ellipseIn: CGRect(x: finger.x - 3.2, y: finger.y - 3.2, width: 6.4, height: 6.4)), with: .color(.primary.opacity(0.78)))
+                    }
+                case .closeTab, .newTab, .reopenClosedTab:
+                    let spreading = action != .closeTab
+                    let distance = spreading ? 5 + progress * 9 : 14 - progress * 9
+                    for index in 0..<pinchFingerCount {
+                        let angle = Double(index) * (2 * .pi / Double(pinchFingerCount)) - .pi / 2
+                        let point = CGPoint(x: center.x + cos(angle) * distance, y: center.y + sin(angle) * distance)
+                        context.fill(Path(ellipseIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)), with: .color(.accentColor))
+                        context.stroke(Path(ellipseIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)), with: .color(.white.opacity(0.65)), lineWidth: 0.7)
+                    }
+                case .toggleLeftSidebar, .toggleRightSidebar:
+                    let left = action == .toggleLeftSidebar
+                    let offset = (progress - 0.5) * 17 * (left ? -1 : 1)
+                    let arrow = left ? "‹" : "›"
+                    context.draw(Text(arrow).font(.system(size: 27, weight: .medium)).foregroundStyle(Color.accentColor), at: CGPoint(x: center.x + (left ? -11 : 11), y: center.y - 1))
+                    for index in 0..<4 {
+                        let point = CGPoint(x: center.x + CGFloat(index - 1) * 5 + offset, y: center.y + CGFloat(abs(index - 1)) * 1.8)
+                        context.fill(Path(ellipseIn: CGRect(x: point.x - 3, y: point.y - 3, width: 6, height: 6)), with: .color(.primary.opacity(0.8)))
+                    }
+                }
+            }
+    }
+}
+
 struct GesturePreview: View {
     let gesture: PreviewGesture
     var pinchFingerCount = 3

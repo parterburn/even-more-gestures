@@ -182,16 +182,15 @@ struct SettingsView: View {
                         Divider()
                         VStack(spacing:12) {
                             ForEach(GestureAction.allCases) { action in
-                                HStack {
+                                HStack(spacing:12) {
+                                    ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible)
                                     VStack(alignment:.leading,spacing:3) {
-                                        Text(action.title).font(.system(size:12))
-                                        if model.store.overrideMode(action:action,bundleIdentifier:app.id) == .useDefault {
-                                            Text(defaultDescription(action,app:app)).font(.system(size:10)).foregroundStyle(.secondary)
-                                        }
+                                        Text(action.title).font(.system(size:12,weight:.medium))
+                                        Text(action.gestureInstruction(pinchFingerCount:model.pinchFingerCount)).font(.system(size:10)).foregroundStyle(.secondary)
+                                        Text(actionDescription(action,app:app)).font(.system(size:10)).foregroundStyle(.secondary)
                                     }
                                     Spacer()
                                     let mode = model.store.overrideMode(action:action,bundleIdentifier:app.id)
-                                    if case .custom(let keys) = mode { Text(keys).font(.system(size:10,design:.monospaced)).foregroundStyle(.secondary) }
                                     Menu {
                                         Button("Default") { model.store.setOverride(.useDefault,action:action,bundleIdentifier:app.id) }
                                         Button("Off") { model.store.setOverride(.off,action:action,bundleIdentifier:app.id) }
@@ -218,6 +217,14 @@ struct SettingsView: View {
             return shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
         }
         return plan.menuPaths.first?.joined(separator:" › ") ?? "No action"
+    }
+    private func actionDescription(_ action: GestureAction, app: InstalledApp) -> String {
+        switch model.store.overrideMode(action: action, bundleIdentifier: app.id) {
+        case .useDefault: return defaultDescription(action, app: app)
+        case .off: return "Off"
+        case .custom(let shortcut):
+            return shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
+        }
     }
     private func modeLabel(_ mode: ActionOverride) -> String { switch mode {case .useDefault:return "Default";case .off:return "Off";case .custom:return "Custom"} }
     private var generalView: some View {
