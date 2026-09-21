@@ -1,0 +1,43 @@
+#!/bin/bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+VERSION="${APP_VERSION:?Set APP_VERSION, for example 0.2.0}"
+BUILD_NUMBER="${BUILD_NUMBER:?Set BUILD_NUMBER, for example 3}"
+APP_NAME="Even-More-Gestures-${VERSION}.zip"
+ARCHIVE_DIR="$PWD/build/release"
+ARCHIVE="$ARCHIVE_DIR/$APP_NAME"
+APPCAST="$ARCHIVE_DIR/appcast.xml"
+GENERATOR="$PWD/.build/artifacts/sparkle/Sparkle/bin/generate_appcast"
+DOWNLOAD_PREFIX="https://github.com/parterburn/even-more-gestures/releases/download/v${VERSION}/"
+
+REQUIRE_DEVELOPER_ID=1 APP_VERSION="$VERSION" BUILD_NUMBER="$BUILD_NUMBER" ./Scripts/build-app.sh
+./Scripts/notarize-app.sh
+
+mkdir -p "$ARCHIVE_DIR"
+ditto "$PWD/build/Even More Gestures.zip" "$ARCHIVE"
+
+if [ -n "${RELEASE_NOTES_FILE:-}" ]; then
+  cp "$RELEASE_NOTES_FILE" "${ARCHIVE%.zip}.md"
+fi
+
+"$GENERATOR" \
+  --versions "$BUILD_NUMBER" \
+  --download-url-prefix "$DOWNLOAD_PREFIX" \
+  --link "https://paularterburn.com/even-more-gestures/" \
+  --embed-release-notes \
+  -o "$APPCAST" \
+  "$ARCHIVE_DIR"
+
+cp "$APPCAST" docs/appcast.xml
+
+cat <<EOF
+Release prepared.
+
+1. Create GitHub release v$VERSION and upload:
+   $ARCHIVE
+2. Commit and push docs/appcast.xml.
+3. Check https://parterburn.github.io/even-more-gestures/appcast.xml.
+
+The appcast references the GitHub release asset and carries the Sparkle signature.
+EOF
