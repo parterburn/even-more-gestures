@@ -3,18 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.16</title>
-            <pubDate>Mon, 21 Sep 2026 14:17:10 -0600</pubDate>
+            <title>0.2.17</title>
+            <pubDate>Mon, 21 Sep 2026 14:20:29 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>19</sparkle:version>
-            <sparkle:shortVersionString>0.2.16</sparkle:shortVersionString>
+            <sparkle:version>20</sparkle:version>
+            <sparkle:shortVersionString>0.2.17</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.16
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.17
 
-- Clarified that spreading out reopens a recently closed tab or opens a new tab.
+- Turn an app off, then use its trash button to remove it from the Apps list.
+- Removed apps keep their custom settings and restore them when re-added.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.16/Even-More-Gestures-0.2.16.zip" length="3440411" type="application/octet-stream" sparkle:edSignature="NHlPBgqb5EG2/WKeOfsPBqrlyQVPcRuQuV00OXFqnfURxCMQBE7nIoOe9xUXln6GFYzwjDqTFJcFizQbQ46MDQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.17/Even-More-Gestures-0.2.17.zip" length="3444890" type="application/octet-stream" sparkle:edSignature="qFBoBsMOIgmAiCr03ZgtYH12eHGeCZJGRWxUaJwtEzQEOm8NqMFgISzmDL2qm9p3HhujvarosaPOf13GkF3TCg=="/>
         </item>
     </channel>
 </rss>
