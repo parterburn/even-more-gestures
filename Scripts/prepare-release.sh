@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 VERSION="${APP_VERSION:?Set APP_VERSION, for example 0.2.0}"
 BUILD_NUMBER="${BUILD_NUMBER:?Set BUILD_NUMBER, for example 3}"
 APP_NAME="Even-More-Gestures-${VERSION}.zip"
-ARCHIVE_DIR="$PWD/build/release"
+ARCHIVE_DIR="$PWD/build/release/$VERSION"
 ARCHIVE="$ARCHIVE_DIR/$APP_NAME"
 APPCAST="$ARCHIVE_DIR/appcast.xml"
 GENERATOR="$PWD/.build/artifacts/sparkle/Sparkle/bin/generate_appcast"
@@ -13,6 +13,11 @@ DOWNLOAD_PREFIX="https://github.com/parterburn/even-more-gestures/releases/downl
 
 REQUIRE_DEVELOPER_ID=1 APP_VERSION="$VERSION" BUILD_NUMBER="$BUILD_NUMBER" ./Scripts/build-app.sh
 ./Scripts/notarize-app.sh
+
+if [ -e "$ARCHIVE" ] || [ -e "$APPCAST" ]; then
+  echo "error: release artifacts for $VERSION already exist" >&2
+  exit 1
+fi
 
 mkdir -p "$ARCHIVE_DIR"
 ditto "$PWD/build/Even More Gestures.zip" "$ARCHIVE"

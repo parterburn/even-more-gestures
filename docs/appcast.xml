@@ -3,6 +3,16 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
+            <title>0.2.1</title>
+            <pubDate>Mon, 21 Sep 2026 10:22:25 -0600</pubDate>
+            <link>https://paularterburn.com/even-more-gestures/</link>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.1/Even-More-Gestures-0.2.1.zip" length="3417596" type="application/octet-stream" sparkle:edSignature="P1hoD9XodO8z1HnQGEKgGtSjvCWjypC1bXoN3tASxz7mGS5YubA3JEWEwtKbuyXjO/g0SZym6h3y+wMe1Of+AA=="/>
+        </item>
+        <item>
             <title>0.2.0</title>
             <pubDate>Mon, 21 Sep 2026 10:12:01 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>

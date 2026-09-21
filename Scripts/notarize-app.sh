@@ -46,6 +46,6 @@ spctl --assess --type execute --verbose=4 "$APP"
 
 # Package the stapled app for distribution; the upload archive is not a release.
 ditto -c -k --keepParent --sequesterRsrc "$APP" "$ARCHIVE"
-rm "$UPLOAD_ARCHIVE"
+rm -f "$UPLOAD_ARCHIVE"
 echo "Notarized app: $APP"
 echo "Distribution archive: $ARCHIVE"
