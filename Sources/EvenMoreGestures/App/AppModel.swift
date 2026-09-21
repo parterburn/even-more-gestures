@@ -31,7 +31,6 @@ struct InstalledApp: Identifiable {
     @Published var practiceIndex = 0
     @Published var practiceClosed: String?
     @Published var issue: String?
-    @Published var menuDump: String?
     @Published var preview: PreviewGesture = .rotate
     @Published var rotateEnabled: Bool { didSet { save(rotateEnabled, "rotate"); input.resetGestureSessions() } }
     @Published var pinchEnabled: Bool { didSet { save(pinchEnabled, "pinch"); input.resetGestureSessions() } }
@@ -233,9 +232,5 @@ struct InstalledApp: Identifiable {
         default: break
         }
         lastEvent = "Recognized: \(event.rawValue)"
-    }
-    func inspectMenu(_ app: InstalledApp) {
-        guard let running = NSRunningApplication.runningApplications(withBundleIdentifier: app.id).first else { issue = "Open \(app.name) first, then inspect its menu."; return }
-        executor.dumpMenu(pid: running.processIdentifier) { [weak self] text in self?.menuDump = text }
     }
 }

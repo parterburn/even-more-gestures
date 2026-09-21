@@ -97,16 +97,6 @@ public final class ActionExecutor {
             DispatchQueue.main.async { completion(succeeded) }
         }
     }
-    public func dumpMenu(pid: pid_t, completion: @escaping (String) -> Void) {
-        queue.async {
-            let app = AXUIElementCreateApplication(pid); AXUIElementSetMessagingTimeout(app, 0.25)
-            guard let menu = self.value(app, kAXMenuBarAttribute) else { DispatchQueue.main.async { completion("Menu unavailable. Grant Accessibility and launch the app first.") }; return }
-            var lines: [String] = []; var budget = 700
-            self.dump(menu as! AXUIElement, path: [], depth: 0, budget: &budget, lines: &lines)
-            let result = lines.joined(separator: "\n")
-            DispatchQueue.main.async { completion(result) }
-        }
-    }
     private func value(_ element: AXUIElement, _ attribute: String) -> CFTypeRef? {
         var result: CFTypeRef?
         return AXUIElementCopyAttributeValue(element, attribute as CFString, &result) == .success ? result : nil
@@ -129,16 +119,5 @@ public final class ActionExecutor {
         down.flags = flags; up.flags = flags
         down.postToPid(pid); up.postToPid(pid)
         return true
-    }
-    private func dump(_ element: AXUIElement, path: [String], depth: Int, budget: inout Int, lines: inout [String]) {
-        guard depth < 8, budget > 0 else { return }; budget -= 1
-        let title = value(element, kAXTitleAttribute) as? String ?? ""
-        let next = title.isEmpty ? path : path + [title]
-        if !title.isEmpty {
-            let key = value(element, kAXMenuItemCmdCharAttribute) as? String ?? ""
-            let modifiers = value(element, kAXMenuItemCmdModifiersAttribute) as? Int ?? 0
-            lines.append(next.joined(separator: " › ") + (key.isEmpty ? "" : " [\(key), AX modifiers \(modifiers)]"))
-        }
-        for child in children(element) { dump(child, path: next, depth: depth+1, budget: &budget, lines: &lines) }
     }
 }

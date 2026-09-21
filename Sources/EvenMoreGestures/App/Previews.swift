@@ -52,6 +52,9 @@ struct ActionGestureCue: View {
                     let clockwise = action == .nextTab
                     let start = clockwise ? -2.30 : 0.84
                     let end = clockwise ? 0.84 : -2.30
+                    var guide = Path()
+                    guide.addArc(center: center, radius: 13, startAngle: .radians(start), endAngle: .radians(end), clockwise: !clockwise)
+                    context.stroke(guide, with: .color(.accentColor.opacity(0.16)), style: StrokeStyle(lineWidth: 2.2, lineCap: .round))
                     var arc = Path()
                     arc.addArc(center: center, radius: 13, startAngle: .radians(start), endAngle: .radians(start + (end - start) * progress), clockwise: !clockwise)
                     context.stroke(arc, with: .color(.accentColor), style: StrokeStyle(lineWidth: 2.2, lineCap: .round))
@@ -64,10 +67,14 @@ struct ActionGestureCue: View {
                     }
                 case .closeTab, .newTab, .reopenClosedTab:
                     let spreading = action != .closeTab
-                    let distance = spreading ? 5 + progress * 9 : 14 - progress * 9
+                    let startDistance = spreading ? 5.0 : 14.0
+                    let distance = spreading ? startDistance + progress * 9 : startDistance - progress * 9
                     for index in 0..<pinchFingerCount {
                         let angle = Double(index) * (2 * .pi / Double(pinchFingerCount)) - .pi / 2
+                        let start = CGPoint(x: center.x + cos(angle) * startDistance, y: center.y + sin(angle) * startDistance)
                         let point = CGPoint(x: center.x + cos(angle) * distance, y: center.y + sin(angle) * distance)
+                        var trail = Path(); trail.move(to: start); trail.addLine(to: point)
+                        context.stroke(trail, with: .color(.accentColor.opacity(0.38)), style: StrokeStyle(lineWidth: 1.7, lineCap: .round))
                         context.fill(Path(ellipseIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)), with: .color(.accentColor))
                         context.stroke(Path(ellipseIn: CGRect(x: point.x - 4, y: point.y - 4, width: 8, height: 8)), with: .color(.white.opacity(0.65)), lineWidth: 0.7)
                     }
@@ -77,7 +84,10 @@ struct ActionGestureCue: View {
                     let arrow = left ? "‹" : "›"
                     context.draw(Text(arrow).font(.system(size: 27, weight: .medium)).foregroundStyle(Color.accentColor), at: CGPoint(x: center.x + (left ? -11 : 11), y: center.y - 1))
                     for index in 0..<4 {
-                        let point = CGPoint(x: center.x + CGFloat(index - 1) * 5 + offset, y: center.y + CGFloat(abs(index - 1)) * 1.8)
+                        let start = CGPoint(x: center.x + CGFloat(index - 1) * 5, y: center.y + CGFloat(abs(index - 1)) * 1.8)
+                        let point = CGPoint(x: start.x + offset, y: start.y)
+                        var trail = Path(); trail.move(to: start); trail.addLine(to: point)
+                        context.stroke(trail, with: .color(.accentColor.opacity(0.38)), style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
                         context.fill(Path(ellipseIn: CGRect(x: point.x - 3, y: point.y - 3, width: 6, height: 6)), with: .color(.primary.opacity(0.8)))
                     }
                 }
@@ -114,14 +124,30 @@ struct GesturePreview: View {
                         case .rotate:
                             let angle = -0.6 + progress*1.65
                             for sign in [-1.0,1.0] { points.append(CGPoint(x:cx+sign*cos(angle)*scale*0.20,y:cy+sign*sin(angle)*scale*0.20)) }
+                            var guide = Path(); guide.addArc(center: CGPoint(x:cx,y:cy), radius: scale*0.2, startAngle:.radians(-0.6),endAngle:.radians(1.05),clockwise:false)
+                            ctx.stroke(guide,with:.color(.accentColor.opacity(0.13)),style:StrokeStyle(lineWidth:3,lineCap:.round))
                             var arc = Path(); arc.addArc(center: CGPoint(x:cx,y:cy), radius: scale*0.2, startAngle:.radians(-0.6),endAngle:.radians(angle),clockwise:false)
-                            ctx.stroke(arc,with:.color(.accentColor.opacity(0.3)),style:StrokeStyle(lineWidth:3,lineCap:.round))
+                            ctx.stroke(arc,with:.color(.accentColor.opacity(0.5)),style:StrokeStyle(lineWidth:3,lineCap:.round))
                         case .pinch, .spread:
+                            let startRadius = scale*(gesture == .pinch ? 0.28 : 0.12)
                             let radius = scale*(gesture == .pinch ? 0.28-progress*0.15 : 0.12+progress*0.17)
-                            for i in 0..<pinchFingerCount { let a = Double(i)*2*Double.pi/Double(pinchFingerCount)-Double.pi/2; points.append(CGPoint(x:cx+cos(a)*radius,y:cy+sin(a)*radius)) }
+                            for i in 0..<pinchFingerCount {
+                                let a = Double(i)*2*Double.pi/Double(pinchFingerCount)-Double.pi/2
+                                let start = CGPoint(x:cx+cos(a)*startRadius,y:cy+sin(a)*startRadius)
+                                let point = CGPoint(x:cx+cos(a)*radius,y:cy+sin(a)*radius)
+                                var trail = Path(); trail.move(to:start); trail.addLine(to:point)
+                                ctx.stroke(trail,with:.color(.accentColor.opacity(0.38)),style:StrokeStyle(lineWidth:3,lineCap:.round))
+                                points.append(point)
+                            }
                         case .left, .right:
                             let offset = (progress-0.5)*scale*0.45*(gesture == .left ? -1 : 1)
-                            for i in 0..<4 { points.append(CGPoint(x:cx+Double(i-2)*19+9+offset,y:cy+Double(abs(i-1))*4)) }
+                            for i in 0..<4 {
+                                let start = CGPoint(x:cx+Double(i-2)*19+9,y:cy+Double(abs(i-1))*4)
+                                let point = CGPoint(x:start.x+offset,y:start.y)
+                                var trail = Path(); trail.move(to:start); trail.addLine(to:point)
+                                ctx.stroke(trail,with:.color(.accentColor.opacity(0.38)),style:StrokeStyle(lineWidth:3,lineCap:.round))
+                                points.append(point)
+                            }
                         }
                         for point in points {
                             ctx.fill(Path(ellipseIn:CGRect(x:point.x-13,y:point.y-13,width:26,height:26)),with:.color(.accentColor.opacity(0.12)))

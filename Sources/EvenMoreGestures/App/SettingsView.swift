@@ -20,12 +20,6 @@ struct SettingsView: View {
                     Text("A little more at your fingertips.").font(.system(size:12)).foregroundStyle(.secondary)
                 }
                 Spacer()
-                if model.permission || model.paused {
-                    HStack(spacing:6) {
-                        Circle().fill(model.paused ? .orange : .green).frame(width:6,height:6)
-                        Text(model.paused ? "Paused" : "Ready").font(.system(size:11,weight:.medium))
-                    }.padding(.horizontal,11).padding(.vertical,7).background(.quaternary,in:Capsule())
-                }
             }.padding(.horizontal,28).padding(.top,25).padding(.bottom,20)
             if !model.permission { permissionBanner.padding(.horizontal,28).padding(.bottom,20) }
             Picker("Settings",selection:$tab) { ForEach(tabs,id:\.self) { Text($0) } }.pickerStyle(.segmented).labelsHidden().frame(width:306).padding(.bottom,20)
@@ -63,13 +57,6 @@ struct SettingsView: View {
         }
         .sheet(item:$editing) { selection in ShortcutEditor(model:model,selection:selection) }
         .sheet(isPresented:$showingAccessibilityHelp) { accessibilityHelp }
-        .sheet(isPresented:Binding(get:{ model.menuDump != nil },set:{ if !$0 { model.menuDump = nil } })) {
-            VStack(alignment:.leading,spacing:16) {
-                Text("Discovered menu commands").font(.headline)
-                ScrollView { Text(model.menuDump ?? "").font(.system(.caption,design:.monospaced)).textSelection(.enabled).frame(maxWidth:.infinity,alignment:.leading) }
-                Button("Done") { model.menuDump = nil }.keyboardShortcut(.defaultAction)
-            }.padding(24).frame(width:620,height:440)
-        }
         .alert("Even More Gestures",isPresented:Binding(get:{model.issue != nil},set:{if !$0 {model.issue = nil}})) { Button("OK") { model.issue = nil } } message: { Text(model.issue ?? "") }
     }
     private var permissionBanner: some View {
@@ -197,11 +184,6 @@ struct SettingsView: View {
                                         Button("Custom shortcut…") { editing = ShortcutSelection(app:app,action:action) }
                                     } label: { Text(modeLabel(mode)).frame(width:80,alignment:.trailing) }.menuStyle(.borderlessButton).fixedSize()
                                 }
-                            }
-                            Divider()
-                            HStack {
-                                Text("Changes are saved automatically.").font(.system(size:10)).foregroundStyle(.secondary)
-                                Spacer(); Button("Inspect menu…") { model.inspectMenu(app) }.font(.system(size:10))
                             }
                         }.padding(16)
                     }
