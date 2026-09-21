@@ -236,7 +236,10 @@ struct SettingsView: View {
             VStack(alignment:.leading,spacing:9) {
                 Text("Even More Gestures \(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "")").fontWeight(.medium)
                 Text("App updates download securely in the background. Gesture defaults refresh daily so supported apps can stay current. Your custom shortcuts always take priority.").foregroundStyle(.secondary)
-                Button("Show setup again") { model.showOnboarding = true }
+                HStack(spacing:10) {
+                    Button("Show setup again") { model.showOnboarding = true }
+                    Button("Check for Updates…") { model.checkForUpdates() }
+                }
             }.font(.system(size:12)).padding(16).frame(maxWidth:.infinity,alignment:.leading).card()
         }
     }

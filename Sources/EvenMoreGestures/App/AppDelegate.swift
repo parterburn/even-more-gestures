@@ -28,6 +28,7 @@ struct Main {
         model.onMenuVisibility = { [weak self] shown in self?.setStatusVisible(shown) }
         model.onStatusChange = { [weak self] in self?.updateIcon() }
         model.onHUD = { [weak self] text in self?.showHUD(text) }
+        model.onCheckForUpdates = { [weak self] in self?.updaterController.checkForUpdates(nil) }
         setStatusVisible(model.showMenuIcon)
         let mainMenu = NSMenu()
         let appMenuItem = NSMenuItem()

@@ -47,6 +47,7 @@ struct InstalledApp: Identifiable {
     var onMenuVisibility: ((Bool) -> Void)?
     var onStatusChange: (() -> Void)?
     var onHUD: ((String) -> Void)?
+    var onCheckForUpdates: (() -> Void)?
     private var undo = UndoWindow()
     private var pause = PauseState()
     private var pauseTimer: DispatchWorkItem?
@@ -124,6 +125,7 @@ struct InstalledApp: Identifiable {
         _ = AXIsProcessTrustedWithOptions(options)
         NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
     }
+    func checkForUpdates() { onCheckForUpdates?() }
     func openInputMonitoring() { NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent")!) }
     func setLogin(_ value: Bool) {
         do {
