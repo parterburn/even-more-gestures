@@ -152,7 +152,7 @@ struct SettingsView: View {
                 Divider().padding(.leading,50)
                 gestureRow("Pinch and spread with \(model.pinchFingerCount) fingers",subtitle:"Defaults to closing or opening tabs in enabled apps",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
                 Divider().padding(.leading,50)
-                gestureRow("Spread out to undo",subtitle:"Defaults to reopening a recently closed tab",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
+                gestureRow("Spread out to reopen or open a tab",subtitle:"Defaults to reopening a recently closed tab, or opening a new tab",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
                 Divider().padding(.leading,50)
                 gestureRow("Swipe left with four fingers",subtitle:"Defaults to showing or hiding the left sidebar in selected apps",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
                 Divider().padding(.leading,50)
