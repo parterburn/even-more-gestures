@@ -3,18 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.2</title>
-            <pubDate>Mon, 21 Sep 2026 13:20:26 -0600</pubDate>
+            <title>0.2.3</title>
+            <pubDate>Mon, 21 Sep 2026 13:29:19 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>5</sparkle:version>
-            <sparkle:shortVersionString>0.2.2</sparkle:shortVersionString>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>0.2.3</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## Accessibility setup recovery
+            <description sparkle:format="markdown"><![CDATA[## Gesture cues in Apps
 
-Even More Gestures now keeps checking for Accessibility permission while System Settings is open, then starts listening for gestures as soon as macOS confirms access.
+Each app action now has an animated visual cue and a plain-language gesture label, so it is clear which physical gesture triggers each tab or sidebar action.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.2/Even-More-Gestures-0.2.2.zip" length="3418449" type="application/octet-stream" sparkle:edSignature="B13L5MJ5CpCYNqehuFid/723CRvtyNf7FOhQm5LMMrTvQZFEM7/rlUULV6OWJtp5uJ6iHUXJy/aBCORfDp/uCQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.3/Even-More-Gestures-0.2.3.zip" length="3423927" type="application/octet-stream" sparkle:edSignature="6LZv9vmdqMCOSTM3JANJPcHcV9z7wjRufr3wXwY7ehONSlEbxeUVArnOLsTNLBnlua//ywssFa7DbkCgs7nuDQ=="/>
         </item>
     </channel>
 </rss>
