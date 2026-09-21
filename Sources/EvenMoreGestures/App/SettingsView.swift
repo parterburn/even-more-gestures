@@ -183,8 +183,7 @@ struct SettingsView: View {
                                 HStack(spacing:12) {
                                     ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible)
                                     VStack(alignment:.leading,spacing:3) {
-                                        Text(action.title).font(.system(size:12,weight:.medium))
-                                        Text(action.gestureInstruction(pinchFingerCount:model.pinchFingerCount)).font(.system(size:10)).foregroundStyle(.secondary)
+                                        Text(action.gestureName).font(.system(size:12,weight:.medium))
                                         Text(actionDescription(action,app:app)).font(.system(size:10)).foregroundStyle(.secondary)
                                     }
                                     Spacer()
@@ -213,11 +212,15 @@ struct SettingsView: View {
     }
     private func actionDescription(_ action: GestureAction, app: InstalledApp) -> String {
         switch model.store.overrideMode(action: action, bundleIdentifier: app.id) {
-        case .useDefault: return defaultDescription(action, app: app)
+        case .useDefault:
+            let detail = defaultDescription(action, app: app)
+            return detail == "Off by default" ? detail : "\(action.title) · \(detail)"
         case .off: return "Off"
-        case .custom(let shortcut):
-            return shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
+        case .custom(let shortcut): return formattedShortcut(shortcut)
         }
+    }
+    private func formattedShortcut(_ shortcut: String) -> String {
+        shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
     }
     private func modeLabel(_ mode: ActionOverride) -> String { switch mode {case .useDefault:return "Default";case .off:return "Off";case .custom:return "Custom"} }
     private var generalView: some View {

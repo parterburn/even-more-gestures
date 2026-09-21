@@ -12,14 +12,21 @@ enum PreviewGesture: String, CaseIterable {
 }
 
 extension GestureAction {
+    var gestureName: String {
+        switch self {
+        case .nextTab: return "Rotate right"
+        case .previousTab: return "Rotate left"
+        case .closeTab: return "Pinch in"
+        case .newTab, .reopenClosedTab: return "Spread out"
+        case .toggleLeftSidebar: return "Swipe left"
+        case .toggleRightSidebar: return "Swipe right"
+        }
+    }
     func gestureInstruction(pinchFingerCount: Int = 3) -> String {
         switch self {
-        case .nextTab: return "Rotate right · two fingers"
-        case .previousTab: return "Rotate left · two fingers"
-        case .closeTab: return "Pinch in · \(pinchFingerCount) fingers"
-        case .newTab, .reopenClosedTab: return "Spread out · \(pinchFingerCount) fingers"
-        case .toggleLeftSidebar: return "Swipe left · four fingers"
-        case .toggleRightSidebar: return "Swipe right · four fingers"
+        case .nextTab, .previousTab: return "\(gestureName) · two fingers"
+        case .closeTab, .newTab, .reopenClosedTab: return "\(gestureName) · \(pinchFingerCount) fingers"
+        case .toggleLeftSidebar, .toggleRightSidebar: return "\(gestureName) · four fingers"
         }
     }
 }
