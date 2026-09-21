@@ -20,12 +20,6 @@ struct SettingsView: View {
                     Text("A little more at your fingertips.").font(.system(size:12)).foregroundStyle(.secondary)
                 }
                 Spacer()
-                if model.paused {
-                    HStack(spacing:6) {
-                        Circle().fill(.orange).frame(width:6,height:6)
-                        Text(pauseStatus).font(.system(size:11,weight:.medium)).monospacedDigit()
-                    }.padding(.horizontal,11).padding(.vertical,7).background(.quaternary,in:Capsule())
-                }
             }.padding(.horizontal,28).padding(.top,25).padding(.bottom,20)
             if !model.permission { permissionBanner.padding(.horizontal,28).padding(.bottom,20) }
             Picker("Settings",selection:$tab) { ForEach(tabs,id:\.self) { Text($0) } }.pickerStyle(.segmented).labelsHidden().frame(width:306).padding(.bottom,20)
@@ -44,7 +38,13 @@ struct SettingsView: View {
                 }
                 Divider()
                 HStack {
-                    Text(model.input.status).font(.system(size:10)).foregroundStyle(.secondary)
+                    Button(action: performFooterStatusAction) {
+                        HStack(spacing:6) {
+                            Image(systemName: footerStatus.symbol).font(.system(size:10,weight:.semibold))
+                            Circle().fill(footerStatus.color).frame(width:6,height:6)
+                            Text(footerStatus.title).font(.system(size:10,weight:.medium)).monospacedDigit()
+                        }.foregroundStyle(footerStatus.color)
+                    }.buttonStyle(.plain).help(footerStatus.help)
                     Spacer()
                     Button(model.practice ? "End practice" : "Try the gestures") { model.practice.toggle() }.buttonStyle(.link).font(.system(size:11))
                 }.padding(.horizontal,26).padding(.vertical,12)
@@ -105,6 +105,40 @@ struct SettingsView: View {
         guard let remaining = model.pauseRemaining else { return "Paused" }
         let seconds = max(0, Int(remaining.rounded(.up)))
         return String(format: "Paused · %d:%02d", seconds / 60, seconds % 60)
+    }
+    private enum FooterStatusAction { case accessibility, general, reconnect }
+    private struct FooterStatus {
+        let title: String
+        let symbol: String
+        let color: Color
+        let help: String
+        let action: FooterStatusAction
+    }
+    private var footerStatus: FooterStatus {
+        if !model.permission {
+            return .init(title:"Accessibility needed", symbol:"hand.raised.fill", color:.blue, help:"Open Accessibility settings", action:.accessibility)
+        }
+        if model.paused {
+            return .init(title:pauseStatus, symbol:"pause.fill", color:.orange, help:"Open General settings to resume gestures", action:.general)
+        }
+        if let error = model.store.error {
+            return .init(title:"Settings need attention", symbol:"exclamationmark.triangle.fill", color:.orange, help:error, action:.general)
+        }
+        if !model.input.isRunning {
+            return .init(title:"Trackpad needs reconnecting", symbol:"trackpad", color:.orange, help:model.input.status, action:.reconnect)
+        }
+        return .init(title:"Gestures active", symbol:"checkmark.circle.fill", color:.green, help:"Open General settings", action:.general)
+    }
+    private func performFooterStatusAction() {
+        switch footerStatus.action {
+        case .accessibility:
+            model.requestPermission()
+        case .general:
+            tab = "General"
+        case .reconnect:
+            tab = "General"
+            model.input.start()
+        }
     }
     private var gesturesView: some View {
         VStack(spacing:18) {
