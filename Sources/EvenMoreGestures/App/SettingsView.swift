@@ -235,11 +235,15 @@ struct SettingsView: View {
                         VStack(spacing:12) {
                             ForEach(GestureAction.allCases) { action in
                                 let globallyEnabled = model.isGestureEnabled(action)
+                                let appEnabled = model.store.isEnabled(bundleIdentifier: app.id)
+                                let actionEnabled = appEnabled && globallyEnabled
                                 HStack(spacing:12) {
                                     ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible,inverted:model.invert)
                                     VStack(alignment:.leading,spacing:3) {
                                         Text(action.gestureName(inverted:model.invert)).font(.system(size:12,weight:.medium))
-                                        if globallyEnabled {
+                                        if !appEnabled {
+                                            Text("Disabled for this app").font(.system(size:12)).foregroundStyle(.secondary)
+                                        } else if globallyEnabled {
                                             actionDescriptionView(action, app: app)
                                         } else {
                                             Text("Disabled in Gestures").font(.system(size:12)).foregroundStyle(.secondary)
@@ -252,7 +256,7 @@ struct SettingsView: View {
                                         Button("Off") { model.store.setOverride(.off,action:action,bundleIdentifier:app.id) }
                                         Button("Custom shortcut…") { editing = ShortcutSelection(app:app,action:action) }
                                     } label: { Text(modeLabel(mode)).frame(width:80,alignment:.trailing) }.menuStyle(.borderlessButton).fixedSize()
-                                }.opacity(globallyEnabled ? 1 : 0.45).disabled(!globallyEnabled)
+                                }.opacity(actionEnabled ? 1 : 0.45).disabled(!actionEnabled)
                             }
                         }.padding(16)
                     }
