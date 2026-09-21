@@ -89,6 +89,15 @@ struct InstalledApp: Identifiable {
         })
         observations.append(center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification, object: nil, queue: .main) { [weak self] _ in MainActor.assumeIsolated { self?.executor.invalidate() } })
         refresh()
+        // System Settings can grant Accessibility while this app is inactive. Keep
+        // checking until it is available instead of relying on the settings window
+        // to remain alive or become active again.
+        Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
+            Task { @MainActor in
+                guard let self, !self.permission else { return }
+                self.refreshPermission()
+            }
+        }.store(in: &subscriptions)
         Task { await store.refreshDefaultsIfNeeded() }
         Timer.publish(every: 3600, on: .main, in: .common).autoconnect().sink { [weak self] _ in
             Task { @MainActor in await self?.store.refreshDefaultsIfNeeded() }
@@ -97,7 +106,13 @@ struct InstalledApp: Identifiable {
     private func save(_ value: Bool, _ key: String) { UserDefaults.standard.set(value, forKey: key) }
     func refreshPermission() {
         let current = AXIsProcessTrusted()
-        if current != permission { permission = current; current ? input.start() : input.stop(); onStatusChange?() }
+        guard current != permission else {
+            if current && !input.isRunning { input.start() }
+            return
+        }
+        permission = current
+        current ? input.start() : input.stop()
+        onStatusChange?()
     }
     func refresh() {
         refreshPermission()
