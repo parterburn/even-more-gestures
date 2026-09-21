@@ -47,8 +47,8 @@ public typealias ActionPlan = PresetAction
     private let file: URL
     private let cacheFile: URL
     private var currentRevision = 0
-    private let feedURL = URL(string: "https://parterburn.github.io/even-more-gestures/defaults/stable.json")!
-    private let signatureURL = URL(string: "https://parterburn.github.io/even-more-gestures/defaults/stable.sig")!
+    private let feedURL = URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.json")!
+    private let signatureURL = URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.sig")!
     public init(file: URL? = nil) {
         self.file = file ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Even More Gestures/overrides.json")

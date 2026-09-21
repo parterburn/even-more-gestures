@@ -30,7 +30,7 @@ Even More Gestures needs Accessibility permission to activate the commands in yo
 
 The app uses [Sparkle](https://sparkle-project.org/) for signed, automatic app updates. It also checks this repository’s signed [defaults feed](docs/defaults/stable.json) at most once per day, with the bundled defaults and the last verified local copy as fallbacks. The feed can update app shortcuts without replacing the app. No accounts, license checks, analytics, or behavioural telemetry are used.
 
-The public update channel lives at `https://parterburn.github.io/even-more-gestures/appcast.xml`. Releases must be Developer ID-signed, notarized, and signed with the Sparkle update key before they are added to that feed.
+The public update channel lives in the repository at `https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/appcast.xml`. Releases must be Developer ID-signed, notarized, and signed with the Sparkle update key before they are added to that feed.
 
 ## Pay what feels fair
 

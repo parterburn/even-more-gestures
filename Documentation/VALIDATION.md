@@ -24,7 +24,7 @@
 ## Distribution status
 
 - A previous Developer ID-signed build was accepted by Apple’s Notary service. This new `0.2.0` build includes Sparkle and must be submitted, stapled, and independently Gatekeeper-checked before it is released.
-- The repository includes the GitHub Pages source for the public appcast and signed defaults feed. The appcast intentionally has no enclosure until the notarized ZIP is available.
+- The repository includes a public appcast and signed defaults feed. The app reads those exact files over GitHub's raw HTTPS content service; GitHub Pages is an optional human-readable mirror.
 - The Gumroad product copy and exact image files are in `Documentation/GUMROAD.md`. Its listing and final product URL have not been created from this repository.
 
 ## Limits needing real-device validation

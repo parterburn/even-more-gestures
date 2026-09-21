@@ -37,7 +37,7 @@ Release prepared.
 1. Create GitHub release v$VERSION and upload:
    $ARCHIVE
 2. Commit and push docs/appcast.xml.
-3. Check https://parterburn.github.io/even-more-gestures/appcast.xml.
+3. Check https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/appcast.xml.
 
 The appcast references the GitHub release asset and carries the Sparkle signature.
 EOF

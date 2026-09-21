@@ -28,7 +28,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleShortVersionString</key><string>0.2.0</string>
 <key>CFBundleVersion</key><string>3</string>
 <key>CFBundleIconFile</key><string>AppIcon</string>
-<key>SUFeedURL</key><string>https://parterburn.github.io/even-more-gestures/appcast.xml</string>
+<key>SUFeedURL</key><string>https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/appcast.xml</string>
 <key>SUPublicEDKey</key><string>RoSrowPtFb/PhBMWEDZC1VrMl2hIedfWpqBVSL5XwIE=</string>
 <key>SUEnableAutomaticChecks</key><true/>
 <key>LSMinimumSystemVersion</key><string>14.0</string>

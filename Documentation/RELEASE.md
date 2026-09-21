@@ -12,6 +12,6 @@
 
 4. Create GitHub release `v0.2.0`, then upload the ZIP from `build/release/`.
 5. Commit and push the generated `docs/appcast.xml`.
-6. Wait for GitHub Pages and verify the published appcast plus the release-asset URL. Use the app’s “Check for Updates…” item from an older build to test the full path.
+6. Verify the public raw GitHub appcast plus the release-asset URL. Use the app’s “Check for Updates…” item from an older build to test the full path.
 
 Do not commit the Sparkle private key, an Apple app-specific password, a Notary credential, or a stapled ZIP. Every release archive gets its own Sparkle signature, so altering or recompressing it after appcast generation invalidates the update.
