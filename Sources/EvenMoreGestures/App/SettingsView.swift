@@ -227,7 +227,11 @@ struct SettingsView: View {
                                     ActionGestureCue(action:action,pinchFingerCount:model.pinchFingerCount,isActive:model.settingsVisible,inverted:model.invert)
                                     VStack(alignment:.leading,spacing:3) {
                                         Text(action.gestureName(inverted:model.invert)).font(.system(size:12,weight:.medium))
-                                        Text(globallyEnabled ? actionDescription(action,app:app) : "Disabled in Gestures").font(.system(size:10)).foregroundStyle(.secondary)
+                                        if globallyEnabled {
+                                            actionDescriptionView(action, app: app)
+                                        } else {
+                                            Text("Disabled in Gestures").font(.system(size:12)).foregroundStyle(.secondary)
+                                        }
                                     }
                                     Spacer()
                                     let mode = model.store.overrideMode(action:action,bundleIdentifier:app.id)
@@ -278,21 +282,34 @@ struct SettingsView: View {
             return true
         }
     }
-    private func defaultDescription(_ action: GestureAction, app: InstalledApp) -> String {
-        guard let plan = model.store.plan(action:action,bundleIdentifier:app.id) else { return "Off by default" }
-        if let shortcut = plan.shortcut {
-            return shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
-        }
-        return plan.menuPaths.first?.joined(separator:" › ") ?? "No action"
-    }
-    private func actionDescription(_ action: GestureAction, app: InstalledApp) -> String {
+    @ViewBuilder
+    private func actionDescriptionView(_ action: GestureAction, app: InstalledApp) -> some View {
         switch model.store.overrideMode(action: action, bundleIdentifier: app.id) {
         case .useDefault:
-            let detail = defaultDescription(action, app: app)
-            return detail == "Off by default" ? detail : "\(action.title) · \(detail)"
-        case .off: return "Off"
-        case .custom(let shortcut): return formattedShortcut(shortcut)
+            if let plan = model.store.plan(action: action, bundleIdentifier: app.id) {
+                if let shortcut = plan.shortcut {
+                    defaultActionDescription(formattedShortcut(shortcut), action: action)
+                } else if let menuPath = plan.menuPaths.first?.joined(separator: " › ") {
+                    defaultActionDescription(menuPath, action: action)
+                } else {
+                    Text("No action").font(.system(size:12)).foregroundStyle(.secondary)
+                }
+            } else {
+                Text("Off by default").font(.system(size:12)).foregroundStyle(.secondary)
+            }
+        case .off:
+            Text("Off").font(.system(size:12)).foregroundStyle(.secondary)
+        case .custom(let shortcut):
+            Text(formattedShortcut(shortcut)).font(.system(size:12)).foregroundStyle(.primary.opacity(0.72))
         }
+    }
+    private func defaultActionDescription(_ shortcutOrMenu: String, action: GestureAction) -> some View {
+        HStack(spacing:4) {
+            Text(shortcutOrMenu).foregroundStyle(.primary.opacity(0.72))
+            Text("(\(action.title.lowercased()))").foregroundStyle(.secondary)
+        }
+        .font(.system(size:12))
+        .lineLimit(1)
     }
     private func formattedShortcut(_ shortcut: String) -> String {
         shortcut.replacingOccurrences(of:"cmd+",with:"⌘").replacingOccurrences(of:"ctrl+",with:"⌃").replacingOccurrences(of:"alt+",with:"⌥").replacingOccurrences(of:"shift+",with:"⇧").uppercased()
