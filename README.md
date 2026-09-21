@@ -4,7 +4,7 @@ Natural trackpad gestures for tabs and sidebars in the Mac apps you already use.
 
 [Download the latest release](https://github.com/parterburn/even-more-gestures/releases/latest) · [Product page](https://paularterburn.com/even-more-gestures/) · [Release notes](https://github.com/parterburn/even-more-gestures/releases)
 
-> The first public release is being prepared. The link above will always point to the newest notarized ZIP.
+> Download the latest notarized release for macOS. The link above always points to the newest ZIP.
 
 ![Even More Gestures setup and gestures screen](docs/images/cover-1.png)
 
@@ -34,7 +34,7 @@ The public update channel lives in the repository at `https://raw.githubusercont
 
 ## Pay what feels fair
 
-Even More Gestures is donateware. Gumroad collects payment with a fair-price input, but the app has no license key, activation, support queue, or paid-feature gate. The Gumroad listing copy and its three real app screenshots plus square thumbnail are in [Documentation/GUMROAD.md](Documentation/GUMROAD.md).
+Even More Gestures is donateware. Gumroad collects payment with a fair-price input, but the app has no license key, activation, support queue, or paid-feature gate. The live [Gumroad page](https://dabbleme.gumroad.com/l/even-more-gestures) and its self-contained source in [landing.html](landing.html) use the three real app screenshots and square thumbnail described in [Documentation/GUMROAD.md](Documentation/GUMROAD.md).
 
 ## Build from source
 

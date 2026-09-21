@@ -40,4 +40,8 @@ Upload these exact files to Gumroad:
 | Cover 3 | `Assets/Gumroad/cover-3.png` | 1280 × 720 |
 | Thumbnail | `Assets/Gumroad/thumbnail.png` | 600 × 600 |
 
-All four are real screenshots of the current app build. The Gumroad product URL is deliberately not embedded until its final slug exists.
+All four are real screenshots of the current app build.
+
+## Live product page
+
+The product page is live at [dabbleme.gumroad.com/l/even-more-gestures](https://dabbleme.gumroad.com/l/even-more-gestures). Its self-contained source is [landing.html](../landing.html), which uses Gumroad-hosted versions of the three cover screenshots and posts the buyer's chosen fair price into Gumroad checkout.
