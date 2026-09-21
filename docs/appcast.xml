@@ -3,18 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.6</title>
-            <pubDate>Mon, 21 Sep 2026 13:38:38 -0600</pubDate>
+            <title>0.2.7</title>
+            <pubDate>Mon, 21 Sep 2026 13:40:54 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>9</sparkle:version>
-            <sparkle:shortVersionString>0.2.6</sparkle:shortVersionString>
+            <sparkle:version>10</sparkle:version>
+            <sparkle:shortVersionString>0.2.7</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## Pause status when it matters
+            <description sparkle:format="markdown"><![CDATA[## Gesture-first app actions
 
-The header stays clean while gestures are active. When paused, it now shows a status badge and a live countdown for one-hour pauses.
+App settings now lead with the physical gesture. Defaults show their action name and shortcut, while custom overrides show only the selected shortcut.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.6/Even-More-Gestures-0.2.6.zip" length="3417892" type="application/octet-stream" sparkle:edSignature="gBRheAFsG3yTOsOyHXE4emw2JmrBSQ6G6+T/A1IcweIz0wRLJ3f14mbawnEw3As3HneoT9YLVi7Q6Ck9FeWdCQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.7/Even-More-Gestures-0.2.7.zip" length="3417445" type="application/octet-stream" sparkle:edSignature="mWL3U2gA5KKBagPQyaiXknPXFKctFtw38KyZjdYi8F1Mf2MVdkRtJZrhCGBvgCBxm0O4A1v0qLz8i03pKN46DQ=="/>
         </item>
     </channel>
 </rss>
