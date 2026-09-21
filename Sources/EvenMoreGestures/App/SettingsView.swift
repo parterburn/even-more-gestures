@@ -243,7 +243,10 @@ struct SettingsView: View {
                 }.card()
             }
             if model.apps.isEmpty { ContentUnavailableView("Add your first app",systemImage:"app.badge",description:Text("Choose an app and assign a shortcut to any gesture.")) }
-            else if filteredApps.isEmpty { ContentUnavailableView("No apps found",systemImage:"magnifyingglass",description:Text("Try a different search or filter.")) }
+            else if filteredApps.isEmpty {
+                ContentUnavailableView("No apps found",systemImage:"magnifyingglass",description:Text("Try a different search or filter."))
+                    .frame(maxWidth:.infinity,minHeight:240)
+            }
             Text("Terminal close gestures and rotation in image apps are off by default. Default actions follow app menus when available.").font(.caption).foregroundStyle(.secondary)
         }
     }
