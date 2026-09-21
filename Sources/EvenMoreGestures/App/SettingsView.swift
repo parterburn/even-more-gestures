@@ -3,9 +3,14 @@ import GestureCore
 import GestureKit
 
 struct SettingsView: View {
+    private enum AppFilter: String, CaseIterable, Identifiable {
+        case all = "All", presets = "Presets", custom = "Custom", overrides = "With Overrides"
+        var id: String { rawValue }
+    }
     @ObservedObject var model: AppModel
     @State private var tab = "Gestures"
     @State private var search = ""
+    @State private var appFilter: AppFilter = .all
     @State private var expanded: String?
     @State private var editing: ShortcutSelection?
     @State private var isVisible = false
@@ -191,12 +196,16 @@ struct SettingsView: View {
     private var appsView: some View {
         VStack(alignment:.leading,spacing:16) {
             HStack {
-                VStack(alignment:.leading,spacing:5) { Text("Already set up.").font(.title2.weight(.semibold)); Text("\(model.apps.count) installed apps • \(Set(model.store.presets.map(\.name)).count) app presets").font(.caption).foregroundStyle(.secondary) }
+                VStack(alignment:.leading,spacing:5) { Text("Already set up.").font(.title2.weight(.semibold)); Text(appSummary).font(.caption).foregroundStyle(.secondary) }
                 Spacer()
                 Button { model.addApp() } label:{ Label("Add App",systemImage:"plus") }
             }
-            TextField("Search your apps",text:$search).textFieldStyle(.roundedBorder)
-            ForEach(model.apps.filter { search.isEmpty || $0.name.localizedCaseInsensitiveContains(search) }) { app in
+            HStack(spacing:10) {
+                TextField("Search your apps",text:$search).textFieldStyle(.roundedBorder)
+                Picker("Filter apps",selection:$appFilter) { ForEach(AppFilter.allCases) { Text($0.rawValue).tag($0) } }
+                    .labelsHidden().pickerStyle(.menu).frame(width:145)
+            }
+            ForEach(filteredApps) { app in
                 VStack(spacing:0) {
                     HStack(spacing:12) {
                         Button { withAnimation(.easeInOut(duration:0.15)) { expanded = expanded == app.id ? nil : app.id } } label: {
@@ -235,7 +244,36 @@ struct SettingsView: View {
                 }.card()
             }
             if model.apps.isEmpty { ContentUnavailableView("Add your first app",systemImage:"app.badge",description:Text("Choose an app and assign a shortcut to any gesture.")) }
+            else if filteredApps.isEmpty { ContentUnavailableView("No apps found",systemImage:"magnifyingglass",description:Text("Try a different search or filter.")) }
             Text("Terminal close gestures and rotation in image apps are off by default. Default actions follow app menus when available.").font(.caption).foregroundStyle(.secondary)
+        }
+    }
+    private var filteredApps: [InstalledApp] {
+        model.apps.filter { app in
+            let matchesSearch = search.isEmpty || app.name.localizedCaseInsensitiveContains(search)
+            guard matchesSearch else { return false }
+            switch appFilter {
+            case .all: return true
+            case .presets: return !app.isCustom
+            case .custom: return app.isCustom
+            case .overrides: return hasOverride(app)
+            }
+        }
+    }
+    private var appSummary: String {
+        let presetCount = filteredApps.filter { !$0.isCustom }.count
+        let customCount = filteredApps.filter(\.isCustom).count
+        let parts = [
+            presetCount > 0 ? "\(presetCount) preset \(presetCount == 1 ? "app" : "apps")" : nil,
+            customCount > 0 ? "\(customCount) custom \(customCount == 1 ? "app" : "apps")" : nil
+        ].compactMap { $0 }
+        return parts.isEmpty ? "No apps match this filter" : parts.joined(separator:" · ")
+    }
+    private func hasOverride(_ app: InstalledApp) -> Bool {
+        guard let override = model.store.overrides[app.id] else { return false }
+        return !override.enabled || override.actions.values.contains { action in
+            if case .useDefault = action { return false }
+            return true
         }
     }
     private func defaultDescription(_ action: GestureAction, app: InstalledApp) -> String {
