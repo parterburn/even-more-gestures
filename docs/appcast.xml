@@ -3,18 +3,20 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.7</title>
-            <pubDate>Mon, 21 Sep 2026 13:40:54 -0600</pubDate>
+            <title>0.2.8</title>
+            <pubDate>Mon, 21 Sep 2026 13:44:28 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>10</sparkle:version>
-            <sparkle:shortVersionString>0.2.7</sparkle:shortVersionString>
+            <sparkle:version>11</sparkle:version>
+            <sparkle:shortVersionString>0.2.8</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[## Gesture-first app actions
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.8
 
-App settings now lead with the physical gesture. Defaults show their action name and shortcut, while custom overrides show only the selected shortcut.
+- Global controls now name the physical trackpad motion they monitor.
+- Turning off a global gesture disables its affected rows in every app and clearly labels them “Disabled in Gestures.”
+- Sidebar swipe controls now consistently govern the physical left or right swipe, including when sidebar direction is inverted.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.7/Even-More-Gestures-0.2.7.zip" length="3417445" type="application/octet-stream" sparkle:edSignature="mWL3U2gA5KKBagPQyaiXknPXFKctFtw38KyZjdYi8F1Mf2MVdkRtJZrhCGBvgCBxm0O4A1v0qLz8i03pKN46DQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.8/Even-More-Gestures-0.2.8.zip" length="3419512" type="application/octet-stream" sparkle:edSignature="+GKhfW5ExvvukI3WXXtt8n4gdBoT1XiLLymU/are4etNqBn201p+jwRezCueRJlCC3UbpA5PBbvUwCwzCq0KDg=="/>
         </item>
     </channel>
 </rss>
