@@ -3,19 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.10</title>
-            <pubDate>Mon, 21 Sep 2026 13:51:20 -0600</pubDate>
+            <title>0.2.11</title>
+            <pubDate>Mon, 21 Sep 2026 14:03:31 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>13</sparkle:version>
-            <sparkle:shortVersionString>0.2.10</sparkle:shortVersionString>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>0.2.11</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.10
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.11
 
-- The Apps screen now summarizes the preset and custom apps currently shown instead of exposing the internal preset-library count.
-- Filter your list by all apps, presets, custom apps, or apps with a saved override.
+- Simplified the footer status control to one colored icon and one status label.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.10/Even-More-Gestures-0.2.10.zip" length="3435803" type="application/octet-stream" sparkle:edSignature="UKJZPEFDLNCkKu7frbvBUxN1KDUfofscMejl92IjY8zl8twkSUvOG/jE63xX8OUOtdfUhCHP4CCcl4oK51FZCg=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.11/Even-More-Gestures-0.2.11.zip" length="3434909" type="application/octet-stream" sparkle:edSignature="N4raLEQTga/pEOsg1jNB+VqyOdD1WNKTEuCl5a6U64B9UICXMuNOQCtqypTkM7tMXxlpfud9wQEVT5s8upLyAg=="/>
         </item>
     </channel>
 </rss>
