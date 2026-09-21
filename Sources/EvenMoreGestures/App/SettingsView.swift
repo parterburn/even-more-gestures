@@ -195,7 +195,7 @@ struct SettingsView: View {
     private var appsView: some View {
         VStack(alignment:.leading,spacing:16) {
             HStack {
-                VStack(alignment:.leading,spacing:5) { Text("Already set up.").font(.title2.weight(.semibold)); Text(appSummary).font(.caption).foregroundStyle(.secondary) }
+                Text(appSummary).font(.system(size:15,weight:.medium)).foregroundStyle(.secondary)
                 Spacer()
                 Button { model.addApp() } label:{ Label("Add App",systemImage:"plus") }
             }
