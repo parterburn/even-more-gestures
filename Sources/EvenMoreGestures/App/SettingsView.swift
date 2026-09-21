@@ -148,15 +148,15 @@ struct SettingsView: View {
         VStack(spacing:18) {
             GesturePreview(gesture:model.preview, pinchFingerCount:model.pinchFingerCount, isActive:model.settingsVisible)
             VStack(spacing:0) {
-                gestureRow("Rotate with two fingers", subtitle:"Switch between tabs in enabled apps",icon:"arrow.trianglehead.2.clockwise.rotate.90", binding:$model.rotateEnabled,preview:.rotate)
+                gestureRow("Rotate with two fingers", subtitle:"Defaults to switching between tabs in enabled apps",icon:"arrow.trianglehead.2.clockwise.rotate.90", binding:$model.rotateEnabled,preview:.rotate)
                 Divider().padding(.leading,50)
-                gestureRow("Pinch and spread with \(model.pinchFingerCount) fingers",subtitle:"Close or open tabs in enabled apps",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
+                gestureRow("Pinch and spread with \(model.pinchFingerCount) fingers",subtitle:"Defaults to closing or opening tabs in enabled apps",icon:"arrow.down.right.and.arrow.up.left",binding:$model.pinchEnabled,preview:.pinch)
                 Divider().padding(.leading,50)
-                gestureRow("Spread out to undo",subtitle:"Reopen a tab closed within the last 3 seconds",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
+                gestureRow("Spread out to undo",subtitle:"Defaults to reopening a recently closed tab",icon:"arrow.uturn.backward",binding:$model.undoEnabled,preview:.spread)
                 Divider().padding(.leading,50)
-                gestureRow("Swipe left with four fingers",subtitle:"Track this physical swipe in enabled apps",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
+                gestureRow("Swipe left with four fingers",subtitle:"Defaults to showing or hiding the left sidebar in selected apps",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
                 Divider().padding(.leading,50)
-                gestureRow("Swipe right with four fingers",subtitle:"Track this physical swipe in enabled apps",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
+                gestureRow("Swipe right with four fingers",subtitle:"Defaults to showing or hiding the right sidebar in selected apps",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
             }.card()
             VStack(spacing:14) {
                 HStack {
@@ -187,7 +187,7 @@ struct SettingsView: View {
     private func gestureRow(_ title: String, subtitle: String, icon: String, binding: Binding<Bool>, preview: PreviewGesture) -> some View {
         HStack(spacing:13) {
             Image(systemName:icon).font(.system(size:17)).foregroundStyle(.blue).frame(width:24)
-            VStack(alignment:.leading,spacing:4) { Text(title).font(.system(size:13,weight:.medium)); Text(subtitle).font(.system(size:11)).foregroundStyle(.secondary) }
+            VStack(alignment:.leading,spacing:4) { Text(title).font(.system(size:13,weight:.medium)); Text(subtitle).font(.system(size:12)).foregroundStyle(.primary.opacity(0.65)) }
             Spacer()
             Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
         }.padding(.horizontal,16).padding(.vertical,13).contentShape(Rectangle()).onHover { if $0 { model.preview = preview } }
