@@ -3,19 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.15</title>
-            <pubDate>Mon, 21 Sep 2026 14:14:54 -0600</pubDate>
+            <title>0.2.16</title>
+            <pubDate>Mon, 21 Sep 2026 14:17:10 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>18</sparkle:version>
-            <sparkle:shortVersionString>0.2.15</sparkle:shortVersionString>
+            <sparkle:version>19</sparkle:version>
+            <sparkle:shortVersionString>0.2.16</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.15
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.16
 
-- Clarified each gesture’s default result in enabled or selected apps.
-- Increased the contrast and size of gesture descriptions.
+- Clarified that spreading out reopens a recently closed tab or opens a new tab.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.15/Even-More-Gestures-0.2.15.zip" length="3440449" type="application/octet-stream" sparkle:edSignature="kWh0l5mNxlorJGTIglLeqrkRn6xbfApS5F++TCuyQpwkCl6y3iHpUZJr2lukobrcX54fgmfWm7JouW/fLCIkBQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.16/Even-More-Gestures-0.2.16.zip" length="3440411" type="application/octet-stream" sparkle:edSignature="NHlPBgqb5EG2/WKeOfsPBqrlyQVPcRuQuV00OXFqnfURxCMQBE7nIoOe9xUXln6GFYzwjDqTFJcFizQbQ46MDQ=="/>
         </item>
     </channel>
 </rss>
