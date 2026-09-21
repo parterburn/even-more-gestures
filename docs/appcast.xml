@@ -3,20 +3,20 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.8</title>
-            <pubDate>Mon, 21 Sep 2026 13:44:28 -0600</pubDate>
+            <title>0.2.9</title>
+            <pubDate>Mon, 21 Sep 2026 13:48:03 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>0.2.8</sparkle:shortVersionString>
+            <sparkle:version>12</sparkle:version>
+            <sparkle:shortVersionString>0.2.9</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.8
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.9
 
-- Global controls now name the physical trackpad motion they monitor.
-- Turning off a global gesture disables its affected rows in every app and clearly labels them “Disabled in Gestures.”
-- Sidebar swipe controls now consistently govern the physical left or right swipe, including when sidebar direction is inverted.
+- The footer is now the single, clickable gesture status indicator.
+- It shows when gestures are active, paused with a live countdown, awaiting Accessibility, or need a trackpad reconnect.
+- Clicking a status opens the relevant System Settings or General panel; reconnecting also restarts gesture input.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.8/Even-More-Gestures-0.2.8.zip" length="3419512" type="application/octet-stream" sparkle:edSignature="+GKhfW5ExvvukI3WXXtt8n4gdBoT1XiLLymU/are4etNqBn201p+jwRezCueRJlCC3UbpA5PBbvUwCwzCq0KDg=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.9/Even-More-Gestures-0.2.9.zip" length="3423633" type="application/octet-stream" sparkle:edSignature="K+gLsD5Gw8S3X0rjvdhNiN+M4L32QNq4U6BKbBxfbAaix+F8WNzEogdw36MCS6vAzbLmyMEjyG3jDXM5LVqFCw=="/>
         </item>
     </channel>
 </rss>
