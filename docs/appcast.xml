@@ -3,24 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.1</title>
-            <pubDate>Mon, 21 Sep 2026 10:22:25 -0600</pubDate>
+            <title>0.2.2</title>
+            <pubDate>Mon, 21 Sep 2026 13:20:26 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>4</sparkle:version>
-            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+            <sparkle:version>5</sparkle:version>
+            <sparkle:shortVersionString>0.2.2</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.1/Even-More-Gestures-0.2.1.zip" length="3417596" type="application/octet-stream" sparkle:edSignature="P1hoD9XodO8z1HnQGEKgGtSjvCWjypC1bXoN3tASxz7mGS5YubA3JEWEwtKbuyXjO/g0SZym6h3y+wMe1Of+AA=="/>
-        </item>
-        <item>
-            <title>0.2.0</title>
-            <pubDate>Mon, 21 Sep 2026 10:12:01 -0600</pubDate>
-            <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>3</sparkle:version>
-            <sparkle:shortVersionString>0.2.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.0/Even-More-Gestures-0.2.0.zip" length="3417539" type="application/octet-stream" sparkle:edSignature="EQqYJs+1XrMmaE2cVvwDxSVtOurnX1xUenVnTpUQSLgcEnHREajU+3K5aVxwEtNoEsv3txv6oEtrdn3VEa5wCg=="/>
+            <description sparkle:format="markdown"><![CDATA[## Accessibility setup recovery
+
+Even More Gestures now keeps checking for Accessibility permission while System Settings is open, then starts listening for gestures as soon as macOS confirms access.
+]]></description>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.2/Even-More-Gestures-0.2.2.zip" length="3418449" type="application/octet-stream" sparkle:edSignature="B13L5MJ5CpCYNqehuFid/723CRvtyNf7FOhQm5LMMrTvQZFEM7/rlUULV6OWJtp5uJ6iHUXJy/aBCORfDp/uCQ=="/>
         </item>
     </channel>
 </rss>
