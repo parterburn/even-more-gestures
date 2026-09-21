@@ -3,19 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.13</title>
-            <pubDate>Mon, 21 Sep 2026 14:10:12 -0600</pubDate>
+            <title>0.2.14</title>
+            <pubDate>Mon, 21 Sep 2026 14:12:34 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>16</sparkle:version>
-            <sparkle:shortVersionString>0.2.13</sparkle:shortVersionString>
+            <sparkle:version>17</sparkle:version>
+            <sparkle:shortVersionString>0.2.14</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.13
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.14
 
-- App action rows now lead with the configured shortcut, followed by the default action name.
-- Matched the action-detail text size to the gesture name and removed the separator dot.
+- Simplified the Apps header to a single, larger preset and custom-app summary.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.13/Even-More-Gestures-0.2.13.zip" length="3440682" type="application/octet-stream" sparkle:edSignature="gPq5MM+DJkLskJdYkUOGHifD6FuIB+noLXmG/ZqPIc34Wg40MR9VY9e7DbA0PUdXYHXWOeQJgSWaQIxL5QavDw=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.14/Even-More-Gestures-0.2.14.zip" length="3440332" type="application/octet-stream" sparkle:edSignature="2jgmEu0A0Xp6wJwrxBnvh7tPhQI8k2z5D+dF06JyU1C96JbLNrioJBBVjwKWRI7Oo7YUbVzXtxT5JUX+LrvaDw=="/>
         </item>
     </channel>
 </rss>
