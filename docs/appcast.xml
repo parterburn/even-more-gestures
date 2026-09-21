@@ -3,20 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.9</title>
-            <pubDate>Mon, 21 Sep 2026 13:48:03 -0600</pubDate>
+            <title>0.2.10</title>
+            <pubDate>Mon, 21 Sep 2026 13:51:20 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>12</sparkle:version>
-            <sparkle:shortVersionString>0.2.9</sparkle:shortVersionString>
+            <sparkle:version>13</sparkle:version>
+            <sparkle:shortVersionString>0.2.10</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.9
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.10
 
-- The footer is now the single, clickable gesture status indicator.
-- It shows when gestures are active, paused with a live countdown, awaiting Accessibility, or need a trackpad reconnect.
-- Clicking a status opens the relevant System Settings or General panel; reconnecting also restarts gesture input.
+- The Apps screen now summarizes the preset and custom apps currently shown instead of exposing the internal preset-library count.
+- Filter your list by all apps, presets, custom apps, or apps with a saved override.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.9/Even-More-Gestures-0.2.9.zip" length="3423633" type="application/octet-stream" sparkle:edSignature="K+gLsD5Gw8S3X0rjvdhNiN+M4L32QNq4U6BKbBxfbAaix+F8WNzEogdw36MCS6vAzbLmyMEjyG3jDXM5LVqFCw=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.10/Even-More-Gestures-0.2.10.zip" length="3435803" type="application/octet-stream" sparkle:edSignature="UKJZPEFDLNCkKu7frbvBUxN1KDUfofscMejl92IjY8zl8twkSUvOG/jE63xX8OUOtdfUhCHP4CCcl4oK51FZCg=="/>
         </item>
     </channel>
 </rss>
