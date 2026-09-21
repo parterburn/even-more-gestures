@@ -46,7 +46,6 @@ struct SettingsView: View {
                     Button(action: performFooterStatusAction) {
                         HStack(spacing:6) {
                             Image(systemName: footerStatus.symbol).font(.system(size:10,weight:.semibold))
-                            Circle().fill(footerStatus.color).frame(width:6,height:6)
                             Text(footerStatus.title).font(.system(size:10,weight:.medium)).monospacedDigit()
                         }.foregroundStyle(footerStatus.color)
                     }.buttonStyle(.plain).help(footerStatus.help)
