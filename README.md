@@ -2,9 +2,9 @@
 
 Natural trackpad gestures for tabs and sidebars in the Mac apps you already use.
 
-[Download the latest release](https://github.com/parterburn/even-more-gestures/releases/latest) · [Product page](https://paularterburn.com/even-more-gestures/) · [Release notes](https://github.com/parterburn/even-more-gestures/releases)
+[Download for Mac](https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.zip) · [Product page](https://paularterburn.com/even-more-gestures/) · [Release notes](https://github.com/parterburn/even-more-gestures/releases)
 
-> Download the latest notarized release for macOS. The link above always points to the newest ZIP.
+> Download the latest notarized release for macOS. The link above downloads the app ZIP directly.
 
 ![Even More Gestures setup and gestures screen](docs/images/cover-1.png)
 
