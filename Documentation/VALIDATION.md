@@ -7,7 +7,7 @@
 - GestureKit: **19 passing XCTest tests**.
 - Total: **31 tests, zero failures**.
 - Release app successfully compiled for macOS 14 with Xcode 27 / Swift 6.4.
-- `codesign --verify --deep --strict` and stapler validation pass on the `0.2.20 (23)` Developer ID-signed bundle with hardened runtime and secure timestamps, including the embedded Sparkle framework.
+- `codesign --verify --deep --strict` and stapler validation pass on the `0.2.21 (24)` Developer ID-signed bundle with hardened runtime and secure timestamps, including the embedded Sparkle framework.
 - `Info.plist` declares `LSUIElement = true`, so the app stays out of the Dock, plus a Sparkle appcast URL and public update key.
 - The signed defaults feed was generated from the bundled presets and verified with Sparkle’s signing tool. Feed-parser tests reject tampering, unknown actions, and future-only builds.
 
@@ -23,7 +23,7 @@
 
 ## Distribution status
 
-- The `0.2.20` build was accepted by Apple’s Notary service and stapled. Its GitHub Release archive is Sparkle-signed and listed in the repository appcast.
+- The `0.2.21` build was accepted by Apple’s Notary service and stapled. Its GitHub Release archive is Sparkle-signed and listed in the repository appcast.
 - The repository includes a public appcast and signed defaults feed. The app reads those exact files over GitHub's raw HTTPS content service; GitHub Pages is an optional human-readable mirror.
 - The Gumroad product page uses its native fair-price checkout, with the copy and exact image files documented in `Documentation/GUMROAD.md`.
 
