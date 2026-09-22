@@ -3,18 +3,21 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.24</title>
-            <pubDate>Mon, 21 Sep 2026 22:41:16 -0600</pubDate>
+            <title>0.2.25</title>
+            <pubDate>Tue, 22 Sep 2026 09:16:15 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>27</sparkle:version>
-            <sparkle:shortVersionString>0.2.24</sparkle:shortVersionString>
+            <sparkle:version>28</sparkle:version>
+            <sparkle:shortVersionString>0.2.25</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.24
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.25
 
-- Fixed Option-click behavior for the new three-finger click and tap actions.
+- Three-finger click and tap now begin enabled with middle-click selected unless you have already changed them.
+- Made four-finger sidebar swipes easier to recognize and flag macOS Spaces swipes when they conflict.
+- Chrome’s right-sidebar default now uses `⌃G` to show or hide Gemini.
+- Added a DMG installer with an Applications shortcut for drag-and-drop installation.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.24/Even-More-Gestures-0.2.24.zip" length="3473166" type="application/octet-stream" sparkle:edSignature="pbQQ9Msm+7hoFP9tZkSb8jIQ90P1bDQLDW4Sz9fZktEcE+3fVuQGOylsV569YIYiWlYK2UHlRamRTO5sqJCzDQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.25/Even-More-Gestures-0.2.25.zip" length="3473372" type="application/octet-stream" sparkle:edSignature="X1iPBbR8YTvRulbHHWjF+UASnr9m/Y6YTGmx3oH8B+BEIruwiva8gmfhaU/r/KYpvyt0jnjSABv5hwb7QBeoDQ=="/>
         </item>
     </channel>
 </rss>
