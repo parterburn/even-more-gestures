@@ -3,19 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.26</title>
-            <pubDate>Tue, 22 Sep 2026 09:33:26 -0600</pubDate>
+            <title>0.2.27</title>
+            <pubDate>Tue, 22 Sep 2026 11:48:35 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>29</sparkle:version>
-            <sparkle:shortVersionString>0.2.26</sparkle:shortVersionString>
+            <sparkle:version>30</sparkle:version>
+            <sparkle:shortVersionString>0.2.27</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.26
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.27
 
-- Fixed an issue where a defaults cache from an earlier app version could hide newer bundled shortcuts, including Chrome’s `⌃G` right-sidebar action.
-- New app versions now show their bundled defaults immediately, then continue to refresh signed defaults daily.
+- Redesigned custom shortcut entry as a focused recorder with removable modifier and key pills.
+- Clarified the recording state and made **Record shortcut** focus the recorder immediately.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.26/Even-More-Gestures-0.2.26.zip" length="3473558" type="application/octet-stream" sparkle:edSignature="TybCnZJA5JGNcvb3OWFuTn/WnZOHXTkPetEE6+rCyFZkHvGJfaVs/xCOVL1vAHwd4O5FQ4VW3I+LVR8iE6HFDg=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.27/Even-More-Gestures-0.2.27.zip" length="3490162" type="application/octet-stream" sparkle:edSignature="Sc4Lbr5gNGI3beKBtE1lBdoyPo5vbIzlqvxTbvBnb9nWD1BS1hluas0UsvOmrMfGyjK63RnlVo9avDY88on1AA=="/>
         </item>
     </channel>
 </rss>

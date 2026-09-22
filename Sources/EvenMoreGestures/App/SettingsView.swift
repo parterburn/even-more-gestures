@@ -414,30 +414,121 @@ struct ShortcutEditor: View {
     var body: some View {
         VStack(alignment:.leading,spacing:18) {
             Text("\(selection.action.title) in \(selection.app.name)").font(.headline)
-            Text("Record a shortcut, or type one such as cmd+shift+t. Include Command, Control, or Option.").font(.callout).foregroundStyle(.secondary)
-            TextField("cmd+shift+t",text:$shortcut).textFieldStyle(.roundedBorder)
-            ShortcutRecorder(shortcut:$shortcut,recording:$recording).frame(height:44)
-            HStack { Button(recording ? "Press your shortcut…" : "Record shortcut") { recording.toggle() }; Spacer(); Button("Cancel") { dismiss() }; Button("Save") { model.store.setOverride(.custom(shortcut),action:selection.action,bundleIdentifier:selection.app.id); dismiss() }.buttonStyle(.borderedProminent).disabled(KeyShortcut.parse(shortcut) == nil) }
-        }.padding(24).frame(width:470).onAppear { if case .custom(let keys) = model.store.overrideMode(action:selection.action,bundleIdentifier:selection.app.id) { shortcut = keys } }
+            Text("Choose a shortcut by recording the keys you want to press together.").font(.callout).foregroundStyle(.secondary)
+            ShortcutPillField(shortcut:$shortcut,recording:$recording)
+            if recording {
+                Label("Listening now — press the keys together. Press Escape to stop.",systemImage:"record.circle")
+                    .font(.caption).foregroundStyle(.blue)
+            } else {
+                Text("Click a key below to remove it, then record a replacement.").font(.caption).foregroundStyle(.secondary)
+            }
+            ShortcutRecorder(shortcut:$shortcut,recording:$recording).frame(width:1,height:1).accessibilityHidden(true)
+            HStack {
+                Button(recording ? "Listening…" : "Record shortcut") { recording = true }
+                    .disabled(recording)
+                Spacer()
+                Button("Cancel") { dismiss() }
+                Button("Save") { model.store.setOverride(.custom(shortcut),action:selection.action,bundleIdentifier:selection.app.id); dismiss() }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(KeyShortcut.parse(shortcut) == nil)
+            }
+        }.padding(24).frame(width:470).onAppear {
+            if case .custom(let keys) = model.store.overrideMode(action:selection.action,bundleIdentifier:selection.app.id) { shortcut = keys }
+        }
     }
 }
+
+private struct ShortcutPillField: View {
+    @Binding var shortcut: String
+    @Binding var recording: Bool
+    private var parts: [String] { shortcut.split(separator:"+").map(String.init) }
+    var body: some View {
+        HStack(spacing:7) {
+            if parts.isEmpty {
+                Text(recording ? "Listening for keys…" : "No shortcut selected")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(Array(parts.enumerated()),id:\.offset) { index, part in
+                    Button { removePart(at:index) } label: {
+                        HStack(spacing:5) {
+                            Text(displayName(for:part)).font(.system(size:12,weight:.medium))
+                            Image(systemName:"xmark").font(.system(size:8,weight:.bold))
+                        }.padding(.horizontal,9).padding(.vertical,6)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.primary)
+                    .background(.quaternary,in:Capsule())
+                    .help("Remove \(displayName(for:part))")
+                }
+            }
+            Spacer(minLength:0)
+        }
+        .padding(9)
+        .frame(minHeight:48)
+        .background(Color(nsColor:.textBackgroundColor),in:RoundedRectangle(cornerRadius:8))
+        .overlay(RoundedRectangle(cornerRadius:8).stroke(recording ? Color.accentColor : Color.secondary.opacity(0.35),lineWidth:recording ? 2 : 1))
+        .contentShape(Rectangle())
+        .onTapGesture { recording = true }
+        .accessibilityElement(children:.contain)
+        .accessibilityLabel("Shortcut")
+    }
+    private func removePart(at index: Int) {
+        var newParts = parts
+        newParts.remove(at:index)
+        shortcut = newParts.joined(separator:"+")
+    }
+    private func displayName(for part: String) -> String {
+        switch part {
+        case "cmd": return "⌘ Command"
+        case "ctrl": return "⌃ Control"
+        case "alt": return "⌥ Option"
+        case "shift": return "⇧ Shift"
+        case "tab": return "Tab"
+        case "return": return "Return"
+        case "escape": return "Escape"
+        case "space": return "Space"
+        case "delete": return "Delete"
+        case "left": return "←"
+        case "right": return "→"
+        case "up": return "↑"
+        case "down": return "↓"
+        default: return part.uppercased()
+        }
+    }
+}
+
 struct ShortcutRecorder: NSViewRepresentable {
     @Binding var shortcut: String
     @Binding var recording: Bool
     func makeNSView(context: Context) -> CaptureView { CaptureView() }
     func updateNSView(_ view: CaptureView,context: Context) {
         view.onCapture = { shortcut = $0; recording = false }
+        view.onCancel = { recording = false }
         view.active = recording
-        if recording { DispatchQueue.main.async { view.window?.makeFirstResponder(view) } }
+        if recording { view.focus() }
     }
     class CaptureView: NSView {
         var active = false
         var onCapture: ((String)->Void)?
+        var onCancel: (()->Void)?
         override var acceptsFirstResponder: Bool { true }
+        override func viewDidMoveToWindow() { super.viewDidMoveToWindow(); focus() }
+        func focus() {
+            guard active else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self, self.active else { return }
+                self.window?.makeFirstResponder(self)
+            }
+        }
         override func performKeyEquivalent(with event: NSEvent) -> Bool { guard active else { return false }; capture(event); return true }
         override func keyDown(with event: NSEvent) { if active { capture(event) } else { super.keyDown(with:event) } }
         private func capture(_ event: NSEvent) {
             var parts: [String] = []; let flags = event.modifierFlags
+            let shortcutModifiers = flags.intersection([.command,.control,.option,.shift])
+            if event.keyCode == 53 && shortcutModifiers.isEmpty {
+                onCancel?()
+                return
+            }
             if flags.contains(.command) { parts.append("cmd") }; if flags.contains(.control) { parts.append("ctrl") }; if flags.contains(.option) { parts.append("alt") }; if flags.contains(.shift) { parts.append("shift") }
             let special: [UInt16:String] = [48:"tab",123:"left",124:"right",125:"down",126:"up",36:"return",53:"escape",49:"space",51:"delete"]
             guard let key = special[event.keyCode] ?? event.charactersIgnoringModifiers?.lowercased(), !key.isEmpty else { return }
