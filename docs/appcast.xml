@@ -3,21 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.25</title>
-            <pubDate>Tue, 22 Sep 2026 09:16:15 -0600</pubDate>
+            <title>0.2.26</title>
+            <pubDate>Tue, 22 Sep 2026 09:33:26 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>28</sparkle:version>
-            <sparkle:shortVersionString>0.2.25</sparkle:shortVersionString>
+            <sparkle:version>29</sparkle:version>
+            <sparkle:shortVersionString>0.2.26</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.25
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.26
 
-- Three-finger click and tap now begin enabled with middle-click selected unless you have already changed them.
-- Made four-finger sidebar swipes easier to recognize and flag macOS Spaces swipes when they conflict.
-- Chrome’s right-sidebar default now uses `⌃G` to show or hide Gemini.
-- Added a DMG installer with an Applications shortcut for drag-and-drop installation.
+- Fixed an issue where a defaults cache from an earlier app version could hide newer bundled shortcuts, including Chrome’s `⌃G` right-sidebar action.
+- New app versions now show their bundled defaults immediately, then continue to refresh signed defaults daily.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.25/Even-More-Gestures-0.2.25.zip" length="3473372" type="application/octet-stream" sparkle:edSignature="X1iPBbR8YTvRulbHHWjF+UASnr9m/Y6YTGmx3oH8B+BEIruwiva8gmfhaU/r/KYpvyt0jnjSABv5hwb7QBeoDQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.26/Even-More-Gestures-0.2.26.zip" length="3473558" type="application/octet-stream" sparkle:edSignature="TybCnZJA5JGNcvb3OWFuTn/WnZOHXTkPetEE6+rCyFZkHvGJfaVs/xCOVL1vAHwd4O5FQ4VW3I+LVR8iE6HFDg=="/>
         </item>
     </channel>
 </rss>

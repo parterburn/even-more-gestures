@@ -56,6 +56,7 @@ public typealias ActionPlan = PresetAction
     private let file: URL
     private let cacheFile: URL
     private var currentRevision = 0
+    private let appBuild: Int
     private let remoteFeeds = [
         (URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.json")!, URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.sig")!),
         (URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.json")!, URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.sig")!)
@@ -64,6 +65,7 @@ public typealias ActionPlan = PresetAction
         self.file = file ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Even More Gestures/overrides.json")
         cacheFile = self.file.deletingLastPathComponent().appendingPathComponent("presets-cache.json")
+        appBuild = Int(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0") ?? 0
         do {
             let url = Bundle.module.url(forResource: "presets", withExtension: "json")!
             presets = try JSONDecoder().decode([AppPreset].self, from: Data(contentsOf: url))
@@ -71,19 +73,24 @@ public typealias ActionPlan = PresetAction
                 overrides = try JSONDecoder().decode([String: AppOverride].self, from: Data(contentsOf: self.file))
             }
         } catch { self.error = "Could not load settings: \(error.localizedDescription)" }
-        if let cache = try? JSONDecoder().decode(CachedPresetFeed.self, from: Data(contentsOf: cacheFile)),
+        let defaults = UserDefaults.standard
+        let cachedBuild = defaults.integer(forKey: "presetsCacheBuild")
+        if cachedBuild == appBuild,
+           let cache = try? JSONDecoder().decode(CachedPresetFeed.self, from: Data(contentsOf: cacheFile)),
            let feed = try? verify(cache.payload, signature: cache.signature) {
             presets = feed.presets
             currentRevision = feed.revision
         }
+        // A newly installed app ships a fresher offline preset set than any cache made by
+        // an earlier build. Keep the cache for the next launch, but show bundled defaults now.
+        defaults.set(appBuild, forKey: "presetsCacheBuild")
     }
     private func verify(_ payload: Data, signature: Data) throws -> PresetFeed {
         guard let encodedKey = Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") as? String,
               let publicKey = Data(base64Encoded: encodedKey) else {
             throw PresetFeedError.invalidSignature
         }
-        let build = Int(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0") ?? 0
-        return try PresetFeedVerifier.verify(payload: payload, signature: signature, publicKey: publicKey, currentBuild: build)
+        return try PresetFeedVerifier.verify(payload: payload, signature: signature, publicKey: publicKey, currentBuild: appBuild)
     }
     public func refreshDefaultsIfNeeded(force: Bool = false) async {
         let defaults = UserDefaults.standard
