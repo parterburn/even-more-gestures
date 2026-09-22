@@ -16,11 +16,13 @@ Rotate to switch tabs, pinch to close, spread to open or undo, and swipe with fo
 | Two- or three-finger pinch / spread | Close, open, or undo a tab |
 | Four-finger swipe | Toggle a left or right sidebar |
 
-It starts with app-aware defaults and makes the individual shortcuts easy to inspect and change. Current defaults include Maps’ left sidebar (`⌘⌃S`), Chrome vertical tabs (`⌘⇧L`), and ChatGPT’s left/right sidebars (`⌘B` / `⌘⌥B`). Your custom choices always take priority.
+It starts with app-aware defaults and makes the individual shortcuts easy to inspect and change. Current defaults include Maps’ left sidebar (`⌘⌃S`), Chrome vertical tabs/Gemini (`⌘⇧L` / `⌃G`), and ChatGPT’s left/right sidebars (`⌘B` / `⌘⌥B`). Your custom choices always take priority.
 
 ![Per-app defaults, including ChatGPT](docs/images/cover-2.png)
 
 ## One-time setup
+
+Download the [DMG installer](https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.dmg), drag **Even More Gestures** to **Applications**, then open it and follow the Accessibility setup.
 
 Even More Gestures needs Accessibility permission to activate the commands in your foreground app. The app makes that requirement clear above its main tabs, opens macOS directly to the right settings pane, and explains what to do if macOS has not yet listed it. macOS intentionally requires you to turn that permission on yourself.
 

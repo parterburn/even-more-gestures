@@ -50,6 +50,7 @@ final class PresetTests: XCTestCase {
         let store = PresetStore(file:FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString))
         XCTAssertEqual(store.plan(action:.toggleLeftSidebar,bundleIdentifier:"com.apple.Maps")?.shortcut,"cmd+ctrl+s")
         XCTAssertEqual(store.plan(action:.toggleLeftSidebar,bundleIdentifier:"com.google.Chrome")?.shortcut,"cmd+shift+l")
+        XCTAssertEqual(store.plan(action:.toggleRightSidebar,bundleIdentifier:"com.google.Chrome")?.shortcut,"ctrl+g")
         for id in ["com.openai.chat","com.openai.codex"] {
             XCTAssertEqual(store.plan(action:.toggleLeftSidebar,bundleIdentifier:id)?.shortcut,"cmd+b")
             XCTAssertEqual(store.plan(action:.toggleRightSidebar,bundleIdentifier:id)?.shortcut,"cmd+alt+b")

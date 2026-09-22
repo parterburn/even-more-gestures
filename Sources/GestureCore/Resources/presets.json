@@ -131,10 +131,14 @@
         ],
         "shortcut": "cmd+shift+t"
       },
-      "toggleLeftSidebar": {
-        "menuPaths": [],
-        "shortcut": "cmd+shift+l"
-      }
+    "toggleLeftSidebar": {
+      "menuPaths": [],
+      "shortcut": "cmd+shift+l"
+    },
+    "toggleRightSidebar": {
+      "menuPaths": [],
+      "shortcut": "ctrl+g"
+    }
     },
     "rotateEnabled": true,
     "closeEnabled": true,

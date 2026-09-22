@@ -10,7 +10,7 @@
 
    The script builds with Developer ID, submits to the configured Notary profile, staples and Gatekeeper-checks the app, creates a versioned ZIP, and generates a signed Sparkle appcast using the private key in the local Keychain.
 
-4. Create GitHub release `v0.2.0`, then upload the versioned ZIP from `build/release/` for Sparkle and an identical copy named `Even-More-Gestures.zip` for the public download link. The stable URL is `https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.zip`.
+4. Create GitHub release `v0.2.0`, then upload the versioned ZIP from `build/release/` for Sparkle and an identical copy named `Even-More-Gestures.zip` for the public download link. Upload the generated DMG and an identical copy named `Even-More-Gestures.dmg` for the drag-to-Applications installer. The stable URLs are `https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.zip` and `https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.dmg`.
 5. Commit and push the generated `docs/appcast.xml`.
 6. Verify the public raw GitHub appcast plus the release-asset URL. Use the app’s “Check for Updates…” item from an older build to test the full path.
 

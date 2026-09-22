@@ -133,6 +133,10 @@
         "toggleLeftSidebar": {
           "menuPaths": [],
           "shortcut": "cmd+shift+l"
+        },
+        "toggleRightSidebar": {
+          "menuPaths": [],
+          "shortcut": "ctrl+g"
         }
       },
       "bundleIdentifier": "com.google.Chrome",
@@ -1359,6 +1363,6 @@
       "rotateEnabled": false
     }
   ],
-  "revision": 1,
+  "revision": 2,
   "schemaVersion": 1
 }

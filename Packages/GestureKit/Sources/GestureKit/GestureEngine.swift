@@ -225,7 +225,7 @@ public final class GestureEngine {
                 state = .cancelled
                 return []
             }
-            if abs(dx) >= 0.18 - Self.epsilon, abs(dx) + Self.epsilon >= 2 * abs(dy) {
+            if abs(dx) >= 0.14 - Self.epsilon, abs(dx) + Self.epsilon >= 1.5 * abs(dy) {
                 events.append(dx < 0 ? .swipeLeft : .swipeRight)
                 state = .consumed
             }

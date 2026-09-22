@@ -65,7 +65,7 @@ struct InstalledApp: Identifiable {
     private var lastSpaceChange = Date.distantPast
     init() {
         let defaults = UserDefaults.standard
-        defaults.register(defaults: ["rotate":true,"pinch":true,"left":true,"right":true,"undo":true,"threeFingerClick":false,"threeFingerTap":false,"threeFingerClickAction":ThreeFingerClickAction.middleClick.rawValue,"haptics":true,"hud":true,"menuIcon":true,"rotationStep":30.0,"pinchFingers":3])
+        defaults.register(defaults: ["rotate":true,"pinch":true,"left":true,"right":true,"undo":true,"threeFingerClick":true,"threeFingerTap":true,"threeFingerClickAction":ThreeFingerClickAction.middleClick.rawValue,"haptics":true,"hud":true,"menuIcon":true,"rotationStep":30.0,"pinchFingers":3])
         rotateEnabled = defaults.bool(forKey: "rotate"); pinchEnabled = defaults.bool(forKey: "pinch")
         leftEnabled = defaults.bool(forKey: "left"); rightEnabled = defaults.bool(forKey: "right")
         undoEnabled = defaults.bool(forKey: "undo"); haptics = defaults.bool(forKey: "haptics")
@@ -173,6 +173,11 @@ struct InstalledApp: Identifiable {
         for domain in ["com.apple.AppleMultitouchTrackpad", "com.apple.driver.AppleBluetoothMultitouch.trackpad"] {
             if (CFPreferencesCopyAppValue("TrackpadThreeFingerDrag" as CFString, domain as CFString) as? Bool) == true {
                 conflicts.append("Three-finger drag is enabled. Pinching may also start a drag."); break
+            }
+        }
+        for domain in ["com.apple.AppleMultitouchTrackpad", "com.apple.driver.AppleBluetoothMultitouch.trackpad"] {
+            if let swipe = CFPreferencesCopyAppValue("TrackpadFourFingerHorizSwipeGesture" as CFString, domain as CFString) as? Int, swipe != 0 {
+                conflicts.append("macOS uses four-finger swipes to change Spaces. Turn that gesture off in Trackpad settings for reliable sidebars."); break
             }
         }
     }

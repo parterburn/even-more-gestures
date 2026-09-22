@@ -37,6 +37,12 @@ final class GestureEngineTests: XCTestCase {
             XCTAssertEqual(e.process(contacts:cluster(4,x:x),timestamp:0.3),[])
         }
     }
+    func testShortFourFingerSwipeIsRecognizedWhileDiagonalMotionIsRejected() {
+        let left = GestureEngine(); arm(left,cluster(4))
+        XCTAssertEqual(left.process(contacts:cluster(4,x:0.35),timestamp:0.2),[.swipeLeft])
+        let diagonal = GestureEngine(); arm(diagonal,cluster(4))
+        XCTAssertEqual(diagonal.process(contacts:cluster(4,x:0.65,y:0.61),timestamp:0.2),[])
+    }
     func testScrollAndZoomNeverRotate() {
         let e = GestureEngine(); arm(e,pair(0))
         XCTAssertEqual(e.process(contacts:pair(0,x:0.7),timestamp:0.2),[])
