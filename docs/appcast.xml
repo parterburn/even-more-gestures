@@ -3,18 +3,19 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.22</title>
-            <pubDate>Mon, 21 Sep 2026 22:11:30 -0600</pubDate>
+            <title>0.2.23</title>
+            <pubDate>Mon, 21 Sep 2026 22:39:12 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>25</sparkle:version>
-            <sparkle:shortVersionString>0.2.22</sparkle:shortVersionString>
+            <sparkle:version>26</sparkle:version>
+            <sparkle:shortVersionString>0.2.23</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.22
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.23
 
-- Daily gesture-default updates now use the product-domain feed, with the signed GitHub source retained as a fallback.
+- Added optional three-finger click and three-finger tap actions.
+- Choose middle-click or Option-click behavior; physical click and touch-only tap can be enabled independently.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.22/Even-More-Gestures-0.2.22.zip" length="3449100" type="application/octet-stream" sparkle:edSignature="IQJDlKLMyYBeOlRpS1IH6YP7Ktd8TMkp5u5Ix3wm7LFcN0EKqyuL/A3FRKXCX9etZ8tcm5ZS3TLUQE3bOWIuDQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.23/Even-More-Gestures-0.2.23.zip" length="3473134" type="application/octet-stream" sparkle:edSignature="g9K8NIigE4WbQUfngCMxCrfIj9ycDswx5Auh6hst9aIabW7aqJnXkKVu8dWFmWrdsEs4vC47yue3s1eqXnyPBg=="/>
         </item>
     </channel>
 </rss>
