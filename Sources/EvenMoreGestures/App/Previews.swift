@@ -2,12 +2,28 @@ import SwiftUI
 import GestureCore
 
 enum PreviewGesture: String, CaseIterable {
-    case rotate, pinch, spread, left, right
+    case rotate, pinch, spread, left, right, click, tap
     var title: String {
-        switch self { case .rotate: return "A twist. A different tab."; case .pinch: return "Pinch it closed."; case .spread: return "Make room for something new."; case .left: return "Your sidebar, within reach."; case .right: return "A little space on the right." }
+        switch self {
+        case .rotate: return "A twist. A different tab."
+        case .pinch: return "Pinch it closed."
+        case .spread: return "Make room for something new."
+        case .left: return "Your sidebar, within reach."
+        case .right: return "A little space on the right."
+        case .click: return "A press. A middle click."
+        case .tap: return "A tap. A middle click."
+        }
     }
     var instruction: String {
-        switch self { case .rotate: return "Rotate with two fingers"; case .pinch: return "Pinch with three fingers"; case .spread: return "Spread with three fingers"; case .left: return "Swipe left with four fingers"; case .right: return "Swipe right with four fingers" }
+        switch self {
+        case .rotate: return "Rotate with two fingers"
+        case .pinch: return "Pinch with three fingers"
+        case .spread: return "Spread with three fingers"
+        case .left: return "Swipe left with four fingers"
+        case .right: return "Swipe right with four fingers"
+        case .click: return "Click with three fingers"
+        case .tap: return "Tap with three fingers"
+        }
     }
 }
 
@@ -158,6 +174,22 @@ struct GesturePreview: View {
                                 var trail = Path(); trail.move(to:start); trail.addLine(to:point)
                                 ctx.stroke(trail,with:.color(.accentColor.opacity(0.38)),style:StrokeStyle(lineWidth:3,lineCap:.round))
                                 points.append(point)
+                            }
+                        case .click, .tap:
+                            let press = sin(progress * .pi)
+                            let restingY = cy - scale * 0.08
+                            let touchY = restingY + press * scale * (gesture == .click ? 0.15 : 0.10)
+                            for i in 0..<3 {
+                                let start = CGPoint(x:cx+Double(i-1)*scale*0.17,y:restingY)
+                                let point = CGPoint(x:start.x,y:touchY)
+                                var trail = Path(); trail.move(to:start); trail.addLine(to:point)
+                                ctx.stroke(trail,with:.color(.accentColor.opacity(0.38)),style:StrokeStyle(lineWidth:3,lineCap:.round))
+                                points.append(point)
+                            }
+                            let ripple = max(0, (progress - 0.45) / 0.55)
+                            if ripple > 0 {
+                                let radius = scale * (0.08 + ripple * 0.13)
+                                ctx.stroke(Path(ellipseIn:CGRect(x:cx-radius,y:touchY-radius,width:radius*2,height:radius*2)),with:.color(.accentColor.opacity(0.45 * (1-ripple))),style:StrokeStyle(lineWidth:2))
                             }
                         }
                         for point in points {

@@ -158,9 +158,9 @@ struct SettingsView: View {
                 Divider().padding(.leading,50)
                 gestureRow("Swipe right with four fingers",subtitle:"Defaults to showing or hiding the right sidebar in selected apps",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
                 Divider().padding(.leading,50)
-                pointerActionRow("Click with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) when you press the trackpad", icon:"cursorarrow.click.2", binding:$model.threeFingerClick)
+                pointerActionRow("Click with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) when you press the trackpad", icon:"cursorarrow.click.2", binding:$model.threeFingerClick, preview:.click)
                 Divider().padding(.leading,50)
-                pointerActionRow("Tap with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) without pressing the trackpad", icon:"hand.tap", binding:$model.threeFingerTap)
+                pointerActionRow("Tap with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) without pressing the trackpad", icon:"hand.tap", binding:$model.threeFingerTap, preview:.tap)
             }.card()
             VStack(spacing:14) {
                 HStack {
@@ -209,13 +209,13 @@ struct SettingsView: View {
             Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
         }.padding(.horizontal,16).padding(.vertical,13).contentShape(Rectangle()).onHover { if $0 { model.preview = preview } }
     }
-    private func pointerActionRow(_ title: String, subtitle: String, icon: String, binding: Binding<Bool>) -> some View {
+    private func pointerActionRow(_ title: String, subtitle: String, icon: String, binding: Binding<Bool>, preview: PreviewGesture) -> some View {
         HStack(spacing:13) {
             Image(systemName:icon).font(.system(size:17)).foregroundStyle(.blue).frame(width:24)
             VStack(alignment:.leading,spacing:4) { Text(title).font(.system(size:13,weight:.medium)); Text(subtitle).font(.system(size:12)).foregroundStyle(.primary.opacity(0.65)) }
             Spacer()
             Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
-        }.padding(.horizontal,16).padding(.vertical,13)
+        }.padding(.horizontal,16).padding(.vertical,13).contentShape(Rectangle()).onHover { if $0 { model.preview = preview } }
     }
     private var appsView: some View {
         VStack(alignment:.leading,spacing:16) {
