@@ -8,13 +8,14 @@ Useful trackpad actions for the Mac apps you already use — already set up for 
 
 ![Even More Gestures showing ready-to-use gesture defaults](docs/images/gestures.png)
 
-Even More Gestures is a small menu-bar app that gives your trackpad a few helpful jobs. Rotate to move between tabs, pinch to close one, spread to open or bring one back, and swipe with four fingers to show a sidebar. It stays out of the Dock and gets out of your way.
+Even More Gestures is a small menu-bar app that gives your trackpad a few helpful jobs. Rotate to move between tabs, pinch to close one, spread to open or bring one back, swipe with four fingers to show a sidebar, and click or tap with three fingers to middle-click. It stays out of the Dock and gets out of your way.
 
 | Gesture | What it does |
 | --- | --- |
 | Two-finger rotate | Switch tabs |
 | Two- or three-finger pinch / spread | Close, open, or undo a tab |
 | Four-finger swipe | Toggle a left or right sidebar |
+| Three-finger click or tap | Middle-click a link to open it in a new tab, or close a browser tab |
 
 ## Ready before you change a thing
 
@@ -32,7 +33,7 @@ Even More Gestures needs Accessibility permission to activate the commands in yo
 
 ## Updates and defaults
 
-The app uses [Sparkle](https://sparkle-project.org/) for signed, automatic app updates. It also checks its signed [defaults feed](docs/defaults/stable.json) at most once per day, with the bundled defaults and the last verified local copy as fallbacks. The feed can update app shortcuts without replacing the app. No accounts, license checks, or install identifiers are used; the defaults endpoint records aggregate request analytics to estimate active installations.
+The app uses [Sparkle](https://sparkle-project.org/) for signed, automatic app updates. It also checks its signed [defaults feed](docs/defaults/stable.json) at most once per day, with the bundled defaults and the last verified local copy as fallbacks. The feed can update app shortcuts without replacing the app. There are no license checks or install identifiers; the defaults endpoint records an aggregate request count to help improve the app.
 
 The public update channel lives in the repository at `https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/appcast.xml`. Releases must be Developer ID-signed, notarized, and signed with the Sparkle update key before they are added to that feed.
 
