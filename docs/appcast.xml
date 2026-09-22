@@ -3,19 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.23</title>
-            <pubDate>Mon, 21 Sep 2026 22:39:12 -0600</pubDate>
+            <title>0.2.24</title>
+            <pubDate>Mon, 21 Sep 2026 22:41:16 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>26</sparkle:version>
-            <sparkle:shortVersionString>0.2.23</sparkle:shortVersionString>
+            <sparkle:version>27</sparkle:version>
+            <sparkle:shortVersionString>0.2.24</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.23
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.24
 
-- Added optional three-finger click and three-finger tap actions.
-- Choose middle-click or Option-click behavior; physical click and touch-only tap can be enabled independently.
+- Fixed Option-click behavior for the new three-finger click and tap actions.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.23/Even-More-Gestures-0.2.23.zip" length="3473134" type="application/octet-stream" sparkle:edSignature="g9K8NIigE4WbQUfngCMxCrfIj9ycDswx5Auh6hst9aIabW7aqJnXkKVu8dWFmWrdsEs4vC47yue3s1eqXnyPBg=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.24/Even-More-Gestures-0.2.24.zip" length="3473166" type="application/octet-stream" sparkle:edSignature="pbQQ9Msm+7hoFP9tZkSb8jIQ90P1bDQLDW4Sz9fZktEcE+3fVuQGOylsV569YIYiWlYK2UHlRamRTO5sqJCzDQ=="/>
         </item>
     </channel>
 </rss>
