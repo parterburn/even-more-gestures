@@ -1,14 +1,14 @@
 # Even More Gestures
 
-Natural trackpad gestures for tabs and sidebars in the Mac apps you already use.
+Useful trackpad actions for the Mac apps you already use — already set up for you.
 
-[Download for Mac](https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.zip) · [Product page](https://paularterburn.com/even-more-gestures/) · [Release notes](https://github.com/parterburn/even-more-gestures/releases)
+[Download for Mac](https://github.com/parterburn/even-more-gestures/releases/latest/download/Even-More-Gestures.dmg) · [Product page](https://paularterburn.com/even-more-gestures/) · [Release notes](https://github.com/parterburn/even-more-gestures/releases)
 
-> Download the latest notarized release for macOS. The link above downloads the app ZIP directly.
+> Download the notarized installer, drag the app to Applications, then open it and allow Accessibility access when macOS asks.
 
-![Even More Gestures setup and gestures screen](docs/images/cover-1.png)
+![Even More Gestures showing ready-to-use gesture defaults](docs/images/gestures.png)
 
-Rotate to switch tabs, pinch to close, spread to open or undo, and swipe with four fingers to reveal sidebars. The app runs from the menu bar and never appears in the Dock.
+Even More Gestures is a small menu-bar app that gives your trackpad a few helpful jobs. Rotate to move between tabs, pinch to close one, spread to open or bring one back, and swipe with four fingers to show a sidebar. It stays out of the Dock and gets out of your way.
 
 | Gesture | What it does |
 | --- | --- |
@@ -16,9 +16,11 @@ Rotate to switch tabs, pinch to close, spread to open or undo, and swipe with fo
 | Two- or three-finger pinch / spread | Close, open, or undo a tab |
 | Four-finger swipe | Toggle a left or right sidebar |
 
-It starts with app-aware defaults and makes the individual shortcuts easy to inspect and change. Current defaults include Maps’ left sidebar (`⌘⌃S`), Chrome vertical tabs/Gemini (`⌘⇧L` / `⌃G`), and ChatGPT’s left/right sidebars (`⌘B` / `⌘⌥B`). Your custom choices always take priority.
+## Ready before you change a thing
 
-![Per-app defaults, including ChatGPT](docs/images/cover-2.png)
+You do not need to create a shortcut system or set up every app by hand. The app starts with thoughtful defaults for the apps already on your Mac. For example, it can switch Chrome tabs and show its vertical-tabs or Gemini area; show the sidebar in Maps; and reveal either ChatGPT sidebar. You can inspect or change any one of those choices later, but you do not need to.
+
+![Even More Gestures showing supported app defaults](docs/images/apps.png)
 
 ## One-time setup
 
@@ -26,7 +28,7 @@ Download the [DMG installer](https://github.com/parterburn/even-more-gestures/re
 
 Even More Gestures needs Accessibility permission to activate the commands in your foreground app. The app makes that requirement clear above its main tabs, opens macOS directly to the right settings pane, and explains what to do if macOS has not yet listed it. macOS intentionally requires you to turn that permission on yourself.
 
-![Accessibility setup shown in the app](docs/images/cover-3.png)
+![Even More Gestures showing its everyday and setup settings](docs/images/settings.png)
 
 ## Updates and defaults
 
