@@ -5,3 +5,4 @@ build/
 *.xcuserstate
 xcuserdata/
 Assets/Gumroad/*-source.png
+Infrastructure/defaults-proxy/.wrangler/
