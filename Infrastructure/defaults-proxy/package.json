@@ -1,0 +1,11 @@
+{
+  "name": "even-more-gestures-defaults-proxy",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.136.1"
+  }
+}

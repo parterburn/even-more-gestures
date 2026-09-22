@@ -56,8 +56,10 @@ public typealias ActionPlan = PresetAction
     private let file: URL
     private let cacheFile: URL
     private var currentRevision = 0
-    private let feedURL = URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.json")!
-    private let signatureURL = URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.sig")!
+    private let remoteFeeds = [
+        (URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.json")!, URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.sig")!),
+        (URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.json")!, URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.sig")!)
+    ]
     public init(file: URL? = nil) {
         self.file = file ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Even More Gestures/overrides.json")
@@ -90,23 +92,27 @@ public typealias ActionPlan = PresetAction
         let lastSuccess = defaults.object(forKey: "presetsLastSuccess") as? Date ?? .distantPast
         guard force || now.timeIntervalSince(lastAttempt) >= 3600 && now.timeIntervalSince(lastSuccess) >= 86400 else { return }
         defaults.set(now, forKey: "presetsLastAttempt")
-        do {
-            async let payload = download(feedURL, maximumBytes: 512_000)
-            async let signature = download(signatureURL, maximumBytes: 1024)
-            let receivedPayload = try await payload
-            let receivedSignature = try await signature
-            let feed = try verify(receivedPayload, signature: receivedSignature)
-            if feed.revision > currentRevision {
-                let cache = CachedPresetFeed(payload: receivedPayload, signature: receivedSignature)
-                try FileManager.default.createDirectory(at: cacheFile.deletingLastPathComponent(), withIntermediateDirectories: true)
-                try JSONEncoder().encode(cache).write(to: cacheFile, options: .atomic)
-                presets = feed.presets
-                currentRevision = feed.revision
+        for (feedURL, signatureURL) in remoteFeeds {
+            do {
+                async let payload = download(feedURL, maximumBytes: 512_000)
+                async let signature = download(signatureURL, maximumBytes: 1024)
+                let receivedPayload = try await payload
+                let receivedSignature = try await signature
+                let feed = try verify(receivedPayload, signature: receivedSignature)
+                if feed.revision > currentRevision {
+                    let cache = CachedPresetFeed(payload: receivedPayload, signature: receivedSignature)
+                    try FileManager.default.createDirectory(at: cacheFile.deletingLastPathComponent(), withIntermediateDirectories: true)
+                    try JSONEncoder().encode(cache).write(to: cacheFile, options: .atomic)
+                    presets = feed.presets
+                    currentRevision = feed.revision
+                }
+                defaults.set(Date(), forKey: "presetsLastSuccess")
+                return
+            } catch {
+                continue
             }
-            defaults.set(Date(), forKey: "presetsLastSuccess")
-        } catch {
-            // Retain the last verified cache, or the bundle's offline defaults.
         }
+        // Retain the last verified cache, or the bundle's offline defaults.
     }
     private func download(_ url: URL, maximumBytes: Int) async throws -> Data {
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
