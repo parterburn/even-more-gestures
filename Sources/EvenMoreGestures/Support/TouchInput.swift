@@ -151,6 +151,7 @@ private final class FrameProcessor {
 }
 
 private final class ThreeFingerClickController {
+    private static let syntheticEventMarker: Int64 = 0x454D47
     var action: ThreeFingerClickAction = .middleClick
     private let threeFingerContacts: ThreeFingerContactState
     private var eventTap: CFMachPort?
@@ -193,6 +194,9 @@ private final class ThreeFingerClickController {
             if let eventTap { CGEvent.tapEnable(tap: eventTap, enable: true) }
             return Unmanaged.passUnretained(event)
         }
+        if event.getIntegerValueField(.eventSourceUserData) == Self.syntheticEventMarker {
+            return Unmanaged.passUnretained(event)
+        }
         switch type {
         case .leftMouseDown:
             guard !NSApp.isActive, threeFingerContacts.hasThreeFingerContacts() else { return Unmanaged.passUnretained(event) }
@@ -215,6 +219,7 @@ private final class ThreeFingerClickController {
         guard let event = CGEvent(mouseEventSource: source, mouseType: type, mouseCursorPosition: location, mouseButton: button) else { return }
         if action == .optionClick { event.flags.insert(.maskAlternate) }
         event.setIntegerValueField(.mouseEventClickState, value: 1)
+        event.setIntegerValueField(.eventSourceUserData, value: Self.syntheticEventMarker)
         event.post(tap: .cghidEventTap)
     }
 }
