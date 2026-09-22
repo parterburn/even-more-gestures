@@ -36,6 +36,10 @@ public enum KeyboardLayout {
     public static func resolve(_ key: String) -> (CGKeyCode, CGEventFlags)? {
         let special: [String: CGKeyCode] = ["tab":48,"left":123,"right":124,"up":126,"down":125,"return":36,"escape":53,"space":49,"delete":51]
         if let code = special[key] { return (code, []) }
+        if Thread.isMainThread { return resolveTextKeyOnMain(key) }
+        return DispatchQueue.main.sync { resolveTextKeyOnMain(key) }
+    }
+    private static func resolveTextKeyOnMain(_ key: String) -> (CGKeyCode, CGEventFlags)? {
         guard let input = TISCopyCurrentKeyboardLayoutInputSource()?.takeRetainedValue(),
               let property = TISGetInputSourceProperty(input, kTISPropertyUnicodeKeyLayoutData) else { return nil }
         let data = Unmanaged<CFData>.fromOpaque(property).takeUnretainedValue()
