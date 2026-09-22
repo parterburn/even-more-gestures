@@ -3,18 +3,20 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.19</title>
-            <pubDate>Mon, 21 Sep 2026 14:25:18 -0600</pubDate>
+            <title>0.2.20</title>
+            <pubDate>Mon, 21 Sep 2026 21:46:43 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>22</sparkle:version>
-            <sparkle:shortVersionString>0.2.19</sparkle:shortVersionString>
+            <sparkle:version>23</sparkle:version>
+            <sparkle:shortVersionString>0.2.20</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.19
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.20
 
-- Added the product site and creator links to the General tab.
+- Reduced background wakeups by polling Accessibility only while setup is pending and updating the pause countdown only while a timed pause is active.
+- Pausing gestures now stops trackpad input until gestures resume.
+- Checks for refreshed defaults now run daily rather than waking hourly.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.19/Even-More-Gestures-0.2.19.zip" length="3447508" type="application/octet-stream" sparkle:edSignature="RW37egi2qCDNExkfYPXGz5qsGZQjk2HienIKZ+K5/91UGyTFuUqUy6XGbjZzh1SVD8pcWHllaUiRo38ie0SyAQ=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.20/Even-More-Gestures-0.2.20.zip" length="3447688" type="application/octet-stream" sparkle:edSignature="SesKT3ayON4je8c4sjLyDYzMhWjmhYXCnkXn4qo3j1AFrKdjQzRJA81oiLO5x3Xw5geMFT6UGpEuDmCGwA9HAA=="/>
         </item>
     </channel>
 </rss>
