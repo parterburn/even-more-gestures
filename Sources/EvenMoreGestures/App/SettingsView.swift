@@ -157,6 +157,10 @@ struct SettingsView: View {
                 gestureRow("Swipe left with four fingers",subtitle:"Defaults to showing or hiding the left sidebar in selected apps",icon:"sidebar.left",binding:$model.leftEnabled,preview:.left)
                 Divider().padding(.leading,50)
                 gestureRow("Swipe right with four fingers",subtitle:"Defaults to showing or hiding the right sidebar in selected apps",icon:"sidebar.right",binding:$model.rightEnabled,preview:.right)
+                Divider().padding(.leading,50)
+                pointerActionRow("Click with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) when you press the trackpad", icon:"cursorarrow.click.2", binding:$model.threeFingerClick)
+                Divider().padding(.leading,50)
+                pointerActionRow("Tap with three fingers", subtitle:"Sends a \(model.threeFingerClickAction.title.lowercased()) without pressing the trackpad", icon:"hand.tap", binding:$model.threeFingerTap)
             }.card()
             VStack(spacing:14) {
                 HStack {
@@ -178,6 +182,19 @@ struct SettingsView: View {
                 if model.pinchFingerCount == 2 {
                     Text("Two-finger pinch may also zoom in the app you’re using.").font(.caption).foregroundStyle(.secondary).frame(maxWidth:.infinity,alignment:.leading)
                 }
+                if model.threeFingerClick || model.threeFingerTap {
+                    Divider()
+                    HStack {
+                        Text("Three-finger action")
+                        Spacer()
+                        Picker("Three-finger action", selection:$model.threeFingerClickAction) {
+                            ForEach(ThreeFingerClickAction.allCases, id:\.self) { Text($0.title).tag($0) }
+                        }.labelsHidden().pickerStyle(.segmented).frame(width:190)
+                    }
+                    if model.threeFingerTap {
+                        Text("If macOS also looks up words when you tap with three fingers, turn off Look up & data detectors in Trackpad settings.").font(.caption).foregroundStyle(.secondary).frame(maxWidth:.infinity,alignment:.leading)
+                    }
+                }
                 settingToggle("Show the undo hint",value:$model.showHUD)
                 settingToggle("Invert sidebar direction",value:$model.invert)
             }.font(.system(size:12)).toggleStyle(.switch).controlSize(.small).padding(16).card()
@@ -191,6 +208,14 @@ struct SettingsView: View {
             Spacer()
             Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
         }.padding(.horizontal,16).padding(.vertical,13).contentShape(Rectangle()).onHover { if $0 { model.preview = preview } }
+    }
+    private func pointerActionRow(_ title: String, subtitle: String, icon: String, binding: Binding<Bool>) -> some View {
+        HStack(spacing:13) {
+            Image(systemName:icon).font(.system(size:17)).foregroundStyle(.blue).frame(width:24)
+            VStack(alignment:.leading,spacing:4) { Text(title).font(.system(size:13,weight:.medium)); Text(subtitle).font(.system(size:12)).foregroundStyle(.primary.opacity(0.65)) }
+            Spacer()
+            Toggle(title,isOn:binding).labelsHidden().toggleStyle(.switch).controlSize(.small)
+        }.padding(.horizontal,16).padding(.vertical,13)
     }
     private var appsView: some View {
         VStack(alignment:.leading,spacing:16) {

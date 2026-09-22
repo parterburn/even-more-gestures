@@ -39,6 +39,9 @@ struct InstalledApp: Identifiable {
     @Published var rightEnabled: Bool { didSet { save(rightEnabled, "right"); input.resetGestureSessions() } }
     @Published var undoEnabled: Bool { didSet { save(undoEnabled, "undo"); undo.clear() } }
     @Published var pinchFingerCount: Int { didSet { UserDefaults.standard.set(pinchFingerCount, forKey: "pinchFingers"); input.setPinchFingers(pinchFingerCount) } }
+    @Published var threeFingerClick: Bool { didSet { save(threeFingerClick, "threeFingerClick"); input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction) } }
+    @Published var threeFingerTap: Bool { didSet { save(threeFingerTap, "threeFingerTap") } }
+    @Published var threeFingerClickAction: ThreeFingerClickAction { didSet { UserDefaults.standard.set(threeFingerClickAction.rawValue, forKey: "threeFingerClickAction"); input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction) } }
     @Published var haptics: Bool { didSet { save(haptics, "haptics") } }
     @Published var invert: Bool { didSet { save(invert, "invert"); input.resetGestureSessions() } }
     @Published var showHUD: Bool { didSet { save(showHUD, "hud") } }
@@ -62,18 +65,23 @@ struct InstalledApp: Identifiable {
     private var lastSpaceChange = Date.distantPast
     init() {
         let defaults = UserDefaults.standard
-        defaults.register(defaults: ["rotate":true,"pinch":true,"left":true,"right":true,"undo":true,"haptics":true,"hud":true,"menuIcon":true,"rotationStep":30.0,"pinchFingers":3])
+        defaults.register(defaults: ["rotate":true,"pinch":true,"left":true,"right":true,"undo":true,"threeFingerClick":false,"threeFingerTap":false,"threeFingerClickAction":ThreeFingerClickAction.middleClick.rawValue,"haptics":true,"hud":true,"menuIcon":true,"rotationStep":30.0,"pinchFingers":3])
         rotateEnabled = defaults.bool(forKey: "rotate"); pinchEnabled = defaults.bool(forKey: "pinch")
         leftEnabled = defaults.bool(forKey: "left"); rightEnabled = defaults.bool(forKey: "right")
         undoEnabled = defaults.bool(forKey: "undo"); haptics = defaults.bool(forKey: "haptics")
         pinchFingerCount = defaults.integer(forKey: "pinchFingers") == 2 ? 2 : 3
+        threeFingerClick = defaults.bool(forKey: "threeFingerClick")
+        threeFingerTap = defaults.bool(forKey: "threeFingerTap")
+        threeFingerClickAction = ThreeFingerClickAction(rawValue: defaults.string(forKey: "threeFingerClickAction") ?? "") ?? .middleClick
         invert = defaults.bool(forKey: "invert"); showHUD = defaults.bool(forKey: "hud")
         showMenuIcon = defaults.bool(forKey: "menuIcon"); rotationStep = defaults.double(forKey: "rotationStep")
         showOnboarding = !defaults.bool(forKey: "onboarded")
         lastApp = NSWorkspace.shared.frontmostApplication
         input.onGesture = { [weak self] event in self?.handle(event) }
+        input.onThreeFingerTap = { [weak self] in self?.handleThreeFingerTap() }
         input.setRotationStep(rotationStep)
         input.setPinchFingers(pinchFingerCount)
+        input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction)
         store.objectWillChange.sink { [weak self] _ in
             guard let self else { return }
             self.objectWillChange.send(); self.routeGeneration += 1; self.input.resetGestureSessions(); self.executor.invalidate()
@@ -245,6 +253,15 @@ struct InstalledApp: Identifiable {
                 if reopen && self.showHUD { self.onHUD?("Tab closed · spread to undo") }
             } else if action == .newTab || action == .reopenClosedTab { self.undo.clear() }
 
+        }
+    }
+    private func handleThreeFingerTap() {
+        guard threeFingerTap, !pause.isPaused(), permission, !NSApp.isActive else { return }
+        input.performThreeFingerTap()
+        if let app = NSWorkspace.shared.frontmostApplication {
+            let name = app.localizedName ?? "Current app"
+            lastEvent = "\(threeFingerClickAction.title) · \(name)"
+            if haptics { NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now) }
         }
     }
     func isGestureEnabled(_ action: GestureAction) -> Bool {

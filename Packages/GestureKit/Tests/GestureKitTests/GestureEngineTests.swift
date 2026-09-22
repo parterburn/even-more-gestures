@@ -102,6 +102,21 @@ final class GestureEngineTests: XCTestCase {
             XCTAssertEqual(standard.process(contacts:pair(0,radius:radius),timestamp:0.2),[])
         }
     }
+    func testThreeFingerTapRecognizesOnlyAQuickStationaryTouch() {
+        let tap = ThreeFingerTapRecognizer()
+        let points = cluster(3)
+        XCTAssertFalse(tap.process(contacts: points, timestamp: 0))
+        XCTAssertFalse(tap.process(contacts: points, timestamp: 0.12))
+        XCTAssertTrue(tap.process(contacts: [], timestamp: 0.18))
+
+        XCTAssertFalse(tap.process(contacts: points, timestamp: 1))
+        XCTAssertFalse(tap.process(contacts: cluster(3, x: 0.56), timestamp: 1.12))
+        XCTAssertFalse(tap.process(contacts: [], timestamp: 1.18))
+
+        XCTAssertFalse(tap.process(contacts: points, timestamp: 2))
+        XCTAssertFalse(tap.process(contacts: points, timestamp: 2.35))
+        XCTAssertFalse(tap.process(contacts: [], timestamp: 2.36))
+    }
     func testThreeFingerPinchIsDisabledInTwoFingerMode() {
         let e = GestureEngine(configuration:.init(pinchFingerCount:2)); arm(e,cluster(3))
         XCTAssertEqual(e.process(contacts:cluster(3,scale:0.5),timestamp:0.2),[])
