@@ -59,7 +59,7 @@ struct SettingsView: View {
         .onDisappear { isVisible = false; model.practice = false }
         .task(id:model.settingsVisible) {
             guard model.settingsVisible else { return }
-            while !Task.isCancelled {
+            while !Task.isCancelled && !model.permission {
                 try? await Task.sleep(for:.seconds(1))
                 guard !Task.isCancelled else { break }
                 model.refreshPermission()

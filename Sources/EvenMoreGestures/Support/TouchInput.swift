@@ -46,6 +46,7 @@ private final class FrameProcessor {
     private var added: io_iterator_t = 0
     private var removed: io_iterator_t = 0
     private var reconnect: DispatchWorkItem?
+    private var suspended = false
     init() {
         processor.deliver = { [weak self] event, generation in
             DispatchQueue.main.async {
@@ -79,6 +80,7 @@ private final class FrameProcessor {
         }
     }
     func start() {
+        guard !suspended else { return }
         guard AXIsProcessTrusted() else { status = "Accessibility permission needed"; return }
         EMGReset(rotation, pinchFingers)
         let count = EMGStart({ device, contacts, count, time, generation, rotation, pinchFingers, context in
@@ -89,10 +91,13 @@ private final class FrameProcessor {
         status = String(cString: EMGError())
     }
     func stop() { EMGStop(); isRunning = false; deviceCount = 0 }
+    func suspend() { suspended = true; reconnect?.cancel(); stop() }
+    func resume() { suspended = false; start() }
     func resetGestureSessions() { EMGReset(rotation, pinchFingers) }
     func setRotationStep(_ degrees: Double) { rotation = degrees; resetGestureSessions() }
     func setPinchFingers(_ count: Int) { pinchFingers = count == 2 ? 2 : 3; resetGestureSessions() }
     func scheduleReconnect() {
+        guard !suspended else { return }
         reconnect?.cancel()
         let item = DispatchWorkItem { [weak self] in self?.start() }
         reconnect = item; DispatchQueue.main.asyncAfter(deadline: .now()+0.8, execute: item)

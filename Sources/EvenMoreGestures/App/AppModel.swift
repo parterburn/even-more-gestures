@@ -51,7 +51,9 @@ struct InstalledApp: Identifiable {
     var onCheckForUpdates: (() -> Void)?
     private var undo = UndoWindow()
     private var pause = PauseState()
-    private var pauseTimer: DispatchWorkItem?
+    private var pauseResume: DispatchWorkItem?
+    private var permissionPoller: AnyCancellable?
+    private var pauseCountdown: AnyCancellable?
     private var observations: [NSObjectProtocol] = []
     private var subscriptions = Set<AnyCancellable>()
     private var sidebar: (action: GestureAction, plan: ActionPlan, pid: pid_t, time: Date)?
@@ -90,20 +92,9 @@ struct InstalledApp: Identifiable {
         })
         observations.append(center.addObserver(forName: NSWorkspace.didTerminateApplicationNotification, object: nil, queue: .main) { [weak self] _ in MainActor.assumeIsolated { self?.executor.invalidate() } })
         refresh()
-        // System Settings can grant Accessibility while this app is inactive. Keep
-        // checking until it is available instead of relying on the settings window
-        // to remain alive or become active again.
-        Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
-            Task { @MainActor in
-                guard let self, !self.permission else { return }
-                self.refreshPermission()
-            }
-        }.store(in: &subscriptions)
-        Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
-            self?.refreshPauseCountdown()
-        }.store(in: &subscriptions)
+        if !permission { startPermissionPolling() }
         Task { await store.refreshDefaultsIfNeeded() }
-        Timer.publish(every: 3600, on: .main, in: .common).autoconnect().sink { [weak self] _ in
+        Timer.publish(every: 86400, on: .main, in: .common).autoconnect().sink { [weak self] _ in
             Task { @MainActor in await self?.store.refreshDefaultsIfNeeded() }
         }.store(in: &subscriptions)
     }
@@ -111,16 +102,23 @@ struct InstalledApp: Identifiable {
     func refreshPermission() {
         let current = AXIsProcessTrusted()
         guard current != permission else {
-            if current && !input.isRunning { input.start() }
+            if current { stopPermissionPolling() }
+            if current && !paused && !input.isRunning { input.start() }
             return
         }
         permission = current
-        current ? input.start() : input.stop()
+        if current {
+            stopPermissionPolling()
+            if !paused { input.start() }
+        } else {
+            input.stop()
+            startPermissionPolling()
+        }
         onStatusChange?()
     }
     func refresh() {
         refreshPermission()
-        if permission && !input.isRunning { input.start() }
+        if permission && !paused && !input.isRunning { input.start() }
         reloadApps(); detectConflicts()
         launchAtLogin = SMAppService.mainApp.status == .enabled
     }
@@ -174,11 +172,18 @@ struct InstalledApp: Identifiable {
     func pauseForHour() {
         pause.pauseForHour(); updatePause()
         let item = DispatchWorkItem { [weak self] in self?.pause.resume(); self?.updatePause() }
-        pauseTimer = item; DispatchQueue.main.asyncAfter(deadline: .now()+3600, execute: item)
+        pauseResume = item; DispatchQueue.main.asyncAfter(deadline: .now()+3600, execute: item)
     }
     private func updatePause() {
-        pauseTimer?.cancel(); pauseTimer = nil; paused = pause.isPaused()
+        pauseResume?.cancel(); pauseResume = nil; paused = pause.isPaused()
         pauseRemaining = pause.remainingTime()
+        if paused {
+            input.suspend()
+            if pauseRemaining != nil { startPauseCountdown() } else { stopPauseCountdown() }
+        } else {
+            stopPauseCountdown()
+            if permission { input.resume() }
+        }
         routeGeneration += 1; undo.clear(); sidebar = nil; input.resetGestureSessions(); onStatusChange?()
     }
     private func refreshPauseCountdown() {
@@ -186,6 +191,20 @@ struct InstalledApp: Identifiable {
         if pause.isPaused() { pauseRemaining = pause.remainingTime() }
         else { pause.resume(); updatePause() }
     }
+    private func startPermissionPolling() {
+        guard permissionPoller == nil else { return }
+        permissionPoller = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
+            self?.refreshPermission()
+        }
+    }
+    private func stopPermissionPolling() { permissionPoller?.cancel(); permissionPoller = nil }
+    private func startPauseCountdown() {
+        guard pauseCountdown == nil else { return }
+        pauseCountdown = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] _ in
+            self?.refreshPauseCountdown()
+        }
+    }
+    private func stopPauseCountdown() { pauseCountdown?.cancel(); pauseCountdown = nil }
     func finishOnboarding() { showOnboarding = false; practice = false; UserDefaults.standard.set(true, forKey: "onboarded") }
     func handle(_ event: GestureEvent) {
         if practice && NSApp.isActive { practiceEvent(event); return }
