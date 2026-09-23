@@ -3,18 +3,18 @@
     <channel>
         <title>Even More Gestures</title>
         <item>
-            <title>0.2.28</title>
-            <pubDate>Tue, 22 Sep 2026 11:51:05 -0600</pubDate>
+            <title>0.2.29</title>
+            <pubDate>Tue, 22 Sep 2026 20:20:23 -0600</pubDate>
             <link>https://paularterburn.com/even-more-gestures/</link>
-            <sparkle:version>31</sparkle:version>
-            <sparkle:shortVersionString>0.2.28</sparkle:shortVersionString>
+            <sparkle:version>32</sparkle:version>
+            <sparkle:shortVersionString>0.2.29</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.28
+            <description sparkle:format="markdown"><![CDATA[# Even More Gestures 0.2.29
 
-- Added animated, trail-based previews for three-finger click and tap gestures.
+- New installs now use two fingers for pinch and spread gestures by default.
 ]]></description>
-            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.28/Even-More-Gestures-0.2.28.zip" length="3490917" type="application/octet-stream" sparkle:edSignature="iiJDiVlyLJTuAjIbLb5HYxkjy9UuMhioAtks1ksw166IFLSy6aUUJEpQEe938UPwmlr6AyOmlIm9RP6iyAJ0AA=="/>
+            <enclosure url="https://github.com/parterburn/even-more-gestures/releases/download/v0.2.29/Even-More-Gestures-0.2.29.zip" length="3490940" type="application/octet-stream" sparkle:edSignature="6WHkESbobqRXs5CqDZoBmc66F4ad6Gn9lcQ8LXP4e8Bgxkye3dnDVfLk8E5Up7A9IXxfr/44PPR3fIMFA8AHCA=="/>
         </item>
     </channel>
 </rss>
