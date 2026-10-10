@@ -18,6 +18,7 @@ let package = Package(
         .target(name: "TouchBridge", linkerSettings: [.linkedFramework("CoreFoundation"), .linkedFramework("IOKit")]),
         .executableTarget(name: "EvenMoreGestures", dependencies: ["GestureCore", "AppLogic", "GestureKit", "TouchBridge", .product(name: "Sparkle", package: "Sparkle")], resources: [.process("Resources")], linkerSettings: [.unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/../Frameworks"])]),
         .testTarget(name: "GestureCoreTests", dependencies: ["GestureCore"]),
-        .testTarget(name: "AppLogicTests", dependencies: ["AppLogic"])
+        .testTarget(name: "AppLogicTests", dependencies: ["AppLogic"]),
+        .testTarget(name: "EvenMoreGesturesTests", dependencies: ["EvenMoreGestures", "TouchBridge", "GestureKit"])
     ]
 )

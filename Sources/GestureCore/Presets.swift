@@ -57,15 +57,24 @@ public typealias ActionPlan = PresetAction
     private let cacheFile: URL
     private var currentRevision = 0
     private let appBuild: Int
+    private let publicKey: Data?
+    private let defaults: UserDefaults
     private let remoteFeeds = [
         (URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.json")!, URL(string: "https://paularterburn.com/even-more-gestures/defaults/stable.sig")!),
         (URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.json")!, URL(string: "https://raw.githubusercontent.com/parterburn/even-more-gestures/main/docs/defaults/stable.sig")!)
     ]
-    public init(file: URL? = nil) {
+    public convenience init(file: URL? = nil) {
+        let build = Int(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0") ?? 0
+        let key = (Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") as? String).flatMap { Data(base64Encoded: $0) }
+        self.init(file: file, appBuild: build, publicKey: key, defaults: .standard)
+    }
+    init(file: URL?, appBuild: Int, publicKey: Data?, defaults: UserDefaults) {
         self.file = file ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Even More Gestures/overrides.json")
         cacheFile = self.file.deletingLastPathComponent().appendingPathComponent("presets-cache.json")
-        appBuild = Int(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "0") ?? 0
+        self.appBuild = appBuild
+        self.publicKey = publicKey
+        self.defaults = defaults
         do {
             let url = Bundle.module.url(forResource: "presets", withExtension: "json")!
             presets = try JSONDecoder().decode([AppPreset].self, from: Data(contentsOf: url))
@@ -73,27 +82,21 @@ public typealias ActionPlan = PresetAction
                 overrides = try JSONDecoder().decode([String: AppOverride].self, from: Data(contentsOf: self.file))
             }
         } catch { self.error = "Could not load settings: \(error.localizedDescription)" }
-        let defaults = UserDefaults.standard
-        let cachedBuild = defaults.integer(forKey: "presetsCacheBuild")
-        if cachedBuild == appBuild,
-           let cache = try? JSONDecoder().decode(CachedPresetFeed.self, from: Data(contentsOf: cacheFile)),
+        if let cache = try? JSONDecoder().decode(CachedPresetFeed.self, from: Data(contentsOf: cacheFile)),
+           cache.build == appBuild,
            let feed = try? verify(cache.payload, signature: cache.signature) {
             presets = feed.presets
             currentRevision = feed.revision
         }
-        // A newly installed app ships a fresher offline preset set than any cache made by
-        // an earlier build. Keep the cache for the next launch, but show bundled defaults now.
-        defaults.set(appBuild, forKey: "presetsCacheBuild")
+        // Cache provenance belongs to the cached file, not the most recent app launch.
     }
     private func verify(_ payload: Data, signature: Data) throws -> PresetFeed {
-        guard let encodedKey = Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") as? String,
-              let publicKey = Data(base64Encoded: encodedKey) else {
+        guard let publicKey else {
             throw PresetFeedError.invalidSignature
         }
         return try PresetFeedVerifier.verify(payload: payload, signature: signature, publicKey: publicKey, currentBuild: appBuild)
     }
     public func refreshDefaultsIfNeeded(force: Bool = false) async {
-        let defaults = UserDefaults.standard
         let now = Date()
         let lastAttempt = defaults.object(forKey: "presetsLastAttempt") as? Date ?? .distantPast
         let lastSuccess = defaults.object(forKey: "presetsLastSuccess") as? Date ?? .distantPast
@@ -107,7 +110,7 @@ public typealias ActionPlan = PresetAction
                 let receivedSignature = try await signature
                 let feed = try verify(receivedPayload, signature: receivedSignature)
                 if feed.revision > currentRevision {
-                    let cache = CachedPresetFeed(payload: receivedPayload, signature: receivedSignature)
+                    let cache = CachedPresetFeed(payload: receivedPayload, signature: receivedSignature, build: appBuild)
                     try FileManager.default.createDirectory(at: cacheFile.deletingLastPathComponent(), withIntermediateDirectories: true)
                     try JSONEncoder().encode(cache).write(to: cacheFile, options: .atomic)
                     presets = feed.presets
@@ -137,6 +140,7 @@ public typealias ActionPlan = PresetAction
     public func isRemoved(bundleIdentifier: String) -> Bool { overrides[bundleIdentifier]?.removed ?? false }
     public func setEnabled(_ enabled: Bool, bundleIdentifier: String) {
         var item = overrides[bundleIdentifier] ?? .init(); item.enabled = enabled
+        if enabled { item.removed = false }
         overrides[bundleIdentifier] = item; save()
     }
     public func addApp(bundleIdentifier: String, name: String) {

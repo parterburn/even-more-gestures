@@ -40,7 +40,7 @@ struct InstalledApp: Identifiable {
     @Published var undoEnabled: Bool { didSet { save(undoEnabled, "undo"); undo.clear() } }
     @Published var pinchFingerCount: Int { didSet { UserDefaults.standard.set(pinchFingerCount, forKey: "pinchFingers"); input.setPinchFingers(pinchFingerCount) } }
     @Published var threeFingerClick: Bool { didSet { save(threeFingerClick, "threeFingerClick"); input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction) } }
-    @Published var threeFingerTap: Bool { didSet { save(threeFingerTap, "threeFingerTap") } }
+    @Published var threeFingerTap: Bool { didSet { save(threeFingerTap, "threeFingerTap"); input.setThreeFingerTap(enabled: threeFingerTap) } }
     @Published var threeFingerClickAction: ThreeFingerClickAction { didSet { UserDefaults.standard.set(threeFingerClickAction.rawValue, forKey: "threeFingerClickAction"); input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction) } }
     @Published var haptics: Bool { didSet { save(haptics, "haptics") } }
     @Published var invert: Bool { didSet { save(invert, "invert"); input.resetGestureSessions() } }
@@ -79,12 +79,18 @@ struct InstalledApp: Identifiable {
         lastApp = NSWorkspace.shared.frontmostApplication
         input.onGesture = { [weak self] event in self?.handle(event) }
         input.onThreeFingerTap = { [weak self] in self?.handleThreeFingerTap() }
+        input.shouldHandleClick = { [weak self] in self?.canHandleExternalInput() ?? false }
         input.setRotationStep(rotationStep)
         input.setPinchFingers(pinchFingerCount)
         input.setThreeFingerClick(enabled: threeFingerClick, action: threeFingerClickAction)
+        input.setThreeFingerTap(enabled: threeFingerTap)
         store.objectWillChange.sink { [weak self] _ in
             guard let self else { return }
             self.objectWillChange.send(); self.routeGeneration += 1; self.input.resetGestureSessions(); self.executor.invalidate()
+        }.store(in: &subscriptions)
+        store.$presets.dropFirst().sink { [weak self] _ in
+            // @Published emits before assignment; reload after the new presets are installed.
+            DispatchQueue.main.async { self?.reloadApps() }
         }.store(in: &subscriptions)
         input.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }.store(in: &subscriptions)
         let center = NSWorkspace.shared.notificationCenter
@@ -195,7 +201,8 @@ struct InstalledApp: Identifiable {
             if pauseRemaining != nil { startPauseCountdown() } else { stopPauseCountdown() }
         } else {
             stopPauseCountdown()
-            if permission { input.resume() }
+            // Clear suspension even while permission is absent, so granting it can restart input.
+            input.resume()
         }
         routeGeneration += 1; undo.clear(); sidebar = nil; input.resetGestureSessions(); onStatusChange?()
     }
@@ -261,13 +268,18 @@ struct InstalledApp: Identifiable {
         }
     }
     private func handleThreeFingerTap() {
-        guard threeFingerTap, !pause.isPaused(), permission, !NSApp.isActive else { return }
-        input.performThreeFingerTap()
+        guard threeFingerTap, canHandleExternalInput(), input.performThreeFingerTap() else { return }
         if let app = NSWorkspace.shared.frontmostApplication {
             let name = app.localizedName ?? "Current app"
             lastEvent = "\(threeFingerClickAction.title) · \(name)"
             if haptics { NSHapticFeedbackManager.defaultPerformer.perform(.alignment, performanceTime: .now) }
         }
+    }
+    private func canHandleExternalInput() -> Bool {
+        guard !pause.isPaused(), permission, AXIsProcessTrusted(), !NSApp.isActive,
+              let app = NSWorkspace.shared.frontmostApplication, let bundle = app.bundleIdentifier,
+              app.processIdentifier != ProcessInfo.processInfo.processIdentifier else { return false }
+        return store.isEnabled(bundleIdentifier: bundle)
     }
     func isGestureEnabled(_ action: GestureAction) -> Bool {
         switch action {

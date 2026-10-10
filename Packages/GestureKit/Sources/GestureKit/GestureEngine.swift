@@ -237,13 +237,13 @@ public final class GestureEngine {
     }
 }
 
-private struct Point {
+struct Point {
     var x: Double
     var y: Double
 }
 
 /// Inline storage avoids allocating/retaining framework buffers on the hot path.
-private struct ContactFrame {
+struct ContactFrame {
     private static let empty = TouchContact(id: 0, x: 0, y: 0)
     var first = Self.empty
     var second = Self.empty

@@ -1,4 +1,16 @@
-# Validation — 2026-09-21
+# Validation
+
+## Bug review — 2026-10-10
+
+- All **46 XCTest tests pass**: 11 preset/feed/cache tests, 3 app-state tests, 8 input integration tests, and 24 GestureKit tests. The release configuration compiles successfully.
+- Regression tests reproduced staggered taps being rejected, malformed contacts becoming taps, stale defaults returning on the second launch after an update, and small three-finger pinches also firing a tap. These failures now pass.
+- Three-finger clicks and taps respect per-app disabling. Tap clicks use Quartz cursor coordinates. Physical clicks cancel tap recognition, including in tap-only mode.
+- Intercepted clicks preserve their original button, modifiers, and click count across settings changes; drags are translated consistently, and stopping input releases the synthetic button.
+- Enabling a removed app restores its saved settings. Cache files record the build that downloaded them. The Apps list refreshes after remote presets change.
+- Resuming while Accessibility is unavailable clears input suspension so permission can restart input later. Action execution rechecks its target and gesture generation immediately before sending a command.
+- Validation covers deterministic input replay, generated mouse events without posting them, persistence, and compilation. Physical trackpad timing, sleep/wake, live Accessibility routing, and calibration still need hands-on validation. These changes have not been distributed in a new release.
+
+## Release validation — 2026-09-21
 
 ## Automated
 

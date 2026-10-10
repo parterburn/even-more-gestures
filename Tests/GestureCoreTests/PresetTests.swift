@@ -56,6 +56,17 @@ final class PresetTests: XCTestCase {
             XCTAssertEqual(store.plan(action:.toggleRightSidebar,bundleIdentifier:id)?.shortcut,"cmd+alt+b")
         }
     }
+    @MainActor func testEnablingRemovedAppRestoresItsPreservedSettings() {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let store = PresetStore(file: directory.appendingPathComponent("overrides.json"))
+        store.setOverride(.custom("cmd+shift+k"), action: .closeTab, bundleIdentifier: "com.example.App")
+        store.removeApp(bundleIdentifier: "com.example.App")
+        store.setEnabled(true, bundleIdentifier: "com.example.App")
+        XCTAssertTrue(store.isEnabled(bundleIdentifier: "com.example.App"))
+        XCTAssertFalse(store.isRemoved(bundleIdentifier: "com.example.App"))
+        XCTAssertEqual(store.plan(action: .closeTab, bundleIdentifier: "com.example.App")?.shortcut, "cmd+shift+k")
+    }
     func testShortcutParserRejectsBareTypingAndInvalidModifiers() {
         XCTAssertNil(KeyShortcut.parse("t")); XCTAssertNil(KeyShortcut.parse("shift+t")); XCTAssertNil(KeyShortcut.parse("bad+t")); XCTAssertNil(KeyShortcut.parse("cmd+"))
         XCTAssertNotNil(KeyShortcut.parse("cmd+shift+]")); XCTAssertNotNil(KeyShortcut.parse("ctrl+tab"))

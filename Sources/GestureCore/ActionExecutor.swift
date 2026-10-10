@@ -64,8 +64,11 @@ public final class ActionExecutor {
     public func invalidate() { queue.async { self.cache.removeAll() } }
     public func execute(plan: ActionPlan, action: GestureAction, pid: pid_t, allowBackground: Bool = false, isValid: @escaping () -> Bool = { true }, completion: @escaping (Bool) -> Void) {
         queue.async {
-            let validTarget = NSRunningApplication(processIdentifier: pid)?.isTerminated == false
-            guard isValid(), validTarget, AXIsProcessTrusted(), allowBackground || NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else {
+            let canExecute = {
+                isValid() && NSRunningApplication(processIdentifier: pid)?.isTerminated == false && AXIsProcessTrusted() &&
+                    (allowBackground || NSWorkspace.shared.frontmostApplication?.processIdentifier == pid)
+            }
+            guard canExecute() else {
                 DispatchQueue.main.async { completion(false) }; return
             }
             let app = AXUIElementCreateApplication(pid)
@@ -79,7 +82,7 @@ public final class ActionExecutor {
                 }
             }
             // Recheck after AX discovery, which may have taken time.
-            guard isValid(), allowBackground || NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else {
+            guard canExecute() else {
                 DispatchQueue.main.async { completion(false) }; return
             }
             var succeeded = false
@@ -89,14 +92,14 @@ public final class ActionExecutor {
                        let mask = self.value(element, kAXMenuItemCmdModifiersAttribute) as? Int,
                        let character = self.value(element, kAXMenuItemCmdCharAttribute) as? String,
                        !character.isEmpty, (0..<128).contains(code) {
-                        succeeded = self.post(CGKeyCode(code), flags: KeyShortcut.flagsFromAX(mask), pid: pid)
+                        succeeded = self.post(CGKeyCode(code), flags: KeyShortcut.flagsFromAX(mask), pid: pid, isValid: canExecute)
                     } else {
-                        succeeded = AXUIElementPerformAction(element, kAXPressAction as CFString) == .success
+                        succeeded = canExecute() && AXUIElementPerformAction(element, kAXPressAction as CFString) == .success
                     }
                 }
                 if !succeeded { self.cache.removeValue(forKey: cacheKey) }
             } else if let shortcut = plan.shortcut.flatMap(KeyShortcut.parse), let (code, extra) = KeyboardLayout.resolve(shortcut.key) {
-                succeeded = self.post(code, flags: shortcut.modifiers.union(extra), pid: pid)
+                succeeded = self.post(code, flags: shortcut.modifiers.union(extra), pid: pid, isValid: canExecute)
             }
             DispatchQueue.main.async { completion(succeeded) }
         }
@@ -118,9 +121,11 @@ public final class ActionExecutor {
         return current
     }
     private func normalized(_ text: String) -> String { text.replacingOccurrences(of: "…", with: "...").trimmingCharacters(in: .whitespaces) }
-    private func post(_ code: CGKeyCode, flags: CGEventFlags, pid: pid_t) -> Bool {
+    private func post(_ code: CGKeyCode, flags: CGEventFlags, pid: pid_t, isValid: () -> Bool) -> Bool {
         guard let source = CGEventSource(stateID: .privateState), let down = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: true), let up = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: false) else { return false }
         down.flags = flags; up.flags = flags
+        // Keyboard-layout lookup and AX attribute reads can outlive a focus or settings change.
+        guard isValid() else { return false }
         down.postToPid(pid); up.postToPid(pid)
         return true
     }

@@ -11,6 +11,8 @@ public struct PresetFeed: Decodable {
 struct CachedPresetFeed: Codable {
     let payload: Data
     let signature: Data
+    // Legacy caches have no build and are refreshed rather than replacing new bundled defaults.
+    let build: Int?
 }
 
 public enum PresetFeedVerifier {

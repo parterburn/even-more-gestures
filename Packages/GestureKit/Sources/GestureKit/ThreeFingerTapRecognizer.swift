@@ -1,16 +1,15 @@
 import Foundation
 
-/// Recognizes a short, stationary three-finger touch. It never emits until all
-/// contacts lift, so pinches, drags, and four-finger gestures keep their normal
-/// behavior. Call it from the same serial owner as `GestureEngine`.
+/// Recognizes a short, stationary three-finger touch after every contact lifts.
+/// Fingers may land and lift over multiple frames. Call it from the same serial
+/// owner as `GestureEngine`.
 public final class ThreeFingerTapRecognizer {
-    private enum State { case idle, landing, tracking, cancelled }
+    private enum State { case idle, landing, tracking, lifting, cancelled }
     private var state: State = .idle
     private var firstTimestamp = 0.0
     private var lastTimestamp: Double?
-    private var first = TouchContact(id: 0, x: 0, y: 0)
-    private var second = TouchContact(id: 0, x: 0, y: 0)
-    private var third = TouchContact(id: 0, x: 0, y: 0)
+    private var baseline = ContactFrame()
+    private var lastFrame = ContactFrame()
 
     private static let landingGrace = 0.100
     private static let maximumDuration = 0.300
@@ -18,9 +17,14 @@ public final class ThreeFingerTapRecognizer {
 
     public init() {}
 
+    /// Consume this touch until every finger lifts when another gesture has fired.
+    public func cancel() { state = .cancelled }
+
     public func reset() {
         state = .idle
         lastTimestamp = nil
+        baseline = ContactFrame()
+        lastFrame = ContactFrame()
     }
 
     public func process(contacts: [TouchContact], timestamp: Double) -> Bool {
@@ -36,44 +40,61 @@ public final class ThreeFingerTapRecognizer {
 
         if contacts.isEmpty {
             defer { reset() }
-            return state == .tracking && timestamp - firstTimestamp <= Self.maximumDuration
+            return (state == .tracking || state == .lifting) && timestamp - firstTimestamp <= Self.maximumDuration
+        }
+        guard contacts.count <= 3, let current = ContactFrame(contacts) else {
+            state = .cancelled
+            return false
         }
 
-        guard contacts.count <= 3 else { state = .cancelled; return false }
         switch state {
         case .idle:
             firstTimestamp = timestamp
-            state = contacts.count == 3 ? .tracking : .landing
-            if contacts.count == 3 { capture(contacts) }
+            baseline = current
+            state = current.count == 3 ? .tracking : .landing
         case .landing:
-            guard timestamp - firstTimestamp <= Self.landingGrace, contacts.count == 3 else {
+            guard timestamp - firstTimestamp <= Self.landingGrace,
+                  current.containsIDs(of: baseline), isStationary(current, relativeTo: baseline) else {
                 state = .cancelled
                 return false
             }
-            capture(contacts)
-            state = .tracking
-        case .tracking:
-            guard timestamp - firstTimestamp <= Self.maximumDuration, isStationary(contacts) else {
+            if current.count > baseline.count { baseline = landingFrame(current) }
+            if current.count == 3 { state = .tracking }
+        case .tracking, .lifting:
+            guard timestamp - firstTimestamp <= Self.maximumDuration,
+                  lastFrame.containsIDs(of: current), isStationary(current, relativeTo: baseline) else {
                 state = .cancelled
                 return false
             }
+            if current.count < 3 { state = .lifting }
         case .cancelled:
             return false
         }
+        lastFrame = current
         return false
     }
 
-    private func capture(_ contacts: UnsafeBufferPointer<TouchContact>) {
-        first = contacts[0]
-        second = contacts[1]
-        third = contacts[2]
+    private func landingFrame(_ current: ContactFrame) -> ContactFrame {
+        // Retain each finger's initial position as others arrive.
+        var merged = current
+        for i in 0..<current.count {
+            for j in 0..<baseline.count where baseline[j].id == current[i].id {
+                switch i {
+                case 0: merged.first = baseline[j]
+                case 1: merged.second = baseline[j]
+                default: merged.third = baseline[j]
+                }
+            }
+        }
+        return merged
     }
 
-    private func isStationary(_ contacts: UnsafeBufferPointer<TouchContact>) -> Bool {
-        guard contacts.count == 3 else { return false }
-        for expected in [first, second, third] {
-            guard let current = contacts.first(where: { $0.id == expected.id }),
-                  hypot(current.x - expected.x, current.y - expected.y) <= Self.maximumTravel else { return false }
+    private func isStationary(_ current: ContactFrame, relativeTo baseline: ContactFrame) -> Bool {
+        for i in 0..<current.count {
+            let contact = current[i]
+            for j in 0..<baseline.count where baseline[j].id == contact.id {
+                if hypot(contact.x - baseline[j].x, contact.y - baseline[j].y) > Self.maximumTravel { return false }
+            }
         }
         return true
     }
