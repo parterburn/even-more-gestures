@@ -1,5 +1,25 @@
 # Releasing Even More Gestures
 
+## Configure API authentication for notarization
+
+In [App Store Connect](https://appstoreconnect.apple.com/access/integrations/api), select the Dabble Dev LLC team and create a Team API key under Users and Access → Integrations → App Store Connect API. Download its `.p8` private key and record the Key ID and Issuer ID. The key can be downloaded only once; keep it securely outside this repository.
+
+Store and validate the credentials in the local macOS Keychain:
+
+```sh
+xcrun notarytool store-credentials "EvenMoreGestures-API" \
+  --key "/absolute/path/to/AuthKey_YOUR_KEY_ID.p8" \
+  --key-id "YOUR_KEY_ID" \
+  --issuer "YOUR_ISSUER_ID"
+xcrun notarytool history --keychain-profile "EvenMoreGestures-API"
+```
+
+The release scripts use `EvenMoreGestures-API` by default. Set `NOTARY_PROFILE` to use another configured profile. No Apple ID or app-specific password is needed. This authenticates notarization for Developer ID distribution; it does not publish the app to the Mac App Store.
+
+See Apple's [API key setup](https://developer.apple.com/documentation/appstoreconnectapi/creating-api-keys-for-app-store-connect-api) and [notarytool guidance](https://developer.apple.com/documentation/technotes/tn3147-migrating-to-the-latest-notarization-tool).
+
+## Prepare and publish a release
+
 1. Set the marketing version and monotonically increasing build number.
 2. Create brief Markdown release notes.
 3. Run the following from a clean checkout:
@@ -14,4 +34,4 @@
 5. Commit and push the generated `docs/appcast.xml`.
 6. Verify the public raw GitHub appcast plus the release-asset URL. Use the app’s “Check for Updates…” item from an older build to test the full path.
 
-Do not commit the Sparkle private key, an Apple app-specific password, a Notary credential, or a stapled ZIP. Every release archive gets its own Sparkle signature, so altering or recompressing it after appcast generation invalidates the update.
+Do not commit an App Store Connect `.p8` private key, the Sparkle private key, an Apple app-specific password, a Notary credential, or a stapled ZIP. Every release archive gets its own Sparkle signature, so altering or recompressing it after appcast generation invalidates the update.

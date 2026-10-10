@@ -6,7 +6,7 @@ APP="$PWD/build/Even More Gestures.app"
 UPLOAD_ARCHIVE="$PWD/build/Even More Gestures-upload.zip"
 ARCHIVE="$PWD/build/Even More Gestures.zip"
 RESULT="$PWD/build/notarization-submission.plist"
-PROFILE="${NOTARY_PROFILE:-EvenMoreGestures}"
+PROFILE="${NOTARY_PROFILE:-EvenMoreGestures-API}"
 
 if [ ! -d "$APP" ]; then
   echo "error: build the app first with REQUIRE_DEVELOPER_ID=1 ./Scripts/build-app.sh" >&2
@@ -26,7 +26,7 @@ if [[ "$SIGNATURE_DETAILS" != *'Authority=Developer ID Application: Dabble Dev L
 fi
 
 if ! xcrun notarytool history --keychain-profile "$PROFILE" --output-format plist >/dev/null; then
-  echo "error: configure a valid Notary service Keychain profile named $PROFILE first" >&2
+  echo "error: configure an App Store Connect API Keychain profile named $PROFILE; see Documentation/RELEASE.md" >&2
   exit 1
 fi
 
