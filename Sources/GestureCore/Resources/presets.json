@@ -489,16 +489,7 @@
         "shortcut": "cmd+t"
       },
       "toggleLeftSidebar": {
-        "menuPaths": [
-          [
-            "View",
-            "Show Sidebar"
-          ],
-          [
-            "View",
-            "Hide Sidebar"
-          ]
-        ],
+        "menuPaths": [],
         "shortcut": "ctrl+cmd+s"
       },
       "toggleRightSidebar": {

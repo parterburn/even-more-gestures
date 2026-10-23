@@ -482,16 +482,7 @@
           "shortcut": null
         },
         "toggleLeftSidebar": {
-          "menuPaths": [
-            [
-              "View",
-              "Show Sidebar"
-            ],
-            [
-              "View",
-              "Hide Sidebar"
-            ]
-          ],
+          "menuPaths": [],
           "shortcut": "ctrl+cmd+s"
         },
         "toggleRightSidebar": {
@@ -1363,6 +1354,6 @@
       "rotateEnabled": false
     }
   ],
-  "revision": 2,
+  "revision": 3,
   "schemaVersion": 1
 }
