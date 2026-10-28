@@ -1376,5 +1376,135 @@
     "rotateEnabled": false,
     "closeEnabled": false,
     "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.Notes",
+    "name": "Notes",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ],
+          [
+            "View",
+            "Show Folders"
+          ],
+          [
+            "View",
+            "Hide Folders"
+          ]
+        ],
+        "shortcut": "ctrl+cmd+s"
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.reminders",
+    "name": "Reminders",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": "alt+cmd+s"
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.iCal",
+    "name": "Calendar",
+    "actions": {
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Calendar List"
+          ],
+          [
+            "View",
+            "Hide Calendar List"
+          ],
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ]
+        ],
+        "shortcut": null
+      }
+    },
+    "rotateEnabled": false,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
+  },
+  {
+    "bundleIdentifier": "com.apple.mail",
+    "name": "Mail",
+    "actions": {
+      "nextTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Next Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "previousTab": {
+        "menuPaths": [
+          [
+            "Window",
+            "Show Previous Tab"
+          ]
+        ],
+        "shortcut": null
+      },
+      "toggleLeftSidebar": {
+        "menuPaths": [
+          [
+            "View",
+            "Show Sidebar"
+          ],
+          [
+            "View",
+            "Hide Sidebar"
+          ],
+          [
+            "View",
+            "Show Mailbox List"
+          ],
+          [
+            "View",
+            "Hide Mailbox List"
+          ]
+        ],
+        "shortcut": "ctrl+cmd+s"
+      }
+    },
+    "rotateEnabled": true,
+    "closeEnabled": false,
+    "verification": "Starter preset \u2022 physical verification pending"
   }
 ]
