@@ -6,7 +6,7 @@ final class PresetTests: XCTestCase {
     @MainActor func testSafeDefaultsAndExplicitOverrides() throws {
         let file = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathComponent("overrides.json")
         let store = PresetStore(file:file)
-        XCTAssertEqual(store.presets.count,26)
+        XCTAssertEqual(store.presets.count,30)
         XCTAssertNil(store.error)
         for id in ["com.apple.Terminal","com.googlecode.iterm2","com.mitchellh.ghostty","dev.warp.Warp-Stable"] { XCTAssertNil(store.plan(action:.closeTab,bundleIdentifier:id)) }
         for id in ["com.apple.Preview","com.apple.Photos","com.apple.Maps"] { XCTAssertNil(store.plan(action:.nextTab,bundleIdentifier:id)) }
@@ -55,6 +55,19 @@ final class PresetTests: XCTestCase {
             XCTAssertEqual(store.plan(action:.toggleLeftSidebar,bundleIdentifier:id)?.shortcut,"cmd+b")
             XCTAssertEqual(store.plan(action:.toggleRightSidebar,bundleIdentifier:id)?.shortcut,"cmd+alt+b")
         }
+        let appleSidebars: [(String, String, String?)] = [
+            ("com.apple.Notes", "Show Sidebar", "ctrl+cmd+s"),
+            ("com.apple.reminders", "Show Sidebar", "alt+cmd+s"),
+            ("com.apple.iCal", "Show Calendar List", nil),
+            ("com.apple.mail", "Show Sidebar", "ctrl+cmd+s"),
+        ]
+        for (id, menuItem, shortcut) in appleSidebars {
+            let plan = store.plan(action:.toggleLeftSidebar,bundleIdentifier:id)
+            XCTAssertTrue(plan?.menuPaths.contains(["View", menuItem]) == true, id)
+            XCTAssertEqual(plan?.shortcut, shortcut, id)
+            XCTAssertNil(store.plan(action:.closeTab,bundleIdentifier:id), id)
+        }
+        XCTAssertNotNil(store.plan(action:.nextTab,bundleIdentifier:"com.apple.mail"))
     }
     @MainActor func testEnablingRemovedAppRestoresItsPreservedSettings() {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
